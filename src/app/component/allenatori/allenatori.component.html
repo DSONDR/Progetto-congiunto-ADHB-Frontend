@@ -1,0 +1,45 @@
+<div class="main-container">
+  <h1>Gestione Allenatori</h1>
+
+  <!-- Interfaccia Filtro e ricerca per gradi-->
+  <div class="filter-bar" style="margin-bottom: 20px;
+                            padding: 15px;
+                            background: #f4f4f4;
+                            border-radius: 8px;">
+    <!--Ricerca per grado-->
+    <div style="margin-bottom: 10px;">
+        <label>Cerca per grado: </label>
+        <input type="number" [(ngModel)]="grado">
+        <button (click)="applicaRicerca()" style="margin-left: 10px;">Cerca</button>    
+    </div>
+    <hr>
+    <!--Filtro per gradi-->
+    <div style="margin-bottom: 10px;">
+        <label>Grado da: </label>
+        <input type="number" [(ngModel)]="minGrado">
+        <label> a: </label>
+        <input type="number" [(ngModel)]="maxGrado">
+        <button (click)="applicaFiltro()">Filtra</button>
+        <button (click)="caricaTutti()">Reset</button>
+  </div>
+
+  <!-- Tabella Dati -->
+  <table border="1" style="width: 100%; margin-top: 20px;">
+    <thead>
+      <tr>
+        <th>CF</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Grado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of allenatori">
+        <td>{{ a.codiceFiscale }}</td>
+        <td>{{ a.nome }}</td>
+        <td>{{ a.cognome }}</td>
+        <td>{{ a.grado }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

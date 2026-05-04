@@ -1,0 +1,21 @@
+<div class="main-container">
+  <h1>Lista Utenti</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>CF</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of utenti">
+        <td>{{ u.codiceFiscale }}</td>
+        <td>{{ u.nome }}</td>
+        <td>{{ u.cognome }}</td>
+        <td>{{ u.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

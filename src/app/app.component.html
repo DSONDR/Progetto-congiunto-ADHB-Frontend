@@ -1,2 +1,26 @@
-<a routerLink="/sample-entities">Sample entities</a>
-<router-outlet></router-outlet>
+<header class="navbar">
+  <div class="container">
+    <!-- Usa routerLink invece di href -->
+    <a routerLink="/home" class="logo">
+      <img src="assets/polisporticket_logo.png" alt="Polisporticket Logo">
+    </a>
+
+    <nav class="nav-links">
+      <!-- Aggiungi i link alle tabelle che abbiamo creato -->
+      <a routerLink="/utenti">Utenti</a>
+      <a routerLink="/atleti">Atleti</a>
+      <a routerLink="/istruttori">Istruttori</a>
+      <a routerLink="/allenatori">Allenatori</a>
+    </nav>
+
+    <div class="user-area logged-out">
+      <a routerLink="/login" class="login-text">Login</a>
+      <!-- L'area profilo la gestiremo più avanti con la logica di login -->
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Qui Angular caricherà la Home o le Tabelle -->
+  <router-outlet></router-outlet>
+</main>
