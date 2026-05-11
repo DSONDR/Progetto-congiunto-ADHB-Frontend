@@ -1,0 +1,25 @@
+<section>
+  <h2>Abbonamenti</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Data inizio</th>
+        <th>Tipo</th>
+        <th>Ingressi</th>
+        <th>Stato</th>
+        <th>Scadenza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let abbonamento of abbonamenti">
+        <td>{{ abbonamento.numeroAbb }}</td>
+        <td>{{ abbonamento.dataInizio }}</td>
+        <td>{{ abbonamento.tipoAbb }}</td>
+        <td>{{ abbonamento.ingressi }}</td>
+        <td>{{ abbonamento.stato }}</td>
+        <td>{{ abbonamento.dataScadenza }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

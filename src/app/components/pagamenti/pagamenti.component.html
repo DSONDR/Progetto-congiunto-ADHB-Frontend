@@ -1,0 +1,23 @@
+<section>
+  <h2>Pagamenti</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Importo</th>
+        <th>Data</th>
+        <th>Metodo</th>
+        <th>Stato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pagamento of pagamenti">
+        <td>{{ pagamento.idPagamento }}</td>
+        <td>{{ pagamento.importo }}</td>
+        <td>{{ pagamento.dataPag }}</td>
+        <td>{{ pagamento.metodoPag }}</td>
+        <td>{{ pagamento.statoPag }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

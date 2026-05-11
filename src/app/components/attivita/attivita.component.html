@@ -1,0 +1,27 @@
+<section>
+  <h2>Attività</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Codice</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Destinatario</th>
+        <th>Quota</th>
+        <th>Data Ora</th>
+        <th>Max</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attivita of attivitaList">
+        <td>{{ attivita.codiceAtt }}</td>
+        <td>{{ attivita.nomeAtt }}</td>
+        <td>{{ attivita.tipoEvento }}</td>
+        <td>{{ attivita.destinatario }}</td>
+        <td>{{ attivita.quotaBase }}</td>
+        <td>{{ attivita.dataOra }}</td>
+        <td>{{ attivita.maxPartecipanti }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
