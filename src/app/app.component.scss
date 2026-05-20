@@ -1,0 +1,50 @@
+//Reset iniziale
+:host { 
+  display: flex; // Rende il componente radice un contenitore flessibile
+  flex-direction: column; // Imposta la direzione degli elementi flessibili in colonna
+  min-height: 100vh; // Garantisce che l'applicazione occupi sempre almeno il 100% dell'altezza schermo
+}
+
+main { 
+  width: 100%; // Fa in modo che il contenuto principale occupi tutta la larghezza disponibile
+  height: 100vh; // Forza l'altezza del contenuto principale a essere esattamente pari a quella dello schermo
+  background-color: transparent; // Rende lo sfondo trasparente
+}
+
+.main-header { 
+  position: fixed; // Sgancia l'header dal flusso normale e lo fissa rispetto alla finestra
+  top: 3vh; // Distanzia l'header dal margine superiore
+  left: 50%; // Sposta l'angolo in alto a sinistra dell'header al 50% della larghezza
+  transform: translateX(-50%); // Trasla l'header all'indietro del 50% per centrarlo
+  z-index: 1000; // Imposta la priorità di sovrapposizione, sempre in primo piano
+  width: 90%; // Larghezza elastica al 90% della finestra
+  max-width: 1300px; // Limite massimo per non sgranare su schermi giganti
+  display: flex; // Abilita Flexbox per disporre logo e menu
+  justify-content: space-between; // Spazia logo a sinistra e menu a destra
+  align-items: center; // Allinea verticalmente gli elementi
+  padding: 1.5vh 3vw; // Padding relativo elastico
+  background-color: white; // Sfondo bianco
+  border: 4px solid #000; // Bordo nero spesso
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); // Ombra 3D
+  border-radius: 8px; // Angoli arrotondati
+}
+
+.logo { 
+  height: 6vh; // Altezza relativa al viewport
+  max-height: 80px; // Limite massimo
+  min-height: 40px; // Limite minimo
+  width: auto; // Mantiene le proporzioni
+}
+
+.main-nav a { 
+  margin-left: 2vw; // Spaziatura relativa tra i link
+  text-decoration: none; // Rimuove la sottolineatura standard
+  color: #333; // Colore grigio scuro
+  font-weight: bold; // Testo in grassetto
+  font-size: 1rem; // Dimensione standard
+  transition: color 0.2s; // Transizione fluida colore
+}
+
+.main-nav a:hover { 
+  color: #00cc00; // Verde al passaggio del mouse
+}

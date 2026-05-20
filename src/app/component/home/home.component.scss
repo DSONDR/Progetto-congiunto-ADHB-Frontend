@@ -1,0 +1,74 @@
+//Importo il font permanent marker e caveat
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Permanent+Marker&display=swap'); // Import font
+
+.hero-section { 
+  width: 100%; // Larghezza totale
+  height: 100vh; // Altezza totale
+  box-sizing: border-box; // Include il padding nel calcolo dimensioni
+  background-image: url('/sfondo_home.png'); // Immagine di sfondo
+  background-size: cover; // Copre tutto senza deformare
+  background-position: bottom center; // Ancora l'immagine in basso al centro
+  background-repeat: no-repeat; // Niente mosaico
+  display: flex; // Flexbox per centrare il contenuto
+  align-items: center; // Allineamento verticale
+  overflow: hidden; // Nasconde bordi extra
+}
+
+.hero-content { 
+  display: flex; // Affianca i blocchi di testo
+  justify-content: space-between; // Spazia i due lati
+  align-items: flex-start; // Allinea in alto
+  width: 100%; // Larghezza 100%
+  max-width: 1200px; // Limite per schermi giganti
+  margin: 0 auto; // Centratura orizzontale
+  padding: 0 4vw; // Spazio dai bordi
+  height: 60vh; // Altezza relativa del blocco testo
+}
+
+.slogan-box { 
+  flex: 1; // Occupa metà spazio
+  margin-top: 12vh; // Centratura O su palla
+
+  .text-sempre { 
+    font-family: 'Permanent Marker', cursive; // Font a pennarello
+    color: #00cd00; // Verde brillante
+    font-size: clamp(2rem, 4vw, 3.5rem); // Testo fluido
+    margin: 0; // Reset margini
+    line-height: 1; // Interlinea stretta
+  }
+
+  .text-informissima { 
+    font-family: 'Permanent Marker', cursive; // Font a pennarello
+    color: #006600; // Verde scuro
+    font-size: clamp(2.5rem, 5vw, 4rem); // Testo fluido
+    margin: 0; // Reset margini
+    line-height: 1.1; // Interlinea leggermente più ampia
+  }
+
+  .RMISSIMA-chiaro { 
+    color: #00cc00; // Dettaglio colore finale
+  }
+
+  .sub-slogan { 
+    font-family: 'Caveat', cursive; // Font corsivo
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem); // Testo fluido
+    color: #333; // Colore grigio scuro
+    margin-top: 1.5vh; // Spazio dal titolo
+    padding-left: 2vw; // Rientro sinistro
+  }
+}
+
+.description-box { 
+  flex: 1; // Occupa metà spazio
+  max-width: 380px; // Larghezza massima leggibile
+  margin-top: 14vh; // Allineamento verticale
+
+  p { 
+    font-family: Arial, sans-serif; // Font leggibile
+    font-weight: bold; // Grassetto
+    font-size: 1.1rem; // Dimensione standard
+    color: #111; // Colore quasi nero
+    line-height: 1.5; // Interlinea comoda
+    text-align: left; // Allineamento a sinistra
+  }
+}

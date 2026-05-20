@@ -8,7 +8,7 @@ import { Squadra } from '../dto/squadra.model';
   providedIn: 'root'
 })
 export class SquadraService {
-  private apiUrl = 'http://localhost:8080/api/squadre';
+  private apiUrl = '/api/squadra';
 
   constructor(private http: HttpClient) {}
 

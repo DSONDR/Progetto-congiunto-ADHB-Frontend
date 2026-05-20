@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Sottoscrizione } from '../models/sottoscrizione.model';
+import { Sottoscrizione } from '../dto/sottoscrizione.model';
 
 @Injectable({
   providedIn: 'root'

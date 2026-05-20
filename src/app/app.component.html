@@ -1,27 +1,26 @@
-<header class="navbar">
-  <div class="container">
-    <!-- Usa routerLink invece di href -->
-    <a routerLink="/home" class="logo">
-      <img src="assets/polisporticket_logo.png" alt="Polisporticket Logo">
+<header class="main-header">
+  <!--Questo (il logo) ci sarà sempre, ovunque e nella stessa posizione statica-->
+  <div class="logo-container">
+    <a routerLink="/home">
+      <img src="/polisporticket_logo.png" alt="PolisporTicket Logo" class="logo">
     </a>
-
-    <nav class="nav-links">
-      <!-- Aggiungi i link alle tabelle che abbiamo creato -->
-      <a routerLink="/utenti">Utenti</a>
-      <a routerLink="/atleti">Atleti</a>
-      <a routerLink="/istruttori">Istruttori</a>
-      <a routerLink="/allenatori">Allenatori</a>
-      <a class="nav-link text-white" routerLink="/squadre">Gestione Squadre</a>
-    </nav>
-
-    <div class="user-area logged-out">
-      <a routerLink="/login" class="login-text">Login</a>
-      <!-- L'area profilo la gestiremo più avanti con la logica di login -->
-    </div>
   </div>
+
+  <nav class="main-nav" *ngIf="isHomeActive()">
+    <!--Il menù invece solo nella home, quindi se la home è attiva-->
+    <a routerLink="/eventi">Eventi</a>
+    <a routerLink="/calendario">Calendario</a>
+    <a routerLink="/abbonamenti">Abbonamenti</a>
+    <a routerLink="/assistenza">Assistenza</a>
+
+    <!--Il login invece solo se non si è loggati, altrimenti cliccando sul nome si va nell'area personale-->
+    <a *ngIf="!loggedUser" routerLink="/login" class="login-btn">Login</a>
+    <a *ngIf="loggedUser" routerLink="/area-personale" class="user-btn">{{ loggedUser.username }}</a>
+  </nav>
 </header>
 
 <main>
-  <!-- Qui Angular caricherà la Home o le Tabelle -->
+  <!--Il router-outlet è il punto in cui vengono incollate le conversazioni, tramite il -->
   <router-outlet></router-outlet>
 </main>
+

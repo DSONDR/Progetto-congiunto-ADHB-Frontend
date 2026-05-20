@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   // Simuliamo il "flusso del dato" senza avere il backend pronto
-  utenteLoggato = { nome: 'Ahmed Bini', foto: 'assets/profile.jpg', isLogged: true };
+  utenteLoggato = { nome: 'Ahmed Bini', isLogged: true };
   
   eventiInEvidenza = [
     { id: 1, titolo: 'Torneo Calcetto', data: '12 Maggio' },
