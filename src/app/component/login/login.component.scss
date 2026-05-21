@@ -1,0 +1,99 @@
+/* --- STILE GENERALE PAGINA AUTENTICAZIONE --- */
+.auth-page { 
+  width: 100%; // Larghezza totale
+  min-height: 100vh; // Altezza minima tutto lo schermo
+  background-image: url('/sfondo_home.png'); // Usa lo stesso sfondo della home
+  background-size: cover; // Copre tutto
+  background-position: bottom center; // Ancora in basso
+  display: flex; // Abilita flexbox per centrare il contenitore
+  justify-content: center; // Centra orizzontalmente
+  align-items: center; // Centra verticalmente
+  min-height: 100vh; // Occupa tutta l'altezza schermo
+  background-color: #00cd00; // Sfondo verde chiaro (era giallo)
+}
+
+/* --- CONTENITORE CENTRALE FLUTTUANTE --- */
+.auth-container { 
+  width: 90%; // Larghezza elastica
+  max-width: 500px; // Limite massimo
+  background-color: white; // Sfondo bianco
+  padding: 4vh 5vw; // Padding elastico
+  
+  /* Stile fluttuante con bordo spesso, come richiesto */
+  border: 4px solid #000; // Bordo nero spesso
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); // Ombra profonda
+  border-radius: 8px; // Angoli arrotondati
+  z-index: 10; // Sta sopra lo sfondo
+}
+
+/* --- TITOLO E TESTI --- */
+.auth-title { 
+  font-family: Arial, sans-serif; // Font pulito
+  font-weight: bold; // Grassetto
+  text-align: center; // Centra titolo
+  color: #006600; // Verde scuro (era blu)
+  font-size: 2rem; // Dimensione media
+  margin-bottom: 4vh; // Distanza dai campi
+}
+
+.auth-text { 
+  font-family: Arial, sans-serif; 
+  color: #333; // Grigio scuro
+  text-align: center; 
+  margin-top: 3vh; // Spazio top
+}
+
+/* --- GRUPPI INPUT --- */
+.input-group { 
+  margin-bottom: 2vh; // Spazio tra i campi
+  
+  label { 
+    display: block; // Occupa tutta la riga
+    font-weight: bold; // Grassetto
+    color: #333; 
+    margin-bottom: 0.5vh; // Distanza input
+  }
+}
+
+.auth-input { 
+  width: 100%; // Occupa tutta la riga
+  padding: 1vh 2vw; // Padding elastico
+  background-color: white; // Sfondo input
+  border: 4px solid #000; // Bordo nero spesso, come richiesto
+  border-radius: 8px; // Angoli arrotondati
+  box-sizing: border-box; // Include padding nelle dimensioni
+}
+
+/* --- GRUPPI CHECKBOX E PULSANTI --- */
+.checkbox-group { 
+  display: flex; // Affianca checkbox e label
+  align-items: center; // Centra verticalmente
+  margin-bottom: 3vh; // Spazio pulsante
+  
+  input { margin-right: 1vw; } // Spazio tra checkbox e label
+  label { font-weight: normal; color: #333; } // Label normale
+}
+
+.confirm-btn { 
+  display: block; // Occupa tutta la riga
+  width: 100%; // Occupa tutta la riga
+  padding: 1.5vh 0; // Padding verticale elastico
+  background-color: #006600; // Verde scuro (era blu)
+  color: white; // Testo bianco
+  border: none; // Rimuove bordo nativo
+  border-radius: 8px; // Angoli arrotondati
+  font-weight: bold; // Grassetto
+  cursor: pointer; // Cursore a mano
+  transition: background-color 0.2s; // Transizione hover
+}
+
+.confirm-btn:hover { background-color: #005500; } // Verde ancora più scuro in hover
+
+.signup-btn { 
+  display: block; // Occupa tutta la riga
+  text-align: center; // Centra testo
+  margin-top: 1vh; // Spazio top
+  font-weight: bold; 
+  color: #006600; // Verde scuro (era blu)
+  text-decoration: none; // Rimuove sottolineatura
+}

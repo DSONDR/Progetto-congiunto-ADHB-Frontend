@@ -1,0 +1,106 @@
+.auth-page { 
+  width: 100%; // Larghezza totale
+  min-height: 100vh; // Altezza minima tutto lo schermo
+  background-image: url('/sfondo_home.png'); // Usa lo stesso sfondo della home
+  background-size: cover; // Copre tutto
+  background-position: bottom center; // Ancora in basso
+  display: flex; // Flexbox per centrare
+  justify-content: center; // Centra orizzontalmente
+  align-items: center; // Centra verticalmente
+  padding-top: 15vh; // Spinge giù il box per non coprire il logo gigante
+}
+
+.auth-container { 
+  background-color: white; // Sfondo bianco del riquadro
+  border: 4px solid #000; // Bordo nero spesso
+  border-radius: 12px; // Angoli arrotondati come in foto
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); // Ombra profonda
+  width: 90%; // Larghezza relativa
+  max-width: 800px; // Non diventa troppo largo
+  padding: 4vh 4vw; // Margini interni elastici
+  margin-top: -4vh;
+}
+
+.split-layout { 
+  display: grid; // Griglia per le colonne
+  grid-template-columns: 1fr 1fr; // Due colonne uguali (50% e 50%)
+  gap: 4vw; // Spazio in mezzo
+  align-items: center; // Centra la colonna di destra rispetto alla sinistra
+}
+
+.full-width { 
+  grid-column: span 2; // Scavalca le colonne
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: clamp(2.5rem, 4vw, 3.5rem); // Testo grande elastico
+  margin-bottom: -7vh; // Spazio sotto
+  margin-top: 0px;
+  text-align: left; // Allineato a sinistra
+}
+
+.form-left { 
+  display: flex; // Incolonna gli input
+  flex-direction: column; // Dall'alto in basso
+  gap: 1.5vh; // Spazio tra i vari campi
+  
+  .auth-input { 
+    width: 100%; // Occupa tutta la colonna
+    border: 3px solid #000; // Bordo spesso per gli input
+    border-radius: 8px; // Angoli arrotondati
+    padding: 1.2vh 1vw; // Spazio interno
+    font-size: 1rem; // Testo normale
+    font-weight: bold; // Testo grassetto
+    color: #000; // Testo nero
+    box-sizing: border-box; // Mantiene la larghezza perfetta
+    
+    &::placeholder { 
+      color: #000; // Colore del testo provvisorio nero
+      font-weight: bold; // Grassetto per assomigliare alle label
+    }
+  }
+}
+
+.form-right { 
+  display: flex; // Incolonna spunta e bottone
+  flex-direction: column; // Dall'alto in basso
+  align-items: center; // Centra orizzontalmente
+  justify-content: center; // Centra verticalmente
+  gap: 4vh; // Distanza tra spunta e bottone
+}
+
+.right-check { 
+  display: flex; // Affianca quadratino e testo
+  align-items: center; // Centra verticalmente
+  gap: 0.8vw; // Spazio tra i due
+  
+  input[type="checkbox"] { 
+    transform: scale(1.5); // Ingrandisce la spunta
+    border: 2px solid #000; // Bordo nero
+    cursor: pointer; // Manina al passaggio
+  }
+  
+  label { 
+    font-weight: bold; // Grassetto
+    font-size: 1.2rem; // Testo grande
+    color: #000; // Nero
+  }
+}
+
+.confirm-btn { 
+  background-color: #004d00; // Verde molto scuro come in foto
+  color: white; // Testo bianco
+  border: 4px solid #062c00; // Bordo verde molto molto scuro spesso
+  border-radius: 8px; // Angoli arrotondati
+  padding: 1.5vh 3vw; // Spessore del bottone
+  font-size: 1.5rem; // Scritta grande
+  font-weight: bold; // Grassetto
+  cursor: pointer; // Manina al passaggio
+  width: 80%; // Occupa l'80% della colonna di destra
+  box-shadow: 1px 3px 0px #062c04; // Ombra finta 3D
+  transition: transform 0.1s, box-shadow 0.1s; // Movimento fluido
+}
+
+.confirm-btn:active { 
+  transform: translateY(4px); // Si abbassa al click
+  box-shadow: 0px 2px 0px #000; // Riduce l'ombra schiacciandosi
+}

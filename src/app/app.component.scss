@@ -1,4 +1,3 @@
-//Reset iniziale
 :host { 
   display: flex; // Rende il componente radice un contenitore flessibile
   flex-direction: column; // Imposta la direzione degli elementi flessibili in colonna
@@ -30,10 +29,12 @@ main {
 }
 
 .logo { 
-  height: 6vh; // Altezza relativa al viewport
+  height: 12vh; // Altezza relativa al viewport nella navbar
   max-height: 80px; // Limite massimo
   min-height: 40px; // Limite minimo
   width: auto; // Mantiene le proporzioni
+  margin-top: -1vh; // Spinge leggermente il logo verso l'alto per allinearlo meglio
+  margin-bottom: -1vh; // Spinge leggermente il logo verso il basso per allinearlo meglio
 }
 
 .main-nav a { 
@@ -47,4 +48,19 @@ main {
 
 .main-nav a:hover { 
   color: #00cc00; // Verde al passaggio del mouse
+}
+
+.minimal-header { 
+  position: absolute; // Fluttua sopra la pagina
+  top: 4vh; // Staccato dall'alto
+  left: 50%; // Lo sposta al centro
+  transform: translateX(-50%); // Lo centra al millimetro
+  z-index: 1000; // Sempre in primo piano
+  
+  .logo { 
+    height: 20vh; // Logo ingrandito
+    max-height: 150px; // Limite massimo
+    min-height: 80px; // Limite minimo
+    width: auto; // Mantiene proporzioni
+  }
 }
