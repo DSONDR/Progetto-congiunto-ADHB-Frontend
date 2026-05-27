@@ -1,12 +1,16 @@
+<!-- Header principale -->
 <header *ngIf="!isDashboardActive() && !isCalendarioActive() && !isEventiActive() && !isAssistenzaMenuActive()" [ngClass]="isHomeActive() ? 'main-header' : 'minimal-header'">    <!--Questo (il logo) ci sarà sempre, ovunque e nella stessa posizione statica-->
+  <!-- Logo sempre visibile -->
   <div class="logo-container">
     <a routerLink="/home">
       <img src="/polisporticket_logo.png" alt="PolisporTicket Logo" class="logo">
     </a>
   </div>
 
+  <!-- Menu navigazione -->
   <nav class="main-nav" *ngIf="isHomeActive()">
     <!--Il menù invece solo nella home, quindi se la home è attiva-->
+        <!-- Link principali -->
     <a routerLink="/eventi">Eventi</a>
     <a routerLink="/calendario">Calendario</a>
     <a routerLink="/abbonamenti">Abbonamenti</a>
