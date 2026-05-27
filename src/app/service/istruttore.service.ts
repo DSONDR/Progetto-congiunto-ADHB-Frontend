@@ -1,6 +1,8 @@
+// Import Angular e RxJS
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+// DTO utilizzato nel service
 import { UserResponseDTO } from '../dto/response/user-response.dto';
 
 /**
@@ -21,6 +23,7 @@ export class IstruttoreService {
 
   private apiUrl = '/api/istruttori';
 
+  // Iniezione HttpClient
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<UserResponseDTO[]> {
@@ -43,6 +46,7 @@ export class IstruttoreService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+  // Recupera attività associate all’istruttore
   getAttivita(cf: string): Observable<any[]> {
     return this.http.get<any[]>(`/api/istruttori/${cf}/attivita`);
   }
