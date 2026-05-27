@@ -1,3 +1,4 @@
+// Import principali Angular e RxJS
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -17,8 +18,10 @@ import { TipoAbbonamentoDTO } from '../dto/response/abbonamento-response.dto';
   providedIn: 'root'
 })
 export class AbbonamentoService {
+  // Endpoint API principale
   private apiUrl = '/api/abbonamenti';
 
+  // Iniezione HttpClient
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<TipoAbbonamentoDTO[]> {
@@ -29,6 +32,7 @@ export class AbbonamentoService {
     return this.http.get<TipoAbbonamentoDTO>(`${this.apiUrl}/${id}`);
   }
 
+  // Creazione nuovo abbonamento
   create(abbonamento: TipoAbbonamentoDTO): Observable<TipoAbbonamentoDTO> {
     return this.http.post<TipoAbbonamentoDTO>(this.apiUrl, abbonamento);
   }
@@ -37,6 +41,7 @@ export class AbbonamentoService {
     return this.http.put<TipoAbbonamentoDTO>(`${this.apiUrl}/${id}`, abbonamento);
   }
 
+  // Eliminazione abbonamento
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
