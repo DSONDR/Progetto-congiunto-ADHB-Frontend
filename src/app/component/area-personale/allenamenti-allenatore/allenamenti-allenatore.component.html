@@ -1,16 +1,23 @@
+<!-- Titolo pagina -->
 <h1 class="page-title">I tuoi Allenamenti</h1>
 
+<!-- Sezione allenamenti -->
 <div class="content-section">
   <h3 class="section-title">Programmazione settimanale:</h3>
+  <!-- Messaggio se non ci sono allenamenti -->
   <p class="empty-msg" *ngIf="mieiAllenamenti.length === 0">*Non hai allenamenti programmati.</p>
 
+ <!-- Lista allenamenti -->
   <div class="list-container" *ngIf="mieiAllenamenti.length > 0">
+    <!-- Card allenamento -->
     <div class="data-card admin-card" *ngFor="let all of mieiAllenamenti">
+      <!-- Contenuto card -->
       <div class="data-content">
         <div class="data-row"><strong>ATTIVITÀ:</strong> {{ all.nomeAtt }}</div>
         <div class="data-row"><strong>- Sessioni Programmate:</strong> {{ all.dateOrari?.length || 0 }} sessioni</div>
         <div class="data-row"><strong>- Luogo:</strong> {{ all.impiantoNome }}</div>
       </div>
+      <!-- Azioni card -->
       <div class="card-actions">
         <button class="inline-btn" (click)="spostaAllenamento(all)">Modifica</button>
         <button class="inline-btn alert-inline" (click)="cancellaAllenamento(all.codiceAtt)">Cancella</button>
@@ -33,6 +40,7 @@
     </div>
     
     <div class="modal-body">
+      <!-- Form allenamento -->
       <form (ngSubmit)="salvaAllenamento()" #allFormRef="ngForm" class="custom-form">
         
         <div class="form-group">
@@ -45,16 +53,19 @@
           <input type="text" id="destinatario" name="destinatario" [(ngModel)]="attivitaForm.destinatario" class="form-input">
         </div>
 
+        <!-- Campi nascosti -->
         <div class="form-group" style="display:none;">
           <input type="number" id="quotaBase" name="quotaBase" [(ngModel)]="attivitaForm.quotaBase">
           <input type="number" id="maxPartecipanti" name="maxPartecipanti" [(ngModel)]="attivitaForm.maxPartecipanti">
         </div>
 
+        <!-- Descrizione -->
         <div class="form-group">
           <label for="descrizione">Descrizione / Tattiche</label>
           <textarea id="descrizione" name="descrizione" [(ngModel)]="attivitaForm.descrizione" class="form-input" rows="3"></textarea>
         </div>
 
+        <!-- Impianto -->
         <div class="form-group">
           <label for="impiantoId">Impianto *</label>
           <select id="impiantoId" name="impiantoId" [(ngModel)]="attivitaForm.impiantoId" required class="form-input">
@@ -71,8 +82,10 @@
           <small>Usa CTRL/CMD per selezionare più squadre</small>
         </div>
 
+        <!-- Calendario sessioni -->
         <div style="border-top: 2px solid #ccc; padding-top: 2vh; margin-top: 2vh;">
           <h4 style="margin: 0 0 1vh 0; color: #006600;">Calendario Sessioni</h4>
+          <!-- Inserimento data -->
           <div class="form-group" style="flex-direction: row; align-items: flex-end;">
             <div style="flex-grow: 1;">
               <label for="nuovaDataOra">Aggiungi Data/Ora</label>
@@ -88,6 +101,7 @@
           </ul>
         </div>
 
+        <!-- Azioni finali -->
         <div class="form-actions">
           <button type="submit" class="action-btn" [disabled]="!allFormRef.valid">Salva Allenamento</button>
         </div>
