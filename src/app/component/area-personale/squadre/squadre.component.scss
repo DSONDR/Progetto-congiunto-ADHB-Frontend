@@ -1,0 +1,193 @@
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Dimensione media
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+/*--- Stili per squadre ---*/
+// Contenitore distanziatore per i blocchi della pagina
+.squadre-section { 
+  margin-bottom: 5vh; 
+}
+
+// Personalizzazione totale della lista delle squadre
+.squadre-bullet-list {
+  list-style: none; // Rimuove i pallini rotondi nativi del browser
+  padding-left: 0; // Elimina il rientro predefinito
+  
+  li {
+    position: relative; // Necessario come ancora spaziale per il quadratino nero fake
+    padding-left: 2.5vw; // Spazio per non sovrapporsi al quadratino
+    margin-bottom: 2vh; // Distanza tra una squadra e l'altra
+    font-family: Arial, sans-serif;
+    font-size: 1.15rem;
+    
+    // Genera il quadratino nero personalizzato davanti al testo (stile fumetto)
+    &::before {
+      content: ""; // Obbligatorio per attivare l'elemento virtuale
+      position: absolute;
+      left: 0.5vw; // Posizionamento orizzontale
+      top: 50%; // Centratura verticale iniziale
+      transform: translateY(-50%); // Centratura verticale matematica definitiva
+      width: 10px; // Larghezza del quadratino
+      height: 10px; // Altezza del quadratino
+      background-color: #000; // Riempimento nero
+      border: 1px solid #000; 
+    }
+  }
+}
+
+// Box per allineare le info e il link "vedi roster" sulla stessa linea
+.squadra-info-box {
+  display: flex;
+  justify-content: space-between; // Spinge il testo a sinistra e il link a destra
+  align-items: center; // Centratura sull'asse verticale
+  width: 100%;
+  max-width: 800px; // Evita una sgranatura eccessiva su schermi larghi
+}
+
+// Stile per la scritta cliccabile del roster
+.roster-link {
+  font-weight: bold;
+  color: #006600;
+  text-decoration: underline; // Sottolineatura fissa come richiesto
+  cursor: pointer; // Attiva la manina per il click
+  margin-left: 2vw;
+  font-size: 1.05rem;
+  
+  &:hover { 
+    color: #00cd00; // Si illumina di verde acceso al passaggio del mouse
+  }
+}
+
+// Incolonnamento per le scritte delle prossime partite
+.partite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh; // Distanza tra le righe di testo
+  padding-left: 1vw;
+}
+
+.partita-item {
+  font-family: Arial, sans-serif;
+  font-size: 1.15rem;
+  color: #000;
+  margin: 0;
+  strong { font-weight: bold; } // Giornata in grassetto deciso
+}
+
+// Contenitore spaziale per il link del calendario in fondo
+.more-matches-container { 
+  margin-top: 3vh; 
+  padding-left: 1vw; 
+}
+
+// Stile per la scritta cliccabile in fondo che porta al calendario
+.text-link {
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #006600;
+  text-decoration: underline; // Sottolineato fisso
+  cursor: pointer;
+
+  &:hover { 
+    color: #00cd00; // Cambia colore in hover
+  }
+}
+
+/* --- ARCHITETTURA DEL POP-UP (MODAL WINDOW) --- */
+.modal-overlay {
+  position: fixed; // Resta bloccato sopra lo schermo anche se si fa lo scroll sotto
+  top: 0; left: 0; 
+  width: 100vw; height: 100vh; // Occupa il 100% dello schermo totale disponibile
+  background-color: rgba(0, 0, 0, 0.5); // Sfondo oscurato semitrasparente
+  display: flex;
+  justify-content: center; // Centra il contenuto orizzontalmente
+  align-items: center; // Centra il contenuto verticalmente
+  z-index: 2000; // Numero altissimo per essere sicuri che stia davanti a loghi o menu
+}
+
+// Contenitore bianco effettivo del pop-up
+.modal-content {
+  background-color: white;
+  border: 4px solid #000; // Bordo nero massiccio stile fumetto
+  border-radius: 12px; // Angoli smussati
+  width: 90%; 
+  max-width: 600px; // Dimensione massima orizzontale
+  max-height: 80vh; // Evita che esca dallo schermo se ci sono troppe righe
+  display: flex;
+  flex-direction: column; // Incolonna Header e Body interno
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.3); // Ombra morbida posteriore
+}
+
+// Testata del pop-up
+.modal-header {
+  display: flex;
+  justify-content: space-between; // Titolo a sx e pulsante X a dx
+  align-items: center;
+  padding: 2vh 2vw;
+  border-bottom: 4px solid #000; // Linea nera spessa interna di divisione
+  .section-title { margin: 0; } // Rimuove margini per evitare disallineamenti
+}
+
+// Bottone a forma di X per chiudere la schermata
+.close-modal-btn {
+  background-color: #cc0000; // Sfondo rosso vivo
+  color: white;
+  border: 3px solid #000; // Bordo spesso
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.5vh 1vw;
+  cursor: pointer;
+  box-shadow: 0px 3px 0px #000; // Finta ombra 3D solid
+  
+  &:active {
+    transform: translateY(2px); // Movimento a click premuto
+    box-shadow: 0px 1px 0px #000; // Riduzione dell'ombra al click
+  }
+}
+
+// Area interna scorrevole del pop-up
+.modal-body { 
+  padding: 3vh 2vw; 
+  overflow-y: auto; // Attiva la barra di scorrimento se il roster è chilometrico
+}
+
+/* --- TABELLA DEL ROSTER COMPAGNI --- */
+.roster-table {
+  width: 100%;
+  border-collapse: collapse; // Unisce i bordi delle celle evitando doppie linee brutte
+  font-family: Arial, sans-serif;
+  
+  th, td {
+    border: 2px solid #000; // Griglia interna nera fumetto
+    padding: 1.2vh 1vw; // Spessore interno delle celle
+    text-align: left;
+    font-weight: bold; // Testo sempre in grassetto leggibile
+  }
+  
+  th {
+    background-color: #f0f0f0; // Sfondo grigio chiaro per l'intestazione
+    color: #006600; // Scritta verde scuro
+    font-family: 'Permanent Marker', cursive; // Intestazione colonne a pennarello
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #fafafa; // Righe alterne leggermente grigie per facilitare la lettura
+  }
+}

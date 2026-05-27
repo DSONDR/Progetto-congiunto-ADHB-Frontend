@@ -1,7 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Iscrizione } from '../dto/iscrizione.model';
+
+/**
+ * iscrizione.service.ts
+ * Mapping API Backend invocati:
+ * - iscriviSingola -> POST [Backend: IscrizioneController]
+ * - usaAbbonamento -> POST [Backend: IscrizioneController]
+ * - cancellaIscrizione -> DELETE [Backend: IscrizioneController]
+ * - getStoricoUtente -> GET [Backend: IscrizioneController]
+ * - getStoricoUsiAbbonamentoUtente -> GET [Backend: IscrizioneController]
+ * - getIscrittiByAttivita -> GET [Backend: IscrizioneController]
+ */
+import { UserResponseDTO } from '../dto/response/user-response.dto';
+
+export interface IscrizioneRequestDTO {
+  atletaCf: string;
+  attivitaId: number;
+  importo: number;
+  metodo: string;
+}
+
+export interface UsaAbbonamentoRequestDTO {
+  atletaCf: string;
+  attivitaId: number;
+  abbonamentoId: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +35,27 @@ export class IscrizioneService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Iscrizione[]> {
-    return this.http.get<Iscrizione[]>(this.apiUrl);
+  iscriviSingola(request: IscrizioneRequestDTO): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/iscrivi`, request);
   }
 
-  getById(id: number): Observable<Iscrizione> {
-    return this.http.get<Iscrizione>(`${this.apiUrl}/${id}`);
+  usaAbbonamento(request: UsaAbbonamentoRequestDTO): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/usa-abbonamento`, request);
   }
 
-  create(iscrizione: Iscrizione): Observable<Iscrizione> {
-    return this.http.post<Iscrizione>(this.apiUrl, iscrizione);
+  cancellaIscrizione(codiceAtt: number, idPagamento: number, cf: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${codiceAtt}/${idPagamento}/${cf}`);
   }
 
-  update(id: number, iscrizione: Iscrizione): Observable<Iscrizione> {
-    return this.http.put<Iscrizione>(`${this.apiUrl}/${id}`, iscrizione);
+  getStoricoUtente(cf: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/utente/${cf}`);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  getStoricoUsiAbbonamentoUtente(cf: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usi-abbonamento/utente/${cf}`);
+  }
+
+  getIscrittiByAttivita(idAttivita: number): Observable<UserResponseDTO[]> {
+    return this.http.get<UserResponseDTO[]>(`${this.apiUrl}/attivita/${idAttivita}`);
   }
 }

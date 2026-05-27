@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsaAbbonamento } from '../dto/usa-abbonamento.model';
+import { UsaAbbonamentoRequest } from '../dto/request/iscrizioni-request.dto';
+
+/**
+ * usa-abbonamento.service.ts
+ * Mapping API Backend invocati:
+ * - getAll -> GET [Backend: Usa-abbonamentoController]
+ * - getById -> GET [Backend: Usa-abbonamentoController]
+ * - create -> POST [Backend: Usa-abbonamentoController]
+ * - update -> PUT [Backend: Usa-abbonamentoController]
+ * - delete -> DELETE [Backend: Usa-abbonamentoController]
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +21,20 @@ export class UsaAbbonamentoService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<UsaAbbonamento[]> {
-    return this.http.get<UsaAbbonamento[]>(this.apiUrl);
+  getAll(): Observable<UsaAbbonamentoRequest[]> {
+    return this.http.get<UsaAbbonamentoRequest[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<UsaAbbonamento> {
-    return this.http.get<UsaAbbonamento>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<UsaAbbonamentoRequest> {
+    return this.http.get<UsaAbbonamentoRequest>(`${this.apiUrl}/${id}`);
   }
 
-  create(usaAbbonamento: UsaAbbonamento): Observable<UsaAbbonamento> {
-    return this.http.post<UsaAbbonamento>(this.apiUrl, usaAbbonamento);
+  create(usaAbbonamento: UsaAbbonamentoRequest): Observable<UsaAbbonamentoRequest> {
+    return this.http.post<UsaAbbonamentoRequest>(this.apiUrl, usaAbbonamento);
   }
 
-  update(id: number, usaAbbonamento: UsaAbbonamento): Observable<UsaAbbonamento> {
-    return this.http.put<UsaAbbonamento>(`${this.apiUrl}/${id}`, usaAbbonamento);
+  update(id: number, usaAbbonamento: UsaAbbonamentoRequest): Observable<UsaAbbonamentoRequest> {
+    return this.http.put<UsaAbbonamentoRequest>(`${this.apiUrl}/${id}`, usaAbbonamento);
   }
 
   delete(id: number): Observable<void> {

@@ -1,0 +1,123 @@
+<h1 class="page-title">Gestione Attività</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Tutte le attività (Corsi, Eventi, Partite):</h3>
+  <div class="list-container">
+    <div class="data-card admin-card" *ngFor="let att of attivitaList">
+      <div class="data-content">
+        <div class="data-row"><strong>NOME:</strong> {{ att.nomeAtt }} ({{ att.tipoEvento }})</div>
+        <div class="data-row"><strong>- Impianto:</strong> {{ att.impiantoNome }}</div>
+        <div class="data-row"><strong>- Istruttore:</strong> {{ att.nomeIstruttore }}</div>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn" (click)="modificaAttivita(att)">Modifica</button>
+        <button class="inline-btn alert-inline" (click)="cancellaAttivita(att.codiceAtt)">Cancella</button>
+      </div>
+    </div>
+  </div>
+  
+  <p class="nav-note">
+    Puoi visualizzarle anche dal <a routerLink="/eventi" class="text-link">Calendario globale</a>
+  </p>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="creaAttivita()">Crea nuova attività globale</button>
+</div>
+
+<!-- MODALE ATTIVITA -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiModale()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">{{ isEditMode ? 'Modifica Attività' : 'Nuova Attività' }}</h2>
+      <button class="close-modal-btn" (click)="chiudiModale()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="salvaAttivita()" #attFormRef="ngForm" class="custom-form">
+        
+        <div class="form-group">
+          <label for="nomeAtt">Nome Attività *</label>
+          <input type="text" id="nomeAtt" name="nomeAtt" [(ngModel)]="attivitaForm.nomeAtt" required class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="tipoEvento">Tipo di Evento *</label>
+          <select id="tipoEvento" name="tipoEvento" [(ngModel)]="attivitaForm.tipoEvento" required class="form-input">
+            <option value="Corso">Corso</option>
+            <option value="Evento">Evento Pubblico</option>
+            <option value="Partita">Partita</option>
+            <option value="Allenamento">Allenamento</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="destinatario">Destinatario (es. Bambini, Adulti)</label>
+          <input type="text" id="destinatario" name="destinatario" [(ngModel)]="attivitaForm.destinatario" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="quotaBase">Quota di Iscrizione (€) *</label>
+          <input type="number" id="quotaBase" name="quotaBase" [(ngModel)]="attivitaForm.quotaBase" required min="0" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="maxPartecipanti">Max Partecipanti *</label>
+          <input type="number" id="maxPartecipanti" name="maxPartecipanti" [(ngModel)]="attivitaForm.maxPartecipanti" required min="1" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="descrizione">Descrizione</label>
+          <textarea id="descrizione" name="descrizione" [(ngModel)]="attivitaForm.descrizione" class="form-input" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="istruttoreCf">Istruttore/Allenatore Assegnato *</label>
+          <select id="istruttoreCf" name="istruttoreCf" [(ngModel)]="attivitaForm.istruttoreCf" required class="form-input">
+            <option value="" disabled>-- Seleziona --</option>
+            <option *ngFor="let ist of istruttori" [value]="ist.cf">{{ ist.nome }} {{ ist.cognome }} ({{ ist.tipoIscritto }})</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="impiantoId">Impianto *</label>
+          <select id="impiantoId" name="impiantoId" [(ngModel)]="attivitaForm.impiantoId" required class="form-input">
+            <option value="" disabled>-- Seleziona --</option>
+            <option *ngFor="let imp of impianti" [value]="imp.id">{{ imp.nome }}</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="attivitaForm.tipoEvento === 'Allenamento' || attivitaForm.tipoEvento === 'Partita'">
+          <label for="squadreIds">Squadre Coinvolte</label>
+          <select id="squadreIds" name="squadreIds" [(ngModel)]="attivitaForm.squadreIds" multiple class="form-input" style="min-height: 80px;">
+            <option *ngFor="let sq of squadre" [value]="sq.id">{{ sq.nome }} ({{ sq.campionato }})</option>
+          </select>
+          <small>Usa CTRL/CMD per selezione multipla</small>
+        </div>
+
+        <div style="border-top: 2px solid #ccc; padding-top: 2vh; margin-top: 2vh;">
+          <h4 style="margin: 0 0 1vh 0; color: #006600;">Date e Orari (Sessioni)</h4>
+          <div class="form-group" style="flex-direction: row; align-items: flex-end;">
+            <div style="flex-grow: 1;">
+              <label for="nuovaDataOra">Aggiungi Data/Ora</label>
+              <input type="datetime-local" id="nuovaDataOra" name="nuovaDataOra" [(ngModel)]="nuovaDataOra" class="form-input" style="width: 100%">
+            </div>
+            <button type="button" class="action-btn" style="margin-bottom: 2px;" [disabled]="!nuovaDataOra" (click)="aggiungiData()">Aggiungi</button>
+          </div>
+          <ul class="squadre-bullet-list" style="margin-top: 2vh;">
+            <li *ngFor="let d of attivitaForm.dateOrari; let i = index">
+              {{ d | date:'dd/MM/yyyy HH:mm' }}
+              <button type="button" class="inline-btn alert-inline" style="margin-left: 2vw; padding: 0.2vh 0.5vw;" (click)="rimuoviData(i)">Rimuovi</button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn" [disabled]="!attFormRef.valid">Salva Attività</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

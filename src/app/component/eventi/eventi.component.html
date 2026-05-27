@@ -1,0 +1,124 @@
+<div class="calendar-page-wrapper">
+  <div class="calendar-card">
+    
+    <div class="calendar-header">
+      <img src="/polisporticket_logo.png" alt="Polisporticket" class="header-logo" routerLink="/home">
+      <h1 class="header-title">Eventi</h1>
+      
+      <div class="header-user">
+        <span class="user-text" *ngIf="isLoggedIn">
+          {{ username }}
+        </span>
+      </div>
+    </div>
+
+    <div class="filters-bar">
+      <div class="filter-group date-group">
+        <span class="filter-icon">📅</span>
+        <input type="datetime-local" class="filter-input date-input" title="Data Inizio" [(ngModel)]="filtroInizio">
+        <span class="date-separator">-</span>
+        <input type="datetime-local" class="filter-input date-input" title="Data Fine" [(ngModel)]="filtroFine">
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-icon">🏀</span>
+        <select class="filter-input" [(ngModel)]="filtroSport">
+          <option value="" disabled selected>Sport</option>
+          <option *ngFor="let sport of listaSport" [value]="sport">{{ sport }}</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-icon">👩</span>
+        <select class="filter-input" [(ngModel)]="filtroCategoria">
+          <option value="" disabled selected>Categorie</option>
+          <option *ngFor="let cat of listaCategorie" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-icon">📍</span>
+        <select class="filter-input" [(ngModel)]="filtroSede">
+          <option value="" disabled selected>Sedi</option>
+          <option *ngFor="let sede of listaSedi" [value]="sede.id">{{ sede.nome }}</option>
+        </select>
+      </div>
+
+      <button class="search-btn" (click)="avviaRicerca()">🔍</button>
+    </div>
+
+    <div class="intro-text">
+      <strong>Tutti gli eventi, le competizioni e le attività organizzate dalla polisportiva</strong>
+    </div>
+
+    <div class="events-layout">
+      <div class="events-label">
+        <strong>Elenco eventi:</strong>
+      </div>
+      
+      <div class="events-list">
+        <div class="event-item" *ngFor="let ev of eventiList" (click)="apriDettaglio(ev)">
+          <span class="red-dot"></span>
+          <span class="event-text">
+            <strong>{{ ev.tipoEvento }} ({{ ev.nomeAtt }})</strong>, {{ ev.dateOrari ? (ev.dateOrari[0] | date:'short') : '' }}, {{ ev.impiantoNome }}, {{ ev.destinatario }}, Quota: €{{ ev.quotaBase }}
+          </span>
+        </div>
+        <div *ngIf="eventiList.length === 0" style="padding: 1rem; color: #666;">
+          Nessun evento trovato. Prova a cambiare i filtri.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isDettaglioOpen" (click)="chiudiModali()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">Dettaglio: {{ eventoSelezionato?.tipo }}</h2>
+      <button class="close-modal-btn" (click)="chiudiModali()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <p class="detail-row"><strong>Data e Ora:</strong> <span *ngFor="let d of eventoSelezionato?.dateOrari">{{ d | date:'short' }} </span></p>
+      <p class="detail-row"><strong>Impianto:</strong> {{ eventoSelezionato?.impiantoNome }}</p>
+      <p class="detail-row"><strong>Destinatario:</strong> {{ eventoSelezionato?.destinatario }}</p>
+      <p class="detail-row"><strong>Istruttore:</strong> {{ eventoSelezionato?.nomeIstruttore }}</p>
+      <p class="detail-row"><strong>Iscritti:</strong> {{ eventoSelezionato?.iscritti }} / {{ eventoSelezionato?.maxPartecipanti || 'N/A' }}</p>
+      <p class="detail-row"><strong>Descrizione completa:</strong><br>{{ eventoSelezionato?.descrizione }}</p>
+      
+      <div class="modal-actions mt-4">
+        <button class="action-btn" (click)="pagaSingolo()">Paga singolarmente (€{{ eventoSelezionato?.quotaBase }})</button>
+        <button class="action-btn" (click)="usaAbbonamento()">Usa il tuo Abbonamento</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isPagamentoOpen" (click)="chiudiModali()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">Pagamento Sicuro</h2>
+      <button class="close-modal-btn" (click)="chiudiModali()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <p class="detail-row">Stai per pagare <strong>€{{ eventoSelezionato?.quotaBase }}</strong> per l'evento <strong>{{ eventoSelezionato?.tipoEvento }}</strong>.</p>
+      
+      <div class="payment-mock-form">
+        <input type="text" class="pay-input" placeholder="Numero Carta (16 cifre)" [(ngModel)]="numeroCarta">
+        <div class="pay-row">
+          <input type="text" class="pay-input mini" placeholder="MM/AA" [(ngModel)]="scadenzaCarta">
+          <input type="text" class="pay-input mini" placeholder="CVV" [(ngModel)]="cvv">
+        </div>
+        <input type="text" class="pay-input" placeholder="Nome Titolare" [(ngModel)]="nomeIntestatario">
+      </div>
+
+      <div class="modal-actions mt-4">
+        <button class="action-btn confirm-pay-btn" (click)="confermaPagamentoFinale()">Conferma e Paga</button>
+      </div>
+    </div>
+  </div>
+</div>

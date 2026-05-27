@@ -1,0 +1,55 @@
+<div class="dashboard-page">
+  <div class="dashboard-container">
+    
+    <aside class="sidebar">
+      <div class="sidebar-logo-polisporticket">
+        <a routerLink="/home">
+          <img src="/polisporticket_logo.png" alt="Polisporticket Logo" class="logo-dashboard">
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a routerLink="./benvenuto" routerLinkActive="active-link">Area Personale</a>
+
+        <ng-container *ngIf="ruoloUtente === 'atleta'">
+          <a routerLink="./assistenza" routerLinkActive="active-link">Richiedi Assistenza</a>
+          <a routerLink="./abbonamenti" routerLinkActive="active-link">I tuoi Abbonamenti</a>
+          <a routerLink="./attivita" routerLinkActive="active-link">Le tue Attività - Punti</a>
+          <a routerLink="./squadre" routerLinkActive="active-link">Le tue squadre</a>
+        </ng-container>
+
+        <ng-container *ngIf="ruoloUtente === 'istruttore'">
+          <a routerLink="./assistenza" routerLinkActive="active-link">Richiedi Assistenza</a>
+          <a routerLink="./corsi-istruttore" routerLinkActive="active-link">I tuoi Corsi</a>
+          <a routerLink="./risolvi-assistenze" routerLinkActive="active-link">Risolvi Assistenze</a>
+        </ng-container>
+
+        <ng-container *ngIf="ruoloUtente === 'allenatore'">
+          <a routerLink="./assistenza" routerLinkActive="active-link">Richiedi Assistenza</a>
+          <a routerLink="./squadre" routerLinkActive="active-link">Le tue Squadre</a>
+          <a routerLink="./allenamenti-allenatore" routerLinkActive="active-link">I tuoi Allenamenti</a>
+          <a routerLink="./risolvi-assistenze" routerLinkActive="active-link">Risolvi Assistenze</a>
+        </ng-container>
+
+        <ng-container *ngIf="ruoloUtente === 'admin'">
+          <a routerLink="./risolvi-assistenze" routerLinkActive="active-link">Risolvi Assistenze</a>
+          <a routerLink="./gestione-attivita" routerLinkActive="active-link">Gestione Attività</a>
+          <a routerLink="./gestione-impianti" routerLinkActive="active-link">Gestione Impianti</a>
+          <a routerLink="./gestione-utenti" routerLinkActive="active-link">Gestione Utenti</a>
+          <a routerLink="./gestione-squadre" routerLinkActive="active-link">Gestione Squadre</a>
+          <a routerLink="./gestione-sponsor" routerLinkActive="active-link">Gestione Sponsor</a>
+        </ng-container>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a routerLink="./logout" class="nav-logout">Logout</a>
+        <a routerLink="./cancella-profilo" class="nav-delete">Cancella profilo</a>
+      </div>
+    </aside>
+
+    <main class="dashboard-content">
+      <router-outlet></router-outlet> 
+    </main>
+
+  </div>
+</div>

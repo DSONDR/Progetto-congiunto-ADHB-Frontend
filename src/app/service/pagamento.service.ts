@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pagamento } from '../dto/pagamento.model';
+import { PagamentoResponseDTO } from '../dto/response/transazioni-response.dto';
+
+/**
+ * pagamento.service.ts
+ * Mapping API Backend invocati:
+ * - getAll -> GET [Backend: PagamentoController]
+ * - getById -> GET [Backend: PagamentoController]
+ * - create -> POST [Backend: PagamentoController]
+ * - update -> PUT [Backend: PagamentoController]
+ * - delete -> DELETE [Backend: PagamentoController]
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +21,20 @@ export class PagamentoService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Pagamento[]> {
-    return this.http.get<Pagamento[]>(this.apiUrl);
+  getAll(): Observable<PagamentoResponseDTO[]> {
+    return this.http.get<PagamentoResponseDTO[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<Pagamento> {
-    return this.http.get<Pagamento>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<PagamentoResponseDTO> {
+    return this.http.get<PagamentoResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
-  create(pagamento: Pagamento): Observable<Pagamento> {
-    return this.http.post<Pagamento>(this.apiUrl, pagamento);
+  create(pagamento: PagamentoResponseDTO): Observable<PagamentoResponseDTO> {
+    return this.http.post<PagamentoResponseDTO>(this.apiUrl, pagamento);
   }
 
-  update(id: number, pagamento: Pagamento): Observable<Pagamento> {
-    return this.http.put<Pagamento>(`${this.apiUrl}/${id}`, pagamento);
+  update(id: number, pagamento: PagamentoResponseDTO): Observable<PagamentoResponseDTO> {
+    return this.http.put<PagamentoResponseDTO>(`${this.apiUrl}/${id}`, pagamento);
   }
 
   delete(id: number): Observable<void> {

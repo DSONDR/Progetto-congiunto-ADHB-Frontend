@@ -1,0 +1,335 @@
+/* --- ELEMENTO: .calendar-page-wrapper --- */
+/* Sfondo totale della pagina con l'immagine degli atleti */
+.calendar-page-wrapper { 
+  width: 100%;  // Larghezza totale della pagina
+  min-height: 100vh;  // Copre l'intera altezza dello schermo
+  background-image: url('/sfondo_home.png');  // Sfondo ufficiale degli atleti
+  background-size: cover;  // Obbliga l'immagine a coprire tutto lo spazio
+  background-position: bottom center;  // Ancora l'immagine in basso al centro
+  display: flex;  // Attiva flexbox per centrare la card
+  justify-content: center;  // Centra orizzontalmente la card bianca
+  align-items: flex-start;  // Allinea la card verso l'alto
+  padding-top: 8vh;  // Distanza protettiva dal bordo superiore dello schermo
+  padding-bottom: 8vh;  // Distanza protettiva dal fondo
+  box-sizing: border-box;  // Include il padding nel calcolo dell'altezza
+}
+
+/* --- ELEMENTO: .calendar-card --- */
+/* Il grande box bianco con i bordi larghi e l'ombra dura */
+.calendar-card { 
+  background-color: white;  // Sfondo bianco solido
+  width: 95%;  // Larghezza elastica per i display più piccoli
+  max-width: 1200px;  // Allargato a 1200px per dare molto più respiro laterale
+  min-height: 75vh;  // Garanzia di altezza minima per slanciare il foglio
+  border: 4px solid #000;  // Bordo nero perimetrale molto spesso stile fumetto
+  border-radius: 12px;  // Angoli arrotondati
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);  // Ombra morbida 3D coordinata al sito
+  padding: 5vh 5vw;  // Padding aumentato per allargare i bordi interni dai contenuti
+  box-sizing: border-box;  // Protegge la struttura dal superamento dei limiti
+}
+
+/* --- ELEMENTO: .calendar-header --- */
+/* Intestazione che contiene il logo a sinistra e allinea il titolo */
+.calendar-header { 
+  display: flex;  // Dispone logo e titolo sulla stessa riga
+  align-items: center;  // Allinea perfettamente al centro verticale logo e testo
+  margin-bottom: 8vh;  // Spazio generoso per staccare la testa dal corpo della pagina
+  position: relative;  // Permette di gestire liberamente gli spazi interni
+}
+
+/* --- ELEMENTO: .header-logo --- */
+/* Logo Polisporticket confinato nell'angolo sinistro */
+.header-logo { 
+  width: 180px;  // Dimensione di lettura ottimale
+  height: auto;  // Mantiene le proporzioni originali dell'immagine
+  cursor: pointer;  // Mostra la manina per il ritorno in Home
+}
+
+/* --- ELEMENTO: .header-title --- */
+/* Titolo a pennarello "Calendario" */
+.header-title { 
+  font-family: 'Permanent Marker', cursive;  // Font fumettistico reattivo
+  font-size: 3.5rem;  // Stazza importante per il titolo
+  color: #000;  // Nero pieno
+  margin: 0;  // Elimina i margini di default del tag h1
+  flex: 1;  // Prende lo spazio centrale
+  text-align: center;  // Centra il testo rispetto alla card bianca
+}
+
+/* --- ELEMENTO: .header-user --- */
+/* Prende il posto dello spacer: bilancia il logo a sx e contiene il nome a dx */
+.header-user { 
+  width: 180px;  // FONDAMENTALE: Deve essere identico alla width di .header-logo!
+  display: flex;  // Abilita flexbox interno
+  justify-content: flex-end;  // Spinge il badge dell'utente tutto a destra
+  align-items: center;  // Centra verticalmente
+}
+
+/* --- ELEMENTO: .header-user --- */
+/* Prende il posto dello spacer: bilancia il logo a sx e contiene il nome a dx */
+.header-user { 
+  width: 180px;  // FONDAMENTALE: Deve essere identico alla width di .header-logo!
+  display: flex;  // Abilita flexbox interno
+  justify-content: flex-end;  // Spinge il nome dell'utente tutto a destra
+  align-items: center;  // Centra verticalmente
+}
+
+/* --- ELEMENTO: .user-text --- */
+/* Puro testo nero, non interattivo */
+.user-text {
+  font-family: Arial, sans-serif;  // Font pulito
+  font-size: 1.4rem;  // Dimensione leggermente aumentata per compensare l'assenza del box
+  font-weight: bold;  // Grassetto per risaltare
+  color: #000;  // Testo nero assoluto
+}
+
+/* --- ELEMENTO: .logged-out-view --- */
+/* Layout per gli utenti non registrati o non loggati */
+.logged-out-view { 
+  display: flex;  // Attiva flexbox
+  flex-direction: column;  // Incolonna i messaggi e i link di navigazione
+  align-items: center;  // Centra tutto orizzontalmente
+  justify-content: center;  // Centra i blocchi in verticale
+  min-height: 40vh;  // Fornisce un'area di sviluppo ariosa al centro della card
+  text-align: center;  // Centratura del testo
+}
+
+/* --- ELEMENTO: .empty-message --- */
+/* Scritta principale di avviso prenotazioni vuote */
+.empty-message { 
+  font-family: Arial, sans-serif;  // Font pulito e solido
+  font-size: 1.8rem;  // Testo ben visibile
+  color: #000;  // Colore nero
+  margin-bottom: 2vh;  // Distanza dalla nota sotto
+}
+
+/* --- ELEMENTO: .empty-note --- */
+/* Nota con l'asterisco per invitare all'azione */
+.empty-note { 
+  font-family: Arial, sans-serif;  // Stesso carattere dell'avviso
+  font-size: 1.4rem;  // Dimensione leggibile
+  font-weight: bold;  // Grassetto marcato
+  color: #000;  // Colore nero
+  margin-bottom: 5vh;  // Distanza dai link di atterraggio
+}
+
+/* --- ELEMENTO: .links-container --- */
+/* Scatola verticale che contiene i link cliccabili */
+.links-container { 
+  display: flex;  // Flexbox
+  flex-direction: column;  // Mette i link uno sotto l'altro come da mockup
+  gap: 2vh;  // Spaziatura tra i link
+}
+
+/* --- ELEMENTO: .action-link --- */
+/* Collegamenti testuali neri e sottolineati */
+.action-link { 
+  font-family: Arial, sans-serif;  // Font coordinato
+  font-size: 1.4rem;  // Dimensione del testo dei link
+  font-weight: bold;  // Grassetto
+  color: #000;  // Testo nero
+  text-decoration: underline;  // Sottolineatura netta fissa
+  cursor: pointer;  // Manina attiva
+  
+  &:hover { 
+    color: #00cd00;  // Si illumina di verde acido al passaggio del mouse
+  } 
+}
+
+/* --- ELEMENTO: .label-badge --- */
+/* Mattonella grigia informativa per gli utenti loggati */
+.label-badge { 
+  background-color: #e0e0e0;  // Grigio chiaro da disegno
+  display: inline-block;  // Si stringe attorno alla frase
+  padding: 1.5vh 2vw;  // Spessore del riquadro
+  font-family: Arial, sans-serif;  // Font
+  font-weight: bold;  // Grassetto
+  font-size: 1.2rem;  // Dimensione
+  color: #000;  // Testo nero
+  margin-bottom: 4vh;  // Distanza dall'elenco a scorrimento
+}
+
+/* --- ELEMENTO: .scrollable-list --- */
+/* Area protetta per permettere lo scorrimento dei match senza muovere la pagina */
+.scrollable-list { 
+  max-height: 45vh;  // Altezza massima prima del cutoff scorrevole
+  overflow-y: auto;  // Abilita lo scroll verticale se i dati escono dai limiti
+  display: flex;  // Flexbox
+  flex-direction: column;  // Mette le righe in colonna
+  gap: 1vh;  // Distanza minima di separazione tra le barre grigie
+  padding-right: 1vw;  // Evita sovrapposizioni con la barra del browser
+}
+
+/* --- ELEMENTO: .event-row --- */
+/* Barra grigia orizzontale contenente il singolo appuntamento */
+.event-row { 
+  display: flex;  // Mette in linea i dettagli del match
+  align-items: center;  // Centratura verticale delle scritte
+  background-color: #e0e0e0;  // Sfondo grigio da mockup
+  padding: 2vh 2vw;  // Spessore interno della riga
+  font-family: Arial, sans-serif;  // Font
+  font-size: 1.2rem;  // Dimensione
+  color: #000;  // Testo nero
+}
+
+/* --- ELEMENTO SPECIFICO: .event-col --- */
+/* Gestione delle colonne generiche interne alla riga dell'evento */
+.event-col { 
+  flex: 1;  // Distribuzione equa degli spazi base
+  text-align: center;  // Centra i testi internamente
+}
+
+/* --- ELEMENTO SPECIFICO: .date-col --- */
+/* Colonna dedicata alla Data */
+.date-col { 
+  text-align: left;  // Allinea la data a sinistra della riga
+  flex: 0.8;  // Stringe leggermente lo spazio necessario
+}
+
+/* --- ELEMENTO SPECIFICO: .impianto-col --- */
+/* Colonna dedicata all'Impianto Sportivo */
+.impianto-col { 
+  flex: 1.4;  // Fornisce più spazio per i nomi lunghi delle palestre
+}
+
+/* --- ELEMENTO SPECIFICO: .type-col --- */
+/* Nuova colonna indipendente dedicata al Tipo di Evento */
+.type-col { 
+  flex: 1.2;  // Spazio intermedio proporzionato
+}
+
+/* --- ELEMENTO SPECIFICO: .time-col --- */
+/* Colonna dedicata all'Orario di svolgimento */
+.time-col { 
+  flex: 1;  // Spazio standard equilibrato
+}
+
+/* --- ELEMENTO SPECIFICO: .action-col --- */
+/* Colonna dedicata al tasto Annulla */
+.action-col { 
+  text-align: right;  // Spinge il comando a destra della riga
+  flex: 0.8;  // Spazio ridotto
+}
+
+/* --- ELEMENTO: .cancel-btn --- */
+/* Comando rosso per la cancellazione dell'iscrizione atleta */
+.cancel-btn { 
+  color: #cc0000;  // Rosso scuro da mockup
+  font-weight: bold;  // Grassetto evidente
+  cursor: pointer;  // Attiva cursore interattivo
+  text-decoration: underline;  // Sottolineatura di interazione
+  
+  &:hover { 
+    color: #ff3333;  // Si accende in rosso vivo al passaggio
+  } 
+}
+
+/* --- ELEMENTO: .staff-link-wrapper --- */
+/* Posizionamento del link direzionale per i gestori */
+.staff-link-wrapper { 
+  margin-top: 4vh;  // Distanza dalla lista eventi
+  text-align: right;  // Spinge il link nell'angolo in basso a destra
+}
+
+/* --- ELEMENTO: .staff-link --- */
+/* Link verde per saltare alla gestione eventi nella dashboard */
+.staff-link { 
+  font-family: Arial, sans-serif;  // Font
+  font-size: 1.2rem;  // Dimensione di lettura
+  font-weight: bold;  // Testo in grassetto
+  color: #006600;  // Verde scuro istituzionale
+  text-decoration: underline;  // Sottolineato fisso
+  cursor: pointer;  // Manina attiva
+  
+  &:hover { 
+    color: #00cd00;  // Diventa verde acido brillante
+  } 
+}
+
+/* ========================================= */
+/* BARRA DEI FILTRI                          */
+/* ========================================= */
+
+/* --- ELEMENTO: .filter-bar --- */
+/* Barra orizzontale per la ricerca */
+.filter-bar {
+  display: flex;  // Abilita flexbox
+  justify-content: space-between;  // MAGIA: Spazia i 3 blocchi equamente da sinistra a destra!
+  align-items: center;  // Centra in verticale
+  background-color: transparent;  // Sfondo trasparente
+  padding: 0 1vw 2vh 1vw;  // Spazio interno
+  border-bottom: 2px dashed #ccc;  // Linea divisoria
+  margin-bottom: 1.5vh;  // Spazio prima dei risultati
+  width: 100%;  // Assicura che usi tutta la pagina
+  box-sizing: border-box;  // Include i padding nella larghezza
+}
+
+/* --- ELEMENTO: .filter-col --- */
+/* Contenitore del singolo filtro */
+.filter-col {
+  display: flex;  // Flexbox interno
+  justify-content: center;  // Centra le tendine nel loro spazio
+  align-items: center;  // Centra in verticale
+  flex: 1;  // Obbliga i 3 blocchi a dividersi lo spazio in parti esattamente uguali
+}
+
+/* --- ELEMENTO: .date-filter-col --- */
+/* Regole specifiche per il blocco date */
+.date-filter-col {
+  justify-content: flex-start;  // Spinge le date al margine sinistro
+  gap: 0.5vw;  // Spazio tra la scritta e il calendario
+  flex: 1.2;  // Diamo un pochino di spazio in più a questo blocco perché contiene più elementi
+}
+
+/* --- ELEMENTO: .mini-label --- */
+/* Etichette "Da:" e "A:" */
+.mini-label {
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;  // Leggermente ingrandite
+  font-weight: bold;  // Grassetto
+  color: #333;  // Grigio scuro
+}
+
+/* --- ELEMENTO: .filter-input --- */
+/* Stile base dei campi (calendari e tendine) */
+.filter-input {
+  border: 2px solid #000;  // Bordo nero netto
+  border-radius: 4px;  // Spigoli poco smussati
+  font-family: Arial, sans-serif;
+  color: #000;
+  outline: none;  // Toglie il bordo del browser
+  
+  &:focus {
+    border-color: #006600;  // Diventa verde al click
+  }
+}
+
+/* --- ELEMENTO: .date-input --- */
+/* Calendari nativi del browser */
+.date-input {
+  padding: 0.4vh 0.4vw;  // Spazio interno morbido
+  font-size: 0.9rem;  // Testo ben leggibile
+  width: auto;  // Larghezza automatica
+}
+
+/* --- ELEMENTO: .filter-select --- */
+/* Tendine Impianti ed Eventi */
+.filter-select {
+  width: 80%;  // Non fargli occupare tutto lo spazio così restano ariose
+  padding: 0.6vh 0.5vw;  // Più altezza per cliccarle meglio
+  font-size: 1rem;  // Testo leggibile
+  cursor: pointer;  // Manina
+  text-align: center;  // Centra il testo
+  font-weight: bold;  // Mette in grassetto "Impianti" ed "Eventi"
+}
+
+/* --- ELEMENTO: .empty-filter-msg --- */
+/* Messaggio di tabella vuota */
+.empty-filter-msg {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  color: #cc0000;
+  font-style: italic;
+  padding: 2vh 0;
+}

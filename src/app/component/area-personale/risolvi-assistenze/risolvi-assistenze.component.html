@@ -1,0 +1,64 @@
+<h1 class="page-title">Risolvi Assistenze</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Richieste Aperte:</h3>
+  <p class="empty-msg" *ngIf="richiesteAperte.length === 0">*Nessuna richiesta aperta in coda.</p>
+  
+  <div class="scrollable-list" *ngIf="richiesteAperte.length > 0">
+    <div class="admin-ticket-card pending" *ngFor="let req of richiesteAperte">
+      <div class="ticket-meta">
+        <span><strong>Da:</strong> {{ req.utenteCf }} (#{{ req.idTicket }})</span>
+        <span><strong>Stato:</strong> {{ req.stato }}</span>
+      </div>
+      <div class="ticket-main">
+        <strong>Oggetto:</strong> {{ req.oggetto }}<br>
+        <strong>Tipo:</strong> {{ req.tipoAss }}<br>
+        <strong>Contenuto:</strong> {{ req.contenuto }}
+      </div>
+      <div class="ticket-actions">
+        <button class="inline-action-btn" (click)="prendiInCarico(req)">Prendi in carico</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h3 class="section-title">Richieste prese in carico da te:</h3>
+  <p class="empty-msg" *ngIf="richiesteInCarico.length === 0">*Non stai gestendo nessuna richiesta attualmente.</p>
+  
+  <div class="scrollable-list" *ngIf="richiesteInCarico.length > 0">
+    <div class="admin-ticket-card in-progress" *ngFor="let req of richiesteInCarico">
+      <div class="ticket-meta">
+        <span><strong>Da:</strong> {{ req.utenteCf }} (#{{ req.idTicket }})</span>
+        <span><strong>Stato:</strong> {{ req.stato }}</span>
+      </div>
+      <div class="ticket-main">
+        <strong>Oggetto:</strong> {{ req.oggetto }}<br>
+        <strong>Tipo:</strong> {{ req.tipoAss }}<br>
+        <strong>Contenuto:</strong> {{ req.contenuto }}
+      </div>
+      <div class="ticket-actions">
+        <button class="inline-action-btn success-btn" (click)="risolviTicket(req)">Risolvi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h3 class="section-title">Richieste completate:</h3>
+  <p class="empty-msg" *ngIf="richiesteCompletate.length === 0">*Non hai ancora completato richieste.</p>
+
+  <div class="scrollable-list" *ngIf="richiesteCompletate.length > 0">
+    <div class="admin-ticket-card resolved" *ngFor="let res of richiesteCompletate">
+      <div class="ticket-meta">
+        <span><strong>Da:</strong> {{ res.utenteCf }} (#{{ res.idTicket }})</span>
+        <span><strong>Stato:</strong> {{ res.stato }}</span>
+      </div>
+      <div class="ticket-main">
+        <strong>Oggetto:</strong> {{ res.oggetto }}<br>
+        <strong>Contenuto:</strong> {{ res.contenuto }}<br>
+        <strong>Soluzione:</strong> <span class="solved-text">{{ res.risposta }}</span>
+      </div>
+    </div>
+  </div>
+</div>

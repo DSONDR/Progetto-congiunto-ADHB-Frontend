@@ -1,0 +1,56 @@
+<h1 class="page-title">I tuoi Abbonamenti</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Abbonamenti in corso:</h3>
+  
+  <p class="empty-msg" *ngIf="abbonamenti.length === 0">
+    *Nessun abbonamento attivo al momento.
+  </p>
+
+  <div class="sub-list" *ngIf="abbonamenti.length > 0">
+    <div class="sub-card" *ngFor="let abb of abbonamenti">
+      <div class="sub-row"><strong>TIPO ABBONAMENTO:</strong> {{ abb.tipoAbb }}</div>
+      <div class="sub-row"><strong>- sottoscritto:</strong> {{ abb.dataInizio }}</div>
+      <div class="sub-row"><strong>- Ingressi effettuati:</strong> {{ abb.ingressiEffettuati }}</div>
+      <div class="sub-row"><strong>- Rinnovo (se previsto)*:</strong> {{ abb.dataScadenza }}</div>
+      <div class="sub-row"><strong>- Stato:</strong> {{ abb.statoAbb }}</div>
+      <div class="sub-row">
+        <button class="action-btn alert-btn" style="margin-top: 10px" (click)="disdiciAbbonamento(abb.numeroAbb)">Disdici abbonamento</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <div class="btn-group">
+    <button class="action-btn" (click)="nuovoAbbonamento()">Sottoscrivi un nuovo abbonamento</button>
+    <span class="btn-subtext">L'abbonamento sarà subito fruibile per iscriversi a un'attività</span>
+  </div>
+
+  <div class="btn-group">
+    <button class="action-btn" (click)="apriStorico()">Recupera storico abbonamenti</button>
+  </div>
+</div>
+
+<p class="footer-note">
+  <strong>*Gli abbonamenti a tempo non disdetti si rinnovano automaticamente alla mezzanotte del primo giorno del periodo successivo</strong>
+</p>
+
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiStorico()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="section-title">Storico Abbonamenti Passati</h2>
+      <button class="close-modal-btn" (click)="chiudiStorico()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="sub-card storico-card" *ngFor="let stor of storicoAbbonamenti">
+        <div class="sub-row"><strong>TIPO ABBONAMENTO:</strong> {{ stor.tipoAbb }}</div>
+        <div class="sub-row"><strong>- sottoscritto:</strong> {{ stor.dataInizio }}</div>
+        <div class="sub-row"><strong>- Ingressi effettuati:</strong> {{ stor.ingressiEffettuati }}</div>
+        <div class="sub-row"><strong>- Scaduto il:</strong> {{ stor.dataScadenza }}</div>
+        <div class="sub-row"><strong>- Stato:</strong> {{ stor.statoAbb }}</div>
+      </div>
+    </div>
+  </div>
+</div>

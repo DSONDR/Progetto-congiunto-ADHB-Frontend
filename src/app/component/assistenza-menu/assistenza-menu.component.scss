@@ -1,0 +1,123 @@
+/* --- ELEMENTI STRUTTURALI --- */
+
+/* --- ELEMENTO: .calendar-page-wrapper --- */
+/* Sfondo dell'intera pagina ripristinato con l'immagine ufficiale */
+.calendar-page-wrapper { 
+  width: 100%;  // Larghezza totale dello schermo
+  min-height: 100vh;  // Altezza schermo totale
+  background-image: url('/sfondo_home.png');  // Sfondo ufficiale degli atleti
+  background-size: cover;  // Copre tutto lo schermo
+  background-position: bottom center;  // Ancora l'immagine in basso al centro
+  display: flex;  // Abilita flexbox per centrare la card bianca
+  justify-content: center;  // Centratura orizzontale
+  align-items: flex-start;  // Allinea la card verso l'alto
+  padding-top: 5vh;  // Distanza dal bordo superiore
+  padding-bottom: 5vh;  // Distanza dal bordo inferiore
+  box-sizing: border-box;  // Include il padding nelle dimensioni totali
+}
+
+/* --- ELEMENTO: .calendar-card --- */
+/* Il riquadro bianco centrale (Modifica solo il margine da "5vh auto" a "0"!) */
+.calendar-card { 
+  background-color: white;  // Sfondo bianco
+  width: 95%;  // Si adatta in larghezza
+  max-width: 1000px;  // Limite massimo per leggibilità testo
+  margin: 0;  // AZZERATO: Il posizionamento ora è controllato dal wrapper flessibile padre
+  border: 4px solid #000;  // Bordo nero spesso
+  border-radius: 12px;  // Angoli arrotondati
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);  // Ombra sfumata
+  padding: 4vh 4vw;  // Spazio interno
+  box-sizing: border-box;  // Include il padding nei calcoli
+}
+
+/* --- ELEMENTI HEADER --- */
+/* Riga in alto con logo, titolo e utente */
+.calendar-header { 
+  display: flex;  // Flexbox per affiancare
+  justify-content: space-between;  // Spinge logo a sx, titolo al centro, utente a dx
+  align-items: center;  // Allineamento verticale centrale
+  margin-bottom: 6vh;  // Distanza abbondante dal testo sottostante
+}
+
+/* Logo in alto a sinistra */
+.header-logo { 
+  width: 150px;  // Dimensione fissa
+  height: auto;  // Mantiene le proporzioni originali
+  cursor: pointer;  // Cursore manina interattivo
+}
+
+/* Titolo centrale "Assistenza" */
+.header-title { 
+  font-family: 'Permanent Marker', cursive;  // Font a pennarello
+  font-size: 3.5rem;  // Testo gigante
+  color: #000;  // Nero pieno
+  margin: 0;  // Azzera i margini
+  text-align: center;  // Centratura forzata
+}
+
+/* Spazio per l'utente in alto a destra (bilancia il logo) */
+.header-user { 
+  width: 150px;  // Stessa larghezza del logo per la simmetria geometrica
+  text-align: right;  // Testo tutto spostato a destra
+}
+
+/* Nome utente semplice nero su bianco */
+.user-text { 
+  font-family: Arial, sans-serif;  // Font leggibile senza fronzoli
+  font-weight: bold;  // Grassetto ben visibile
+  font-size: 1.3rem;  // Grandezza media
+  color: #000;  // Testo nero
+}
+
+/* --- ELEMENTI CONTENUTO ASSISTENZA --- */
+/* Contenitore di tutto il testo descrittivo */
+.assistenza-content { 
+  padding: 0 2vw;  // Leggero rientro laterale rispetto ai bordi della scatola
+}
+
+/* Sottotitolo "Servizio clienti:" */
+.assi-subtitle { 
+  font-family: Arial, sans-serif;  // Font standard
+  font-size: 1.5rem;  // Medio-grande
+  font-weight: bold;  // Grassetto
+  color: #000;  // Nero
+  margin-bottom: 4vh;  // Spazio inferiore prima del blocco successivo
+}
+
+/* Blocchi di testo separati (paragrafi logici) */
+.assi-block { 
+  margin-bottom: 4vh;  // Distanza tra i concetti (es. tra "problema" e "contatti")
+}
+
+/* Blocco centrato in fondo (per "oppure" e il link) */
+.center-block { 
+  text-align: center;  // Allinea testo e link al centro orizzontale
+  margin-top: 6vh;  // Distanza extra dalla sezione contatti
+}
+
+/* Singola riga di testo del corpo (le frasi del mockup) */
+.assi-text { 
+  font-family: Arial, sans-serif;  // Font standard
+  font-size: 1.3rem;  // Grandezza leggibile per l'utente
+  font-weight: bold;  // Tutto il testo è in grassetto (da mockup)
+  color: #000;  // Nero
+  margin: 0.5vh 0;  // Spazio interlinea leggermente allargato
+}
+
+/* Link grande finale che riporta alla dashboard */
+.assi-link { 
+  display: inline-block;  // Evita interruzioni di riga e permette i margini
+  font-family: Arial, sans-serif;  // Font standard
+  font-size: 1.5rem;  // Testo molto grande per attirare il clic
+  font-weight: bold;  // Grassetto
+  color: #000;  // Nero
+  text-decoration: underline;  // Sottolineatura obbligatoria dal tuo screenshot
+  text-transform: uppercase;  // Forza tutto in maiuscolo
+  margin-top: 2vh;  // Distanza dalla scritta "oppure"
+  cursor: pointer;  // Cursore manina
+  transition: color 0.1s;  // Animazione rapidissima al passaggio del mouse
+  
+  &:hover { 
+    color: #006600;  // Diventa verde al passaggio per segnalare l'interazione
+  } 
+}

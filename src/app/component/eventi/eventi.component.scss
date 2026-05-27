@@ -1,0 +1,386 @@
+/* --- ELEMENTI STRUTTURALI --- */
+/* Sfondo dell'intera pagina */
+.calendar-page-wrapper { 
+  width: 100%;  // Larghezza totale della pagina
+  min-height: 100vh;  // Copre l'intera altezza dello schermo
+  background-image: url('/sfondo_home.png');  // Sfondo ufficiale degli atleti
+  background-size: cover;  // Obbliga l'immagine a coprire tutto lo spazio
+  background-position: bottom center;  // Ancora l'immagine in basso al centro
+  display: flex;  // Attiva flexbox per centrare la card
+  justify-content: center;  // Centra orizzontalmente la card bianca
+  align-items: flex-start;  // Allinea la card verso l'alto
+  padding-top: 8vh;  // Distanza protettiva dal bordo superiore dello schermo
+  padding-bottom: 8vh;  // Distanza protettiva dal fondo
+  box-sizing: border-box;  // Include il padding nel calcolo dell'altezza
+}
+
+/* --- ELEMENTO: .calendar-card --- */
+/* Il grande box bianco con i bordi larghi e l'ombra dura */
+.calendar-card { 
+  background-color: white;  // Sfondo bianco solido
+  width: 95%;  // Larghezza elastica per i display più piccoli
+  max-width: 1200px;  // Allargato a 1200px per dare molto più respiro laterale
+  min-height: 90vh;  // Garanzia di altezza minima per slanciare il foglio
+  border: 4px solid #000;  // Bordo nero perimetrale molto spesso stile fumetto
+  border-radius: 12px;  // Angoli arrotondati
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);  // Ombra morbida 3D coordinata al sito
+  padding: 5vh 5vw;  // Padding aumentato per allargare i bordi interni dai contenuti
+  box-sizing: border-box;  // Protegge la struttura dal superamento dei limiti
+}
+
+/* Riga in alto con logo e titolo */
+.calendar-header { 
+  display: flex;  // Flexbox per affiancare
+  justify-content: space-between;  // Elementi spinti ai lati
+  align-items: center;  // Allineamento verticale
+  margin-bottom: 5vh;  // Distanza inferiore
+}
+
+/* Logo in alto a sinistra */
+.header-logo { 
+  width: 150px;  // Dimensione fissa
+  height: auto;  // Proporzioni mantenute
+  cursor: pointer;  // Cursore interattivo
+}
+
+/* Titolo "Eventi" */
+.header-title { 
+  font-family: 'Permanent Marker', cursive;  // Font fumetto
+  font-size: 3.5rem;  // Molto grande
+  color: #000;  // Nero
+  margin: 0;  // Toglie margini
+  text-align: center;  // Centrato
+}
+
+/* Div per bilanciare il logo e mantenere il titolo al centro */
+.header-spacer { 
+  width: 150px;  // Stessa larghezza del logo
+}
+
+/* --- ELEMENTO: .header-user --- */
+/* Contenitore per il nome utente in alto a destra */
+.header-user { 
+  width: 150px;  // Pareggia la larghezza del logo per tenere il titolo al centro
+  text-align: right;  // Spinge il badge verso il margine destro
+}
+
+/* --- ELEMENTO: .user-text --- */
+/* Il nome dell'utente loggato, nero su bianco semplice */
+.user-text { 
+  font-family: Arial, sans-serif;  // Font standard per leggibilità
+  font-weight: bold;  // Grassetto
+  font-size: 1.3rem;  // Grandezza testo (un po' più grande di prima)
+  color: #000;  // Testo nero
+  /* Rimosso background, padding e border! */
+}
+
+/* --- ELEMENTI BARRA DEI FILTRI --- */
+/* --- ELEMENTI BARRA DEI FILTRI --- */
+/* Contenitore orizzontale di tutti i filtri */
+.filters-bar { 
+  display: flex;  // Dispone in orizzontale
+  flex-wrap: nowrap;  // FORZATURA: Vieta assolutamente di andare a capo!
+  gap: 1vw;  // Spazio ridotto per farci stare tutto
+  align-items: center;  // Centra verticalmente gli input
+  justify-content: center;  // Centra l'intera barra
+  margin-bottom: 5vh;  // Distanza dal testo introduttivo
+}
+
+/* Contenitore di un singolo filtro (Icona + Input) */
+.filter-group { 
+  display: flex;  // Affianca icona e input
+  align-items: center;  // Centra verticalmente
+  background-color: #e0e0e0;  // Sfondo grigio da mockup
+  border: 2px solid #ccc;  // Bordo leggero
+  border-radius: 6px;  // Angoli smussati
+  padding: 0.5vh 0.5vw;  // Padding ridotto per recuperare spazio orizzontale
+}
+
+/* Campo input o select generale */
+.filter-input { 
+  background: transparent;  // Sfondo trasparente
+  border: none;  // Rimuove il bordo nativo
+  font-family: Arial, sans-serif;  // Font leggibile
+  font-size: 1rem;  // Testo rimpicciolito leggermente per farci stare tutto
+  font-weight: bold;  // Grassetto
+  color: #000;  // Testo nero
+  outline: none;  // Rimuove il focus blu
+  cursor: pointer;  // Cursore manina
+}
+
+/* Icona/Emoji di fianco al filtro */
+.filter-icon { 
+  font-size: 1.2rem;  // Dimensione emoji
+  margin-right: 0.5vw;  // Distanza dal campo di testo
+}
+
+/* Raggruppamento specifico per le doppie date */
+.date-group { 
+  padding-right: 0.2vw;  // Ottimizza lo spazio per i due input
+}
+
+/* Separatore testuale "-" tra le due date */
+.date-separator { 
+  margin: 0 0.5vw;  // Spazio orizzontale
+  font-weight: bold;  // Grassetto
+}
+
+/* Tasto con la lente d'ingrandimento */
+.search-btn { 
+  background-color: transparent;  // Sfondo trasparente
+  border: none;  // Nessun bordo
+  font-size: 1.8rem;  // Emoji grande
+  cursor: pointer;  // Manina
+  transition: transform 0.1s;  // Animazione rapida
+  
+  &:active { 
+    transform: scale(0.9);  // Si rimpicciolisce al click
+  } 
+}
+
+/* --- ELEMENTI TESTO INTRODUTTIVO E LISTA --- */
+/* Frase introduttiva */
+.intro-text { 
+  font-family: 'Permanent Marker', cursive;  // Font fumetto per citazioni
+  font-size: 1rem;  // Testo grande
+  text-align: left;  // Allineato a sinistra
+  margin-bottom: 6vh;  // Distanza enorme dalla lista
+  color: #000;  // Nero
+}
+
+/* Struttura che divide "Elenco eventi" dalla lista vera e propria */
+.events-layout { 
+  display: flex;  // Affianca l'etichetta sinistra alla lista destra
+  align-items: flex-start;  // Allinea in alto
+  margin-top: 2vh;  // Distanza superiore
+}
+
+/* Etichetta "Elenco eventi:" sulla sinistra */
+.events-label { 
+  font-family: 'Permanent Marker', cursive;  // Font fumetto
+  font-size: 1.5rem;  // Testo grande
+  width: 200px;  // Larghezza fissa per impaginare
+  flex-shrink: 0;  // Impedisce il restringimento
+  text-align: left;  // Allineato a sinistra
+}
+
+/* Contenitore della lista con la riga nera e SCROLL ATTIVO */
+.events-list { 
+  border-left: 5px solid #000;  // Riga nera verticale grossa da mockup
+  padding-left: 2vw;  // Distanza della lista dalla riga
+  display: flex;  // Flexbox a colonna
+  flex-direction: column;  // Incolonna le voci
+  gap: 2vh;  // Spazio verticale tra un evento e l'altro
+  max-height: 30vh;  // ALTEZZA MASSIMA: Oltre questa scatta lo scroll interno!
+  overflow-y: auto;  // Attiva la barra di scorrimento verticale
+  padding-right: 1vw;  // Spazio protettivo per la barra di scorrimento
+}
+
+/* Singola voce dell'elenco */
+.event-item { 
+  display: flex;  // Affianca il pallino rosso al testo
+  align-items: center;  // Centra verticalmente il pallino
+  cursor: pointer;  // Manina per far capire che è cliccabile
+  transition: transform 0.1s;  // Animazione
+  
+  &:hover { 
+    transform: translateX(5px);  // Slitta leggermente a destra in hover
+  } 
+}
+
+/* Pallino rosso stile elenco puntato */
+.red-dot { 
+  width: 15px;  // Larghezza pallino
+  height: 15px;  // Altezza pallino
+  background-color: #ff4d4d;  // Rosso acceso
+  border-radius: 50%;  // Lo rende un cerchio perfetto
+  margin-right: 1vw;  // Distanza dal testo
+  flex-shrink: 0;  // Impedisce lo schiacciamento
+}
+
+/* Testo dell'evento */
+.event-text { 
+  font-family: 'Permanent Marker', cursive;  // Font fumetto
+  font-size: 1.2rem;  // Testo leggibile
+  color: #000;  // Nero
+}
+
+/* --- STILI POP-UP (MODALI) CONDIVISI --- */
+
+/* --- ELEMENTO: .modal-overlay --- */
+/* Oscuramento dello schermo dietro al pop-up */
+.modal-overlay {
+  position: fixed;  // Fissa l'elemento rispetto alla finestra del browser
+  top: 0;  // Lo allinea al bordo superiore
+  left: 0;  // Lo allinea al bordo sinistro
+  width: 100vw;  // Occupa il 100% della larghezza dello schermo
+  height: 100vh;  // Occupa il 100% dell'altezza dello schermo
+  background-color: rgba(0, 0, 0, 0.6);  // Sfondo nero semitrasparente (60% opacità)
+  display: flex;  // Abilita flexbox per centrare il contenuto
+  justify-content: center;  // Centra orizzontalmente la scatola modale
+  align-items: center;  // Centra verticalmente la scatola modale
+  z-index: 2000;  // Lo posiziona sopra a tutti gli altri elementi della pagina
+}
+
+/* --- ELEMENTO: .modal-content --- */
+/* La scatola bianca vera e propria del pop-up */
+.modal-content {
+  background-color: white;  // Sfondo bianco
+  border: 4px solid #000;  // Bordo nero spesso
+  border-radius: 12px;  // Angoli smussati
+  width: 90%;  // Larghezza reattiva per schermi piccoli
+  max-width: 600px;  // Larghezza massima su schermi grandi
+  display: flex;  // Abilita flexbox a colonna
+  flex-direction: column;  // Elementi interni in verticale
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.3);  // Ombra sfumata profonda per staccarlo dallo sfondo
+}
+
+/* --- ELEMENTO: .modal-header --- */
+/* La fascia alta del pop-up con titolo e tasto chiudi */
+.modal-header {
+  display: flex;  // Abilita flexbox per affiancare titolo e tasto
+  justify-content: space-between;  // Spinge titolo a sinistra e tasto a destra
+  align-items: center;  // Allinea tutto al centro verticalmente
+  padding: 2vh 2vw;  // Spazio interno
+  border-bottom: 4px solid #000;  // Riga divisoria nera sotto l'header
+}
+
+/* --- ELEMENTO: .section-title --- */
+/* Titolo verde all'interno del pop-up */
+.section-title {
+  font-family: 'Permanent Marker', cursive;  // Font fumetto
+  color: #006600;  // Verde scuro istituzionale
+  font-size: 1.5rem;  // Grandezza media
+  margin: 0;  // Rimuove margini per allineamento perfetto
+}
+
+/* --- ELEMENTO: .close-modal-btn --- */
+/* Bottone con la X per chiudere il pop-up */
+.close-modal-btn {
+  background-color: #cc0000;  // Sfondo rosso acceso
+  color: white;  // Scritta/icona bianca
+  border: 3px solid #000;  // Bordo nero
+  border-radius: 6px;  // Angoli leggermente smussati
+  font-weight: bold;  // Grassetto
+  font-size: 1.2rem;  // Testo grande
+  padding: 0.5vh 1vw;  // Spaziatura interna ridotta
+  cursor: pointer;  // Cursore manina
+  box-shadow: 0px 3px 0px #000;  // Ombra dura inferiore
+  
+  &:active {
+    transform: translateY(2px);  // Affonda al clic
+    box-shadow: 0px 1px 0px #000;  // L'ombra si riduce
+  }
+}
+
+/* --- ELEMENTO: .modal-body --- */
+/* Il corpo principale che contiene i testi del pop-up */
+.modal-body {
+  padding: 3vh 2vw;  // Spazio abbondante ai lati e sopra/sotto
+  font-family: Arial, sans-serif;  // Font leggibile per i testi lunghi
+}
+
+/* --- ELEMENTO: .detail-row --- */
+/* Singola riga di testo nei dettagli dell'evento */
+.detail-row {
+  font-size: 1.1rem;  // Testo chiaro e leggibile
+  line-height: 1.5;  // Interlinea aumentata per facilitare la lettura
+  margin-bottom: 1.5vh;  // Spazio tra una riga e l'altra
+  color: #333;  // Grigio scuro per affaticare meno gli occhi
+  
+  strong {
+    color: #000;  // Etichette in nero assoluto per contrasto
+  }
+}
+
+/* --- ELEMENTO: .modal-actions --- */
+/* Contenitore per i bottoni in fondo al pop-up (es. paga, abbonamento) */
+.modal-actions {
+  display: flex;  // Flexbox
+  flex-direction: column;  // Incolonna i bottoni di scelta
+  gap: 1.5vh;  // Spazio verticale tra i bottoni
+  margin-top: 3vh;  // Distanza dal testo sovrastante
+  border-top: 1px dashed #ccc;  // Righetta tratteggiata di separazione
+  padding-top: 3vh;  // Spazio interno sotto la riga
+}
+
+/* --- ELEMENTO: .mt-4 --- */
+/* Classe di utilità per aggiungere margine superiore extra */
+.mt-4 {
+  margin-top: 2rem;  // Margine superiore fisso
+}
+
+/* --- ELEMENTI SPECIFICI MOCK PAGAMENTO --- */
+
+/* --- ELEMENTO: .payment-mock-form --- */
+/* Sfondo finto per raggruppare gli input della carta */
+.payment-mock-form {
+  display: flex;  // Abilita flexbox
+  flex-direction: column;  // Incolonna i campi della carta di credito
+  gap: 1.5vh;  // Spazio tra i campi
+  background-color: #f9f9f9;  // Grigio chiarissimo per differenziare l'area
+  padding: 2vh;  // Spazio interno
+  border-radius: 8px;  // Angoli arrotondati
+  border: 1px solid #ddd;  // Bordino leggero
+}
+
+/* --- ELEMENTO: .pay-input --- */
+/* Campo di testo finto per i dati di pagamento */
+.pay-input {
+  padding: 1.5vh 1vw;  // Spazio interno per rendere l'input "paffuto"
+  font-size: 1rem;  // Grandezza testo standard
+  border: 2px solid #000;  // Bordo nero netto
+  border-radius: 4px;  // Angoli appena smussati
+  font-weight: bold;  // Testo digitato in grassetto
+}
+
+/* --- ELEMENTO: .pay-row --- */
+/* Riga per affiancare due input (es. MM/AA e CVV) */
+.pay-row {
+  display: flex;  // Affianca gli elementi
+  gap: 1vw;  // Spazio centrale tra i due campi
+}
+
+/* --- ELEMENTO: .pay-input.mini --- */
+/* Input di pagamento dimezzato in larghezza */
+.pay-input.mini {
+  flex: 1;  // Prende metà dello spazio disponibile nella riga genitore
+}
+
+/* --- ELEMENTO: .confirm-pay-btn --- */
+/* Bottone specifico per la conferma finale (Verde) */
+.confirm-pay-btn {
+  background-color: #00cd00;  // Sfondo verde acceso
+  color: white;  // Scritta bianca
+  
+  &:hover {
+    background-color: #00aa00;  // Verde più scuro in hover
+  }
+}
+
+/* --- ELEMENTI BOTTONE AZIONE (CONDIVISI) --- */
+
+/* --- ELEMENTO: .action-btn --- */
+/* Il bottone bianco stile fumetto usato in tutta la modale */
+.action-btn {
+  background-color: white;  // Sfondo base bianco
+  color: #000;  // Testo nero
+  border: 3px solid #000;  // Bordo spesso
+  border-radius: 8px;  // Angoli smussati
+  padding: 1.5vh 2vw;  // Dimensioni interne ampie
+  font-weight: bold;  // Grassetto
+  font-size: 1.1rem;  // Testo leggermente ingrandito
+  cursor: pointer;  // Cursore interattivo
+  box-shadow: 0px 4px 0px #000;  // Ombra fissa in basso
+  transition: all 0.1s;  // Animazione per l'hover e il clic
+  text-align: center;  // Centra il testo nel bottone
+  
+  &:active {
+    transform: translateY(3px);  // Affonda al clic
+    box-shadow: 0px 1px 0px #000;  // Riduce l'ombra
+  }
+  
+  &:hover {
+    background-color: #e6ffe6;  // Diventa verdino chiaro passando il mouse
+  }
+}

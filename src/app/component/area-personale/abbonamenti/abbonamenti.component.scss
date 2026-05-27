@@ -1,0 +1,172 @@
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Dimensione media
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+.content-section { 
+  margin-bottom: 5vh; // Spazio sotto il blocco
+}
+
+.action-section { 
+  display: flex; // Flexbox per allineare
+  flex-direction: column; // Incolonna
+  align-items: flex-start; // Allinea a sinistra
+  gap: 2vh; // Distanza tra i bottoni
+  margin-bottom: 5vh; // Spazio in basso
+}
+
+.action-btn { 
+  background-color: white; // Sfondo bianco
+  color: #000; // Scritta nera
+  border: 3px solid #000; // Bordo spesso
+  border-radius: 8px; // Angoli smussati
+  padding: 0.5vh 1vw; // Grandezza pulsante
+  font-weight: bold; // Grassetto
+  font-size: 1.1rem; // Testo leggibile
+  cursor: pointer; // Manina hover
+  box-shadow: 0px 2px 0px #000; // Ombra stile fumetto
+  transition: all 0.1s; // Transizione morbida
+  text-align: left; // Testo a sinistra
+}
+
+.action-btn:active { 
+  transform: translateY(3px); // Effetto clic schiacciato
+  box-shadow: 0px 1px 0px #000; // Riduce l'ombra
+}
+
+.action-btn:hover { 
+  background-color: #e6ffe6; // Verde chiaro hover
+}
+
+.footer-note { 
+  font-family: Arial, sans-serif; // Font normale
+  font-size: 0.8rem; // Testo standard
+  color: #333; // Grigio scuro
+  line-height: 1.5; // Interlinea comoda
+  border-top: 2px dashed #ccc; // Riga tratteggiata top
+  padding-top: 2vh; // Spazio dalla riga
+}
+
+.empty-msg { 
+  font-weight: bold; // Grassetto per messaggio vuoto
+  color: #555; // Grigio
+  font-style: italic; // Corsivo
+}
+
+/* --- STILI SPECIFICI ABBONAMENTI --- */
+// Abbonamento attivo
+.sub-card { 
+  border: 3px solid #016a01; // Bordo esterno
+  border-left: 6px solid #00cd00; // Bordo laterale verde chiaro
+  border-radius: 8px; // Arrotonda
+  padding: 2vh 2vw; // Spazio info
+  margin-bottom: 2vh; // Margine
+  background-color: #e6ffe663; // Grigiettino pulito
+  
+  .sub-row { 
+    font-size: 1.1rem; // Testo righe
+    margin-bottom: 0.8vh; // Distanza linee
+    color: #333; // Scuro standard
+    
+    strong { color: #000; } // Valori importanti neri
+  }
+}
+
+// Abbonamento storico
+.storico-card{
+  border-left-color:#096603; //Bordo grigio laterale per differenziare gli expired
+  background-color: #00660021;
+}
+
+/*--- AZIONI ABBONAMENTI ---*/
+.btn-group { 
+  display: flex; // Flexbox
+  flex-direction: column; // Incolonna testo ed action
+  align-items: flex-start; // Tutto a sinistra
+  margin-bottom: 1.5vh; // Margine tra i gruppi bottone
+}
+
+.btn-subtext { 
+  font-size: 0.9rem; // Sottotitolo piccolo
+  color: #555; // Grigio
+  margin-top: 1vh; // Distanza dal bottone in alto
+  margin-left: 0.8vw; // Identazione da sinistra
+  font-style: italic; // Corsivo
+}
+
+.alert-btn { 
+  border-color: #cc0000; // Bordo rosso pericolo
+  color: #cc0000; // Testo rosso
+  box-shadow: 0px 1px 0px #cc0000; // Ombra rossa coerente
+}
+
+.alert-btn:hover { 
+  background-color: #ffe6e6; // Hover rosso chiarissimo
+}
+
+.alert-btn:active { 
+  box-shadow: 0px 1px 0px #cc0000; // Riduce ombra rossa
+}
+
+/*--- POP-UP per gli STORICI ---*/
+.modal-overlay {
+  position: fixed;  // Copre tutto lo schermo bloccando la visuale
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);  // Sfondo scuro semitrasparente
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;  // Davanti a tutto
+}
+
+.modal-content {
+  background-color: white;
+  border: 4px solid #000;  // Stile fumetto
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;  // Evita che sfori lo schermo se ci sono troppi dati
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vh 2vw;
+  border-bottom: 4px solid #000;  // Riga nera spessa interna
+  
+  .section-title { margin: 0; }
+}
+
+.close-modal-btn {
+  background-color: #cc0000;
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  padding: 0.5vh 1vw;
+  cursor: pointer;
+}
+.close-modal-btn:active { transform: translateY(2px); box-shadow: 0px 1px 0px #000; }
+
+.modal-body {
+  padding: 3vh 2vw;
+  overflow-y: auto;  // Abilita lo scroll interno se le card storiche sono tantissime
+}

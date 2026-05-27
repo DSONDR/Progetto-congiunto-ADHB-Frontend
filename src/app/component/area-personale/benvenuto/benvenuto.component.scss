@@ -1,0 +1,96 @@
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.intro-text, .footer-text { 
+  font-family: Arial, sans-serif; 
+  font-size: 1.1rem; 
+  color: #333; 
+  line-height: 1.5; 
+  margin-bottom: 4vh; 
+}
+
+.info-section { 
+  border: 3px solid #000; 
+  border-radius: 8px; 
+  padding: 3vh 3vw; 
+  margin-bottom: 4vh; 
+  background-color: #fafafa; 
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; 
+  color: #006600; 
+  font-size: 1.5rem; 
+  margin-top: 0; 
+  margin-bottom: 3vh; 
+  border-bottom: 2px dashed #ccc; 
+  padding-bottom: 1vh; 
+}
+
+.data-grid { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; // Due colonne per i dati
+  gap: 2vh; 
+}
+
+.data-item { 
+  display: flex; 
+  flex-direction: column; 
+}
+
+.data-label { 
+  font-size: 0.9rem; 
+  color: #666; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+}
+
+.data-value { 
+  font-size: 1.2rem; 
+  color: #000; 
+  font-weight: bold; 
+}
+
+/* BOX CERTIFICATO MEDICO */
+.certificato-box { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 2vh 2vw; 
+  border-radius: 6px; 
+  border-left: 8px solid #000; // Bordo colorato dinamico
+}
+
+.certificato-box.valido { 
+  background-color: #e6ffe6; 
+  border-left-color: #00cd00; 
+}
+
+.certificato-box.scaduto { 
+  background-color: #ffe6e6; 
+  border-left-color: #cc0000; 
+  
+  .data-value { color: #cc0000; }
+}
+
+.action-btn { 
+  background-color: #006600; 
+  color: white; 
+  border: 3px solid #000; 
+  border-radius: 6px; 
+  padding: 1vh 2vw; 
+  font-weight: bold; 
+  cursor: pointer; 
+  box-shadow: 0px 4px 0px #000; 
+  transition: transform 0.1s, box-shadow 0.1s; 
+}
+
+.action-btn:active { 
+  transform: translateY(2px); 
+  box-shadow: 0px 2px 0px #000; 
+}

@@ -1,0 +1,77 @@
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Dimensione media
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+.content-section { 
+  margin-bottom: 5vh; // Spazio sotto il blocco
+}
+
+.empty-msg { 
+  font-weight: bold; // Grassetto per messaggio vuoto
+  color: #555; // Grigio
+  font-style: italic; // Corsivo
+}
+
+/* --- CONTENITORE SCORREVOLE --- */
+.scrollable-list {
+  max-height: 35vh; // Abbassato per rendere l'effetto scroll evidente subito
+  overflow-y: auto; // Fa apparire la barra di scorrimento verticale!
+  padding-right: 1vw; 
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* CARTE TICKET */
+.admin-ticket-card {
+  border: 3px solid #000;
+  border-radius: 8px;
+  padding: 2vh 2vw;
+  background-color: white;
+  box-shadow: 4px 4px 0px #000;
+  flex-shrink: 0; // FONDAMENTALE: Impedisce che i ticket si "schiaccino" per far spazio agli altri
+
+  &.pending { border-left: 10px solid #ffaa00; }
+  &.in-progress { border-left: 10px solid #0088ff; background-color: #f0f8ff; }
+  &.resolved { border-left: 10px solid #777777; background-color: #fcfcfc; box-shadow: 2px 2px 0px #000; }
+}
+
+.ticket-meta {
+  display: flex; justify-content: space-between; font-size: 0.9rem; color: #666; border-bottom: 1px dashed #ccc; padding-bottom: 1vh; margin-bottom: 1.5vh;
+  strong { color: #000; }
+}
+
+.ticket-main {
+  font-size: 1.05rem; line-height: 1.4; color: #222;
+  strong { color: #000; }
+  .solved-text { color: #006600; font-style: italic; font-weight: bold; }
+}
+
+.ticket-actions {
+  display: flex; gap: 1.5vw; margin-top: 2vh; border-top: 1px solid #eee; padding-top: 1.5vh;
+}
+
+/* BOTTONI PICCOLI NELLE CARD */
+.inline-action-btn {
+  background-color: #fff; color: #000; border: 2px solid #000; border-radius: 4px; padding: 0.8vh 1.5vw; font-weight: bold; font-size: 0.95rem; cursor: pointer; box-shadow: 0px 3px 0px #000; transition: all 0.1s;
+  &:hover { background-color: #f0f0f0; }
+  &:active { transform: translateY(2px); box-shadow: 0px 1px 0px #000; }
+  
+  &.success-btn {
+    background-color: #00cd00; color: white;
+    &:hover { background-color: #004d00; }
+  }
+}

@@ -1,0 +1,87 @@
+<div class="calendar-page-wrapper">
+  
+  <div class="calendar-card">
+    
+    <div class="calendar-header">
+      <img src="/polisporticket_logo.png" alt="Polisporticket" class="header-logo" routerLink="/home">
+      <h1 class="header-title">Calendario</h1>
+      
+      <div class="header-user">
+        <span class="user-text" *ngIf="isLoggedIn">
+          {{ username }}
+        </span>
+      </div>
+    </div>
+
+    <div class="logged-out-view" *ngIf="!isLoggedIn">
+      <h2 class="empty-message">Non sono presenti prenotazioni</h2>
+      <p class="empty-note">*Registrati o torna alla pagina degli Eventi</p>
+      
+      <div class="links-container">
+        <a routerLink="/login" class="action-link">Registrati</a>
+        <a routerLink="/eventi" class="action-link">Eventi</a>
+      </div>
+    </div>
+
+    <div class="logged-in-view" *ngIf="isLoggedIn">
+      
+      <div class="label-badge">
+        Le tue prenotazioni
+      </div>
+
+      <div class="filter-bar">
+        
+        <div class="filter-col date-filter-col">
+          <span class="mini-label">Da:</span>
+          <input type="date" class="filter-input date-input" [(ngModel)]="filtroDataInizio">
+          <span class="mini-label">A:</span>
+          <input type="date" class="filter-input date-input" [(ngModel)]="filtroDataFine">
+        </div>
+        
+        <div class="filter-col">
+          <select class="filter-input filter-select" [(ngModel)]="filtroImpianto">
+            <option value="Impianti">Tutti gli Impianti</option>
+            <option *ngFor="let imp of impiantiDisponibili" [value]="imp.nome">{{ imp.nome }}</option>
+          </select>
+        </div>
+        
+        <div class="filter-col">
+          <select class="filter-input filter-select" [(ngModel)]="filtroTipo">
+            <option value="Eventi">Tutti i Tipi</option>
+            <option *ngFor="let tipo of tipiEventoDisponibili" [value]="tipo">{{ tipo }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="scrollable-list">
+        
+        <div class="event-row" *ngFor="let ev of eventiFiltrati">
+          <div class="event-col date-col"><strong>{{ ev.data | date:'dd MMM' }}</strong></div>
+          <div class="event-col impianto-col"><strong>{{ ev.impianto }}</strong></div>
+          <div class="event-col type-col"><strong>{{ ev.tipo }} ({{ ev.nomeAtt }})</strong></div>
+          <div class="event-col time-col"><strong>{{ ev.orario }}</strong></div>
+          
+          <div class="event-col action-col">
+            <span class="cancel-btn" *ngIf="ruoloUtente === 'atleta' && ev.isSingola && canAnnullare(ev)" (click)="annullaPrenotazione(ev)">
+              Annulla
+            </span>
+            <span class="cancel-btn" style="opacity: 0.5; cursor: not-allowed;" *ngIf="ruoloUtente === 'atleta' && ev.isSingola && !canAnnullare(ev)" title="Scaduto il limite delle 24h">
+              Annulla
+            </span>
+          </div>
+        </div>
+
+        <div class="empty-filter-msg" *ngIf="eventiFiltrati.length === 0">
+          *Nessun evento corrisponde ai filtri selezionati.
+        </div>
+
+      </div>
+
+      <div class="staff-link-wrapper" *ngIf="ruoloUtente !== 'atleta'">
+        <a routerLink="/area-personale" class="staff-link">Gestisci i tuoi eventi</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>

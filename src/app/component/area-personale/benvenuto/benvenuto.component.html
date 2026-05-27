@@ -1,0 +1,85 @@
+<ng-container *ngIf="utenteCorrente">
+  <h1 class="page-title">Benvenuto {{ utenteCorrente.nome }}!</h1>
+
+  <p class="intro-text">
+    Questa è la tua pagina personale, ogni richiesta o attività che partirà da questa pagina 
+    verrà registrata con il tuo nome nel nostro database.
+  </p>
+
+  <div class="info-section">
+    <h3 class="section-title">I tuoi dati anagrafici</h3>
+    
+    <div class="data-grid">
+      <div class="data-item">
+        <span class="data-label">Nome:</span>
+        <span class="data-value">{{ utenteCorrente.nome }} {{ utenteCorrente.cognome }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Email:</span>
+        <span class="data-value">{{ utenteCorrente.email }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Codice Fiscale:</span>
+        <span class="data-value">{{ utenteCorrente.cf }}</span>
+      </div>
+      <div class="data-item">
+        <span class="data-label">Data di Nascita:</span>
+        <span class="data-value">{{ utenteCorrente.dataNascita }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-section" *ngIf="utenteCorrente.tipoIscritto === 'ATLETA' || utenteCorrente.tipoIscritto === 'atleta'">
+    <h3 class="section-title">Certificato Medico Agonistico</h3>
+    
+    <div class="certificato-box" [ngClass]="{'scaduto': certificatoScaduto || certificatoAssente, 'valido': !certificatoScaduto && !certificatoAssente}">
+      <div class="cert-status">
+        <span class="data-label">Stato:</span>
+        <span class="data-value" *ngIf="certificatoAssente">Nessun certificato caricato</span>
+        <span class="data-value" *ngIf="!certificatoScaduto && !certificatoAssente">Valido fino al {{ utenteCorrente.scadenzaCertificato }}</span>
+        <span class="data-value" *ngIf="certificatoScaduto && !certificatoAssente">Scaduto il {{ utenteCorrente.scadenzaCertificato }}</span>
+      </div>
+      
+      <button class="action-btn" (click)="apriModaleCertificato()">Carica Nuovo Certificato</button>
+    </div>
+  </div>
+
+  <!-- MODALE CERTIFICATO MEDICO -->
+  <div class="modal-overlay" *ngIf="isModaleAperta" (click)="chiudiModaleCertificato()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="section-title">Carica Nuovo Certificato Medico</h2>
+        <button class="close-modal-btn" (click)="chiudiModaleCertificato()">X</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Tipo di Certificato</label>
+          <input type="text" class="form-input" [(ngModel)]="nuovoCertificato.tipo" placeholder="Es. Agonistico, Base">
+        </div>
+        
+        <div class="form-group">
+          <label>Data Rilascio</label>
+          <input type="date" class="form-input" [(ngModel)]="nuovoCertificato.dataEmissione">
+        </div>
+
+        <div class="form-group">
+          <label>Data Scadenza</label>
+          <input type="date" class="form-input" [(ngModel)]="nuovoCertificato.dataScadenza">
+        </div>
+
+        <div class="form-group">
+          <label>Medico Rilasciante</label>
+          <input type="text" class="form-input" [(ngModel)]="nuovoCertificato.medicoRiferimento" placeholder="Dott. Rossi">
+        </div>
+
+        <div class="form-actions">
+          <button class="action-btn" (click)="salvaCertificato()">Salva</button>
+          <button class="action-btn cancel-btn" (click)="chiudiModaleCertificato()">Annulla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-text">Se hai dei dubbi non esitare a contattarci tramite la sezione Assistenza!</p>
+</ng-container>

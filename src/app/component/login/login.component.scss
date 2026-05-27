@@ -64,16 +64,7 @@
   box-sizing: border-box; // Include padding nelle dimensioni
 }
 
-/* --- GRUPPI CHECKBOX E PULSANTI --- */
-.checkbox-group { 
-  display: flex; // Affianca checkbox e label
-  align-items: center; // Centra verticalmente
-  margin-bottom: 3vh; // Spazio pulsante
-  
-  input { margin-right: 1vw; } // Spazio tra checkbox e label
-  label { font-weight: normal; color: #333; } // Label normale
-}
-
+/* --- PULSANTI --- */
 .confirm-btn { 
   display: block; // Occupa tutta la riga
   width: 100%; // Occupa tutta la riga

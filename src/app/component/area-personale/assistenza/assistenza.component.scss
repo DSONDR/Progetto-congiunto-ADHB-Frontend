@@ -1,0 +1,126 @@
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Dimensione media
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+.content-section { 
+  margin-bottom: 5vh; // Spazio sotto il blocco
+}
+
+.action-section { 
+  display: flex; // Flexbox per allineare
+  flex-direction: column; // Incolonna
+  align-items: flex-start; // Allinea a sinistra
+  gap: 2vh; // Distanza tra i bottoni
+  margin-bottom: 5vh; // Spazio in basso
+}
+
+.action-btn { 
+  background-color: white; // Sfondo bianco
+  color: #000; // Scritta nera
+  border: 3px solid #000; // Bordo spesso
+  border-radius: 8px; // Angoli smussati
+  padding: 0.5vh 1vw; // Grandezza pulsante
+  font-weight: bold; // Grassetto
+  font-size: 1.1rem; // Testo leggibile
+  cursor: pointer; // Manina hover
+  box-shadow: 0px 2px 0px #000; // Ombra stile fumetto
+  transition: all 0.1s; // Transizione morbida
+  text-align: left; // Testo a sinistra
+}
+
+.action-btn:active { 
+  transform: translateY(3px); // Effetto clic schiacciato
+  box-shadow: 0px 1px 0px #000; // Riduce l'ombra
+}
+
+.action-btn:hover { 
+  background-color: #e6ffe6; // Verde chiaro hover
+}
+
+.footer-note { 
+  font-family: Arial, sans-serif; // Font normale
+  font-size: 0.8rem; // Testo standard
+  color: #333; // Grigio scuro
+  line-height: 1.5; // Interlinea comoda
+  border-top: 2px dashed #ccc; // Riga tratteggiata top
+  padding-top: 2vh; // Spazio dalla riga
+}
+
+/* --- STILI SPECIFICI ASSISTENZA --- */
+.empty-msg { 
+  font-weight: bold; // Grassetto
+  color: #555; // Grigio
+  font-style: italic; // Corsivo
+}
+
+.ticket-card { 
+  border: 3px solid #000; // Bordo nero
+  border-radius: 8px; // Arrotondato
+  margin-bottom: 2vh; // Spazio tra schede
+  background-color: #fff9e6; // Giallino post-it
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.1); // Ombretta chiara
+  overflow: hidden; // Nasconde eventuali eccessi
+}
+
+.ticket-header {
+  padding: 2vh 2vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  &.clickable {
+    cursor: pointer;  // Mostra la manina per far capire che si clicca
+    &:hover { background-color: #fff3cc; }  // Effetto focus al passaggio del mouse
+  }
+  
+  .header-main {
+    font-size: 1.1rem;
+    color: #000;
+  }
+}
+
+.accordion-arrow {
+  font-size: 1rem;
+  color: #006600;
+  font-weight: bold;
+}
+
+/* Sotto-blocco dettagliato che compare all'apertura slittando verso il basso */
+.ticket-details {
+  padding: 0 2vw 2vh 2vw;  // Raddoppia lo spazio interno solo sotto
+  border-top: 2px dashed #000;  // Righetta tratteggiata di separazione interna
+  padding-top: 2vh;
+  
+  .ticket-data { font-size: 0.9rem; color: #666; margin-bottom: 1vh; }
+  .ticket-status { font-size: 1rem; margin-bottom: 1.5vh; }
+  .ticket-body { font-size: 1rem; line-height: 1.4; color: #111; }
+  strong { color: #000; }
+}
+
+/* BADGES DELLO STATO TICKET (STILE FUMETTO CON BORDO NERO SPESSO) */
+.status-badge {
+  display: inline-block;
+  padding: 0.3vh 1vw;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-left: 0.5vw;
+}
+
+.status-aperto { background-color: #ffcccc; color: #cc0000; }  // Rosso per aperto
+.status-lavoro { background-color: #ffe6cc; color: #ff6600; }  // Arancione per in lavorazione
+.status-risolto { background-color: #e6ffe6; color: #006600; }  // Verde per risolto

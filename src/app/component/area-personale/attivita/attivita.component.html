@@ -1,0 +1,47 @@
+<h1 class="page-title">Le tue Attività</h1>
+
+<div class="attivita-container">
+  
+  <div class="attivita-row">
+    <p class="main-text">
+      Visualizza e gestisci il tuo 
+      <a routerLink="/calendario" class="inline-link">calendario</a>
+    </p>
+    <p class="sub-text">Nota: Potrai cancellarti da un'attività nelle 24 ore precedenti ad essa</p>
+  </div>
+
+  <div class="attivita-row">
+    <p class="main-text">
+      Visualizza nuovi 
+      <a routerLink="/eventi" class="inline-link">eventi</a> a cui iscriverti
+    </p>
+  </div>
+
+</div>
+
+<div class="gamification-section">
+  
+  <div class="score-banner">
+    <h2 class="score-text">Il tuo punteggio attuale è: <span>{{ punteggioAttuale }}</span></h2>
+  </div>
+
+  <div class="rewards-grid">
+    <div class="reward-card" [ngClass]="premio.classeColore" *ngFor="let premio of elencoPremi">
+      
+      <div class="card-title">{{ premio.titolo }}</div>
+      <div class="card-subtitle">{{ premio.sottoTitolo }}</div>
+      
+      <div class="card-bottom">
+        <div class="cost-tag">Costo: {{ premio.costo }} punti</div>
+        
+        <button class="buy-btn" 
+                [disabled]="punteggioAttuale < premio.costo" 
+                (click)="riscattaPremio(premio.titolo, premio.costo)">
+          {{ punteggioAttuale >= premio.costo ? 'Acquista' : 'Bloccato' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

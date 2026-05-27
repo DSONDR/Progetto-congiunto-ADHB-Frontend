@@ -1,31 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Utente } from '../dto/utente.model';	//Import dal DTO
+
+/**
+ * utente.service.ts
+ * Mapping API Backend invocati:
+ * - getAll -> GET [Backend: UtenteController]
+ * - getById -> GET [Backend: UtenteController]
+ * - create -> POST [Backend: UtenteController]
+ * - update -> PUT [Backend: UtenteController]
+ * - delete -> DELETE [Backend: UtenteController]
+ */
+import { UserResponseDTO } from '../dto/response/user-response.dto';	//Import dal DTO
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtenteService {
 
-  private apiUrl = '/api/utente';
+  private apiUrl = '/api/utenti';
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Utente[]> {
-    return this.http.get<Utente[]>(this.apiUrl);
+  getAll(): Observable<UserResponseDTO[]> {
+    return this.http.get<UserResponseDTO[]>(this.apiUrl);
   }
 
-  getById(id: string): Observable<Utente> {
-    return this.http.get<Utente>(`${this.apiUrl}/${id}`);
+  getById(id: string): Observable<UserResponseDTO> {
+    return this.http.get<UserResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
-  create(utente: Utente): Observable<Utente> {
-    return this.http.post<Utente>(this.apiUrl, utente);
+  create(utente: UserResponseDTO): Observable<UserResponseDTO> {
+    return this.http.post<UserResponseDTO>(this.apiUrl, utente);
   }
 
-  update(id: string, utente: Utente): Observable<Utente> {
-    return this.http.put<Utente>(`${this.apiUrl}/${id}`, utente);
+  update(id: string, utente: UserResponseDTO): Observable<UserResponseDTO> {
+    return this.http.put<UserResponseDTO>(`${this.apiUrl}/${id}`, utente);
   }
 
   delete(id: string): Observable<void> {

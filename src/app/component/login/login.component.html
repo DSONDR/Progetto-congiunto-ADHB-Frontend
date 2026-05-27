@@ -3,21 +3,16 @@
     <h1 class="auth-title">Login</h1>
     
     <div class="input-group">
-      <label for="username">Username o email</label>
-      <input type="text" id="username" class="auth-input">
+      <label for="username">Username o Email</label>
+      <input type="text" id="username" class="auth-input" [(ngModel)]="loginData.username">
     </div>
     
     <div class="input-group">
       <label for="password">Password</label>
-      <input type="password" id="password" class="auth-input">
+      <input type="password" id="password" class="auth-input" [(ngModel)]="loginData.password">
     </div>
     
-    <div class="checkbox-group">
-      <input type="checkbox" id="remember">
-      <label for="remember">Salva accesso</label>
-    </div>
-    
-    <button class="confirm-btn">Conferma</button>
+    <button class="confirm-btn" (click)="eseguiLogin()">Conferma</button>
     
     <p class="auth-text">Non sei registrato?</p>
     <a routerLink="/registrazione" class="signup-btn">Sign up</a>

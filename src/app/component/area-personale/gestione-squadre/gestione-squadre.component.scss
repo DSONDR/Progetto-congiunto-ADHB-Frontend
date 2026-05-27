@@ -1,0 +1,110 @@
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Dimensione media
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+.content-section { 
+  margin-bottom: 5vh; // Spazio sotto il blocco
+}
+
+.action-section { 
+  display: flex; // Flexbox per allineare
+  flex-direction: column; // Incolonna
+  align-items: flex-start; // Allinea a sinistra
+  gap: 2vh; // Distanza tra i bottoni
+  margin-bottom: 5vh; // Spazio in basso
+}
+
+.action-btn { 
+  background-color: white; // Sfondo bianco
+  color: #000; // Scritta nera
+  border: 3px solid #000; // Bordo spesso
+  border-radius: 8px; // Angoli smussati
+  padding: 0.5vh 1vw; // Grandezza pulsante
+  font-weight: bold; // Grassetto
+  font-size: 1.1rem; // Testo leggibile
+  cursor: pointer; // Manina hover
+  box-shadow: 0px 2px 0px #000; // Ombra stile fumetto
+  transition: all 0.1s; // Transizione morbida
+  text-align: left; // Testo a sinistra
+}
+
+.action-btn:active { 
+  transform: translateY(3px); // Effetto clic schiacciato
+  box-shadow: 0px 1px 0px #000; // Riduce l'ombra
+}
+
+.action-btn:hover { 
+  background-color: #e6ffe6; // Verde chiaro hover
+}
+
+/*--- Stili di Gestione x admin ---*/
+/* Contenitore a colonna per le schede dei dati */
+.list-container { 
+  display: flex;  // Abilita flexbox
+  flex-direction: column;  // Elementi in verticale
+  gap: 2vh;  // Spazio tra schede
+}
+
+/* Singola scheda che mostra i dati dell'attività */
+.data-card {
+  border: 3px solid #000;  // Bordo esterno netto
+  border-left: 10px solid #8a2be2;  // FASCIA VIOLA: Identifica l'Admin
+  border-radius: 8px;  // Arrotondamento card
+  padding: 2vh 2vw;  // Spazio interno
+  background-color: #fafafa;  // Sfondo chiarissimo
+  display: flex;  // Flexbox per dividere testi (sx) e bottoni (dx)
+  justify-content: space-between;  // Allontana i due blocchi interni
+  align-items: center;  // Centra tutto verticalmente
+  
+  /* Singola riga di dati all'interno della card */
+  .data-row { 
+    font-size: 1.1rem;  // Testo leggibile
+    margin-bottom: 0.8vh;  // Spazio tra le righe
+    color: #333;  // Grigio scuro standard
+    
+    strong { 
+      color: #000;  // Etichette in nero
+    } 
+  }
+}
+
+/* Scatola interna alla card che contiene i bottoncini */
+.card-actions { 
+  display: flex;  // Affianca i bottoncini
+  gap: 1vw;  // Spazio tra un bottoncino e l'altro
+}
+
+/* Bottoncini piccoli usati dentro le schede */
+.inline-btn { 
+  background-color: #fff;  // Sfondo bianco
+  color: #000;  // Testo nero
+  border: 2px solid #000;  // Bordo ridotto rispetto ai bottoni grandi
+  border-radius: 4px;  // Arrotondamento leggero
+  padding: 0.8vh 1vw;  // Dimensioni ridotte
+  font-weight: bold;  // Grassetto
+  cursor: pointer;  // Cursore manina
+  box-shadow: 0px 3px 0px #000;  // Ombra più piccola
+  transition: all 0.1s;  // Animazione rapida
+  
+  &:hover { 
+    background-color: #f0f0f0;  // Grigio chiaro in hover
+  } 
+  
+  &:active { 
+    transform: translateY(2px);  // Scende meno rispetto al bottone grande
+    box-shadow: 0px 1px 0px #000;  // Riduce l'ombra
+  } 
+}

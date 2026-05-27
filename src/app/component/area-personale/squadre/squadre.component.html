@@ -1,0 +1,63 @@
+<h1 class="page-title">Le tue squadre</h1>
+
+<div class="squadre-section">
+  <h3 *ngIf="ruoloUtente === 'atleta'" class="section-title">Ecco le squadre di cui fai parte:</h3>
+  <h3 *ngIf="ruoloUtente === 'allenatore'" class="section-title">Ecco le squadre che alleni:</h3>
+
+  <ul class="squadre-bullet-list">
+    <li *ngFor="let sq of squadreMembri">
+      <div class="squadra-info-box">
+        <span *ngIf="ruoloUtente === 'atleta'"><strong>{{ sq.nome }}</strong>, {{ sq.sport }}, {{ sq.campionato }}, all. {{ sq.nomeAllenatore }}</span>
+        <span *ngIf="ruoloUtente === 'allenatore'"><strong>{{ sq.nome }}</strong>, {{ sq.sport }}, {{ sq.campionato }}</span>
+        <a class="roster-link" (click)="apriRoster(sq.id, sq.nome, sq.campionato)">Vedi roster</a>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="squadre-section">
+  <h3 class="section-title">Le tue prossime partite:</h3>
+  
+  <div class="partite-list">
+    <p class="empty-msg" *ngIf="prossimePartite.length === 0">*Non ci sono partite programmate a breve.</p>
+    <p class="partita-item" *ngFor="let part of prossimePartite">
+      <strong>{{ part.nomeAtt }}</strong> ({{ part.dateOrari?.length }} sessioni) - {{ part.impiantoNome }}
+    </p>
+  </div>
+
+  <div class="more-matches-container">
+    <a routerLink="/calendario" [queryParams]="{ filtro: 'squadra' }" class="text-link">
+      Vedi tutte le partite nel calendario
+    </a>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isRosterModalOpen" (click)="chiudiRoster()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">Roster: {{ squadraSelezionataNome }}</h2>
+      <button class="close-modal-btn" (click)="chiudiRoster()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <table class="roster-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data di Nascita</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let compagno of rosterCorrente">
+            <td>{{ compagno.nome }}</td>
+            <td>{{ compagno.cognome }}</td>
+            <td>{{ compagno.dataNascita }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

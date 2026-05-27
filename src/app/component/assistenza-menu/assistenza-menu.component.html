@@ -1,0 +1,39 @@
+<div class="calendar-page-wrapper">
+  <div class="calendar-card">
+    
+    <div class="calendar-header">
+      <img src="/polisporticket_logo.png" alt="Polisporticket" class="header-logo" routerLink="/home">
+      <h1 class="header-title">Assistenza</h1>
+      
+      <div class="header-user">
+        <span class="user-text" *ngIf="isLoggedIn">
+          {{ username }}
+        </span>
+      </div>
+    </div>
+
+    <div class="assistenza-content">
+      
+      <h3 class="assi-subtitle">Servizio clienti:</h3>
+      
+      <div class="assi-block">
+        <p class="assi-text">Hai qualche problema?</p>
+        <p class="assi-text">non esitare a chiedere!</p>
+        <p class="assi-text">Vi risponderemo SUBITO</p>
+      </div>
+
+      <div class="assi-block">
+        <p class="assi-text">contatti:</p>
+        <p class="assi-text">e-mail: polisporticket2026&#64;gmail.com</p>
+        <p class="assi-text">telefono: 3336451283</p>
+      </div>
+
+      <div class="assi-block center-block">
+        <p class="assi-text">oppure</p>
+        <a [routerLink]="linkDestinazione" class="assi-link">VAI ALLA TUA PAGINA PERSONALE</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>

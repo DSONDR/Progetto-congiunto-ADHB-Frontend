@@ -1,0 +1,100 @@
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Colore nero
+  font-size: 2.5rem; // Dimensione grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Dimensione media
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+.content-section { 
+  margin-bottom: 5vh; // Spazio sotto il blocco
+}
+
+.action-section { 
+  display: flex; // Flexbox per allineare
+  flex-direction: column; // Incolonna
+  align-items: flex-start; // Allinea a sinistra
+  gap: 2vh; // Distanza tra i bottoni
+  margin-bottom: 5vh; // Spazio in basso
+}
+
+.action-btn { 
+  background-color: white; // Sfondo bianco
+  color: #000; // Scritta nera
+  border: 3px solid #000; // Bordo spesso
+  border-radius: 8px; // Angoli smussati
+  padding: 0.5vh 1vw; // Grandezza pulsante
+  font-weight: bold; // Grassetto
+  font-size: 1.1rem; // Testo leggibile
+  cursor: pointer; // Manina hover
+  box-shadow: 0px 2px 0px #000; // Ombra stile fumetto
+  transition: all 0.1s; // Transizione morbida
+  text-align: left; // Testo a sinistra
+}
+
+.action-btn:active { 
+  transform: translateY(3px); // Effetto clic schiacciato
+  box-shadow: 0px 1px 0px #000; // Riduce l'ombra
+}
+
+.action-btn:hover { 
+  background-color: #e6ffe6; // Verde chiaro hover
+}
+
+.empty-msg { 
+  font-weight: bold; // Grassetto per messaggio vuoto
+  color: #555; // Grigio
+  font-style: italic; // Corsivo
+}
+
+/* Variante di bottone per azioni pericolose */
+.alert-btn { 
+  border-color: #cc0000; // Bordo rosso pericolo
+  color: #cc0000; // Testo rosso
+  box-shadow: 0px 1px 0px #cc0000; // Ombra rossa coerente
+}
+
+.alert-btn:hover { 
+  background-color: #ffe6e6; // Hover rosso chiarissimo
+}
+
+.alert-btn:active { 
+  box-shadow: 0px 1px 0px #cc0000; // Riduce ombra rossa
+}
+
+/*--- Stili di allenamenti ---*/
+/* Il blocco che contiene tutte le schede incolonnate */
+.list-container { 
+  display: flex;  // Attiva il layout flessibile
+  flex-direction: column;  // Incolonna le card verticalmente
+  gap: 2vh;  // Spaziatura fissa tra le card
+}
+
+/* Il singolo riquadro che contiene i dati di un allenamento */
+.data-card {
+  border: 3px solid #000;  // Bordo perimetrale nero e spesso
+  border-left: 10px solid #0055ff;  // FASCIA BLU: Identifica l'Allenatore
+  border-radius: 8px;  // Angoli smussati
+  padding: 2vh 2vw;  // Spazio interno
+  background-color: #fafafa;  // Sfondo grigio microscopico
+  
+  /* La singola riga di testo dentro la scheda */
+  .data-row { 
+    font-size: 1.1rem;  // Dimensione leggibile
+    margin-bottom: 0.8vh;  // Distanza dalla riga successiva
+    color: #333;  // Colore grigio scuro
+    
+    strong { 
+      color: #000;  // Rende nero intenso le etichette
+    } 
+  }
+}

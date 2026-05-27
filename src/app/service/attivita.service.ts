@@ -1,37 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Attivita } from '../dto/attivita.model';
+import { AttivitaResponseDTO } from '../dto/response/attivita-response.dto';
+
+/**
+ * attivita.service.ts
+ * Mapping API Backend invocati:
+ * - getAll -> GET [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - getById -> GET [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - create -> POST [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - update -> PUT [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - delete -> DELETE [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - filtra -> GET [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - getTipiEvento -> GET [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ * - getDestinatari -> GET [Backend: AttivitaGestioneController / AttivitaVisualizzazioneController]
+ */
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttivitaService {
-  private apiUrl = '/api/attivita';
+  private apiVisualizzazioneUrl = '/api/attivita';
+  private apiGestioneUrl = '/api/attivita-gestione';
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Attivita[]> {
-    return this.http.get<Attivita[]>(this.apiUrl);
+  getAll(): Observable<AttivitaResponseDTO[]> {
+    return this.http.get<AttivitaResponseDTO[]>(this.apiVisualizzazioneUrl);
   }
 
-  getById(id: number): Observable<Attivita> {
-    return this.http.get<Attivita>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<AttivitaResponseDTO> {
+    return this.http.get<AttivitaResponseDTO>(`${this.apiVisualizzazioneUrl}/${id}`);
   }
 
-  create(attivita: Attivita): Observable<Attivita> {
-    return this.http.post<Attivita>(this.apiUrl, attivita);
+  create(attivita: AttivitaResponseDTO): Observable<AttivitaResponseDTO> {
+    return this.http.post<AttivitaResponseDTO>(this.apiGestioneUrl, attivita);
   }
 
-  update(id: number, attivita: Attivita): Observable<Attivita> {
-    return this.http.put<Attivita>(`${this.apiUrl}/${id}`, attivita);
+  update(id: number, attivita: AttivitaResponseDTO): Observable<AttivitaResponseDTO> {
+    return this.http.put<AttivitaResponseDTO>(`${this.apiGestioneUrl}/${id}`, attivita);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiGestioneUrl}/${id}`);
   }
 
-  filtra(params: { idImpianto?: number; prezzo?: number; target?: string; tipoEvento?: string; }): Observable<Attivita[]> {
+  filtra(params: { idImpianto?: number; prezzo?: number; target?: string; tipoEvento?: string; squadraId?: number; istruttoreCf?: string; inizio?: string; fine?: string; }): Observable<AttivitaResponseDTO[]> {
     let httpParams = new HttpParams();
     if (params.idImpianto != null) {
       httpParams = httpParams.set('idImpianto', params.idImpianto.toString());
@@ -45,6 +59,26 @@ export class AttivitaService {
     if (params.tipoEvento) {
       httpParams = httpParams.set('tipoEvento', params.tipoEvento);
     }
-    return this.http.get<Attivita[]>(`${this.apiUrl}/filtra`, { params: httpParams });
+    if (params.squadraId != null) {
+      httpParams = httpParams.set('squadraId', params.squadraId.toString());
+    }
+    if (params.istruttoreCf) {
+      httpParams = httpParams.set('istruttoreCf', params.istruttoreCf);
+    }
+    if (params.inizio) {
+      httpParams = httpParams.set('inizio', params.inizio);
+    }
+    if (params.fine) {
+      httpParams = httpParams.set('fine', params.fine);
+    }
+    return this.http.get<AttivitaResponseDTO[]>(`${this.apiVisualizzazioneUrl}/filtra`, { params: httpParams });
+  }
+
+  getTipiEvento(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiVisualizzazioneUrl}/tipi-evento`);
+  }
+
+  getDestinatari(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiVisualizzazioneUrl}/destinatari`);
   }
 }

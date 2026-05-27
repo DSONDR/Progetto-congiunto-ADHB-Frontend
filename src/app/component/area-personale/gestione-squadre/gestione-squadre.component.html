@@ -1,0 +1,114 @@
+<h1 class="page-title">Gestione Squadre</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Sodalizi e Squadre attive:</h3>
+  <div class="list-container">
+    <div class="data-card admin-card" *ngFor="let sq of squadreSocietarie">
+      <div class="data-content">
+        <div class="data-row"><strong>SQUADRA:</strong> {{ sq.nome }}</div>
+        <div class="data-row"><strong>- Disciplina:</strong> {{ sq.sport }} ({{ sq.campionato }})</div>
+        <div class="data-row"><strong>- Direttore Tecnico / Coach:</strong> {{ sq.nomeAllenatore }}</div>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn" (click)="modificaSquadra(sq)">Configura</button>
+        <button class="inline-btn" (click)="apriRoster(sq)">Gestione Roster</button>
+        <button class="inline-btn alert-inline" (click)="eliminaSquadra(sq.id)">Elimina</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="creaNuovaSquadre()">Crea e fonda una nuova squadra</button>
+</div>
+
+<!-- MODALE SQUADRA -->
+<div class="modal-overlay" *ngIf="isSquadraModalOpen" (click)="chiudiModali()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">{{ isEditMode ? 'Modifica Squadra' : 'Nuova Squadra' }}</h2>
+      <button class="close-modal-btn" (click)="chiudiModali()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="salvaSquadra()" #squadraFormRef="ngForm" class="custom-form">
+        <div class="form-group">
+          <label for="nome">Nome Squadra *</label>
+          <input type="text" id="nome" name="nome" [(ngModel)]="squadraForm.nome" required class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="sport">Disciplina Sportiva *</label>
+          <input type="text" id="sport" name="sport" [(ngModel)]="squadraForm.sport" required class="form-input" placeholder="Es. Pallavolo, Basket...">
+        </div>
+
+        <div class="form-group">
+          <label for="campionato">Campionato/Categoria</label>
+          <input type="text" id="campionato" name="campionato" [(ngModel)]="squadraForm.campionato" class="form-input" placeholder="Es. Serie D, Under 19...">
+        </div>
+
+        <div class="form-group">
+          <label for="allenatoreCf">Allenatore Tecnico *</label>
+          <select id="allenatoreCf" name="allenatoreCf" [(ngModel)]="squadraForm.allenatoreCf" required class="form-input">
+            <option value="" disabled>Seleziona un allenatore</option>
+            <option *ngFor="let all of allenatori" [value]="all.cf">
+              {{ all.nome }} {{ all.cognome }} ({{ all.cf }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn" [disabled]="!squadraFormRef.valid">Salva Squadra</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALE ROSTER -->
+<div class="modal-overlay" *ngIf="isRosterModalOpen" (click)="chiudiModali()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">Gestione Roster: {{ squadraRosterSelezionata?.nome }}</h2>
+      <button class="close-modal-btn" (click)="chiudiModali()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <!-- Form per aggiungere atleta -->
+      <div class="custom-form" style="margin-bottom: 3vh;">
+        <div class="form-group" style="flex-direction: row; align-items: flex-end;">
+          <div style="flex-grow: 1;">
+            <label for="nuovoAtletaCf">Aggiungi Atleta (Codice Fiscale)</label>
+            <input type="text" id="nuovoAtletaCf" name="nuovoAtletaCf" [(ngModel)]="nuovoAtletaCf" class="form-input" style="width: 100%" placeholder="Inserisci CF Atleta">
+          </div>
+          <button class="action-btn" style="margin-bottom: 2px;" [disabled]="!nuovoAtletaCf" (click)="aggiungiAtleta()">Aggiungi</button>
+        </div>
+      </div>
+
+      <!-- Tabella Roster -->
+      <table class="roster-table" *ngIf="atletiRoster.length > 0">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let atleta of atletiRoster">
+            <td>{{ atleta.nome }}</td>
+            <td>{{ atleta.cognome }}</td>
+            <td>
+              <button class="inline-btn alert-inline" (click)="rimuoviAtleta(atleta.cf)">Rimuovi</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="empty-msg" *ngIf="atletiRoster.length === 0">Nessun atleta nel roster.</p>
+    </div>
+
+  </div>
+</div>

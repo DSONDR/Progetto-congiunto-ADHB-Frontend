@@ -1,0 +1,114 @@
+<h1 class="page-title">Gestione Sponsor</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Contratti pubblicitari commerciali:</h3>
+  <div class="list-container">
+    <div class="data-card admin-card" *ngFor="let sp of sponsorShip">
+      <div class="data-content">
+        <div class="data-row"><strong>Sponsor/Partner:</strong> {{ sp.sponsor?.azienda }} (P.IVA: {{
+          sp.sponsor?.partitaIva }})</div>
+        <div class="data-row"><strong>- Finanziamento accordato:</strong> € {{ sp.importo }}</div>
+        <div class="data-row"><strong>- Spazio pubblicitario:</strong>
+          <span *ngIf="sp.squadra">Squadra: {{ sp.squadra.nome }}</span>
+          <span *ngIf="sp.impianto">Impianto: {{ sp.impianto.nome }}</span>
+          <span *ngIf="!sp.squadra && !sp.impianto">Nessuno (Generale)</span>
+        </div>
+        <div class="data-row"><strong>- Scadenza Accordo:</strong> {{ sp.dataFine | date:'dd/MM/yyyy' }}</div>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn" (click)="configuraSponsor(sp)">Configura</button>
+        <button class="inline-btn alert-inline" (click)="eliminaSponsor(sp.idSponsorizzazione!)">Elimina</button>
+        <button class="inline-btn" (click)="rinnovaContratto(sp)">Rinnovo Veloce</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="nuovoSponsor()">Censisci nuovo sponsor</button>
+</div>
+
+<!-- MODALE SPONSORIZZAZIONE -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiModale()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="section-title">{{ isEditMode ? 'Modifica Sponsorizzazione' : 'Nuova Sponsorizzazione' }}</h2>
+      <button class="close-modal-btn" (click)="chiudiModale()">X</button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="salvaSponsor()" #sponsorFormRef="ngForm" class="custom-form">
+
+        <div style="border-bottom: 2px solid #ccc; padding-bottom: 1vh; margin-bottom: 1vh;">
+          <h4 style="margin: 0 0 1vh 0; color: #006600;">Dati Azienda</h4>
+          <div class="form-group">
+            <label for="pIva">Partita IVA *</label>
+            <input type="text" id="pIva" name="pIva" [(ngModel)]="sponsorForm.partitaIva" required class="form-input"
+              [disabled]="isEditMode">
+          </div>
+          <div class="form-group">
+            <label for="azienda">Nome Azienda</label>
+            <input type="text" id="azienda" name="azienda" [(ngModel)]="sponsorForm.azienda" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="contatto">Contatto / Referente</label>
+            <input type="text" id="contatto" name="contatto" [(ngModel)]="sponsorForm.contatto" class="form-input">
+          </div>
+        </div>
+
+        <div style="border-bottom: 2px solid #ccc; padding-bottom: 1vh; margin-bottom: 1vh;">
+          <h4 style="margin: 0 0 1vh 0; color: #006600;">Dettagli Contratto</h4>
+          <div class="form-group">
+            <label for="importo">Importo (€) *</label>
+            <input type="number" id="importo" name="importo" [(ngModel)]="sponsorForm.importo" required
+              class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="dataInizio">Data Inizio *</label>
+            <input type="date" id="dataInizio" name="dataInizio" [(ngModel)]="sponsorForm.dataInizio" required
+              class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="dataFine">Data Fine *</label>
+            <input type="date" id="dataFine" name="dataFine" [(ngModel)]="sponsorForm.dataFine" required
+              class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin: 0 0 1vh 0; color: #006600;">Destinazione Sponsorizzazione</h4>
+          <div class="form-group">
+            <label for="targetType">Cosa sponsorizza?</label>
+            <select id="targetType" name="targetType" [(ngModel)]="sponsorForm.targetType" class="form-input">
+              <option value="nessuno">Sponsorizzazione Generale</option>
+              <option value="squadra">Una Squadra</option>
+              <option value="impianto">Un Impianto</option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="sponsorForm.targetType === 'squadra'">
+            <label for="targetSquadra">Seleziona Squadra</label>
+            <select id="targetSquadra" name="targetSquadra" [(ngModel)]="sponsorForm.targetId" class="form-input">
+              <option value="" disabled>-- Seleziona --</option>
+              <option *ngFor="let sq of squadre" [value]="sq.id">{{ sq.nome }}</option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="sponsorForm.targetType === 'impianto'">
+            <label for="targetImpianto">Seleziona Impianto</label>
+            <select id="targetImpianto" name="targetImpianto" [(ngModel)]="sponsorForm.targetId" class="form-input">
+              <option value="" disabled>-- Seleziona --</option>
+              <option *ngFor="let imp of impianti" [value]="imp.id">{{ imp.nome }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn" [disabled]="!sponsorFormRef.valid">Salva Contratto</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

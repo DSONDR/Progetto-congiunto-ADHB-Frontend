@@ -1,34 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Istruttore } from '../dto/istruttore.model';
+import { UserResponseDTO } from '../dto/response/user-response.dto';
+
+/**
+ * istruttore.service.ts
+ * Mapping API Backend invocati:
+ * - getAll -> GET [Backend: IstruttoreController]
+ * - getById -> GET [Backend: IstruttoreController]
+ * - create -> POST [Backend: IstruttoreController]
+ * - update -> PUT [Backend: IstruttoreController]
+ * - delete -> DELETE [Backend: IstruttoreController]
+ * - getAttivita -> GET [Backend: IstruttoreController]
+ */
 
 @Injectable({
   providedIn: 'root'
 })
 export class IstruttoreService {
 
-  private apiUrl = '/api/istruttore';
+  private apiUrl = '/api/istruttori';
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Istruttore[]> {
-    return this.http.get<Istruttore[]>(this.apiUrl);
+  getAll(): Observable<UserResponseDTO[]> {
+    return this.http.get<UserResponseDTO[]>(this.apiUrl);
   }
 
-  getById(id: string): Observable<Istruttore> {
-    return this.http.get<Istruttore>(`${this.apiUrl}/${id}`);
+  getById(id: string): Observable<UserResponseDTO> {
+    return this.http.get<UserResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
-  create(istruttore: Istruttore): Observable<Istruttore> {
-    return this.http.post<Istruttore>(this.apiUrl, istruttore);
+  create(istruttore: UserResponseDTO): Observable<UserResponseDTO> {
+    return this.http.post<UserResponseDTO>(this.apiUrl, istruttore);
   }
 
-  update(id: string, istruttore: Istruttore): Observable<Istruttore> {
-    return this.http.put<Istruttore>(`${this.apiUrl}/${id}`, istruttore);
+  update(id: string, istruttore: UserResponseDTO): Observable<UserResponseDTO> {
+    return this.http.put<UserResponseDTO>(`${this.apiUrl}/${id}`, istruttore);
   }
 
   delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getAttivita(cf: string): Observable<any[]> {
+    return this.http.get<any[]>(`/api/istruttori/${cf}/attivita`);
   }
 }

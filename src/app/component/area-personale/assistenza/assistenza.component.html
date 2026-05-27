@@ -1,0 +1,137 @@
+<h1 class="page-title">Area Assistenza</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Richieste effettuate:</h3>
+
+  <p class="empty-msg" *ngIf="richiesteAperte.length === 0">
+    *Non hai nessuna richiesta aperta
+  </p>
+
+  <div class="ticket-list" *ngIf="richiesteAperte.length > 0">
+    <div class="ticket-card" *ngFor="let req of richiesteAperte">
+
+      <div class="ticket-header clickable" (click)="toggleTicket(req)">
+        <div class="header-main">
+          <strong>Oggetto:</strong> {{ req.oggetto }}
+        </div>
+        <span class="accordion-arrow">{{ req.isExpanded ? '▲' : '▼' }}</span>
+      </div>
+
+      <div class="ticket-details" *ngIf="req.isExpanded">
+        <div class="ticket-data">
+          <strong>Tipo Assistenza:</strong> {{ req.tipoAss }}
+        </div>
+
+        <div class="ticket-status">
+          <strong>Stato:</strong>
+          <span class="status-badge" [ngClass]="{
+            'status-aperto': req.stato === 'APERTO',
+            'status-lavoro': req.stato === 'IN LAVORAZIONE',
+            'status-risolto': req.stato === 'RISOLTO'
+          }">{{ req.stato }}</span>
+        </div>
+
+        <div class="ticket-body">
+          <strong>Contenuto:</strong> <br> {{ req.contenuto }}
+        </div>
+        <div class="ticket-body" *ngIf="req.risposta">
+          <br><strong>Risposta Admin:</strong> <br> {{ req.risposta }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="apriNuovaRichiesta()">Avvia nuova richiesta</button>
+  <button class="action-btn" (click)="recuperaRichiesta()">{{ mostraStorico ? 'Nascondi Storico' : 'Mostra Storico e Valuta' }}</button>
+</div>
+
+<div class="content-section" *ngIf="mostraStorico" style="margin-top: 3vh;">
+  <h3 class="section-title">Storico e Valutazioni:</h3>
+  <p class="empty-msg" *ngIf="richiesteChiuse.length === 0">Nessuna richiesta completata da mostrare.</p>
+  
+  <div class="ticket-list" *ngIf="richiesteChiuse.length > 0">
+    <div class="ticket-card" *ngFor="let req of richiesteChiuse">
+      <div class="ticket-header clickable" (click)="toggleTicket(req)">
+        <div class="header-main">
+          <strong>Oggetto:</strong> {{ req.oggetto }}
+        </div>
+        <span class="accordion-arrow">{{ req.isExpanded ? '▲' : '▼' }}</span>
+      </div>
+
+      <div class="ticket-details" *ngIf="req.isExpanded">
+        <div class="ticket-status">
+          <strong>Stato:</strong>
+          <span class="status-badge" [ngClass]="{
+            'status-risolto': req.stato === 'RISOLTO',
+            'status-chiuso': req.stato === 'CHIUSO'
+          }" style="background-color: var(--primary-color);">{{ req.stato }}</span>
+        </div>
+        <div class="ticket-body" *ngIf="req.risposta">
+          <strong>Risposta Admin:</strong> <br> {{ req.risposta }}
+        </div>
+        
+        <!-- Form Valutazione -->
+        <div class="ticket-body" *ngIf="req.stato === 'RISOLTO'" style="margin-top: 2vh; border-top: 2px dashed #000; padding-top: 2vh;">
+          <strong>Valuta l'assistenza ricevuta:</strong>
+          <div style="display: flex; align-items: center; gap: 1vw; margin-top: 1vh;">
+            <select [(ngModel)]="req.votoForm" class="form-input" style="width: auto;">
+              <option [ngValue]="1">1 Stella (Pessimo)</option>
+              <option [ngValue]="2">2 Stelle</option>
+              <option [ngValue]="3">3 Stelle</option>
+              <option [ngValue]="4">4 Stelle</option>
+              <option [ngValue]="5">5 Stelle (Eccellente)</option>
+            </select>
+            <button class="action-btn" style="padding: 1vh 2vw;" (click)="valutaRichiesta(req)">Invia Voto</button>
+          </div>
+        </div>
+
+        <div class="ticket-body" *ngIf="req.stato === 'CHIUSO' && req.soddisfazione">
+          <strong>Voto assegnato:</strong> {{ req.soddisfazione }} Stelle
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="footer-note"><strong>Servizio di assistenza attivo dalle 8 alle 20, tutti i giorni feriali</strong></p>
+
+<!-- Modale Nuova Richiesta -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiNuovaRichiesta()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="section-title">Nuova Richiesta di Assistenza</h2>
+      <button class="close-modal-btn" (click)="chiudiNuovaRichiesta()">X</button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="inviaRichiesta()">
+        <div class="form-group">
+          <label for="oggetto">Oggetto</label>
+          <input type="text" id="oggetto" name="oggetto" [(ngModel)]="nuovaRichiestaData.oggetto" required
+            class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="tipoAss">Tipo Assistenza</label>
+          <input type="text" id="tipoAss" name="tipoAss" [(ngModel)]="nuovaRichiestaData.tipoAss" required
+            class="form-input" placeholder="Es. Commerciale, Tecnico...">
+        </div>
+
+        <div class="form-group">
+          <label for="contenuto">Contenuto</label>
+          <textarea id="contenuto" name="contenuto" [(ngModel)]="nuovaRichiestaData.contenuto" required
+            class="form-input" rows="4" placeholder="Descrivi il problema..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn"
+            [disabled]="!nuovaRichiestaData.oggetto || !nuovaRichiestaData.tipoAss">Invia Ticket</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

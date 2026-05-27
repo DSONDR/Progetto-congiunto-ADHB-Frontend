@@ -1,0 +1,57 @@
+.confirm-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 45vh;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.warning-container {
+  margin-bottom: 6vh; // Spazio sotto le scritte d'allarme
+  max-width: 750px;
+}
+
+/* SCRITTE ROSSE DI PERICOLO COME DA PROTOTIPO */
+.warning-text {
+  font-family: 'Permanent Marker', cursive; // Carattere a pennarello
+  color: #cc0000; // Rosso acceso d'allerta
+  font-size: 1.4rem;
+  margin: 0 0 1.5vh 0; // Margine tra le due righe rosse
+  line-height: 1.4;
+
+  &:last-child {
+    margin-bottom: 0; // Azzera l'ultimo margine inferiore
+  }
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw;
+}
+
+.gray-box {
+  background-color: #d9d9d9;
+  color: #000; // Colore nero di default per il tasto "Annulla"
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 2vh 3vw;
+  min-width: 180px;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #b5b5b5;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #bfbfbf;
+  }
+
+  /* SPECIALE: Variante per colorare di rosso solo il testo "Cancellami" */
+  &.alert-text {
+    color: #cc0000; // Scritta rossa come richiesto dallo screen
+  }
+}

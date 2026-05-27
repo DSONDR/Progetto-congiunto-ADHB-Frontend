@@ -64,3 +64,64 @@ main {
     width: auto; // Mantiene proporzioni
   }
 }
+
+/* --- STILI CONDIVISI DASHBOARD --- */
+.page-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #000; // Nero
+  font-size: 2.5rem; // Titolo grande
+  margin-top: 0; // Azzera margine
+  margin-bottom: 3vh; // Spazio sotto
+}
+
+.section-title { 
+  font-family: 'Permanent Marker', cursive; // Font a pennarello
+  color: #006600; // Verde scuro
+  font-size: 1.5rem; // Titolo medio
+  margin-top: 0; // Azzera margine
+  margin-bottom: 2vh; // Spazio sotto
+}
+
+.content-section { 
+  margin-bottom: 5vh; // Spazio importante sotto ogni blocco
+}
+
+.action-section { 
+  display: flex; // Abilita flexbox
+  flex-direction: column; // Incolonna i bottoni
+  align-items: flex-start; // Allinea tutto a sinistra
+  gap: 2vh; // Distanza tra i bottoni
+  margin-bottom: 5vh; // Spazio sotto il blocco azioni
+}
+
+.action-btn { 
+  background-color: white; // Sfondo bianco
+  color: #000; // Scritta nera
+  border: 3px solid #000; // Bordo spesso
+  border-radius: 8px; // Angoli smussati
+  padding: 1.5vh 2vw; // Grandezza pulsante
+  font-weight: bold; // Grassetto
+  font-size: 1.1rem; // Testo leggibile
+  cursor: pointer; // Manina al passaggio
+  box-shadow: 0px 4px 0px #000; // Ombra stile fumetto
+  transition: all 0.1s; // Movimento rapido
+  text-align: left; // Testo allineato a sinistra
+}
+
+.action-btn:active { 
+  transform: translateY(3px); // Effetto schiacciamento
+  box-shadow: 0px 1px 0px #000; // Riduzione ombra
+}
+
+.action-btn:hover { 
+  background-color: #e6ffe6; // Verdone chiaro al passaggio
+}
+
+.footer-note { 
+  font-family: Arial, sans-serif; // Font leggibile
+  font-size: 1rem; // Testo standard
+  color: #333; // Grigio scuro
+  line-height: 1.5; // Interlinea
+  border-top: 2px dashed #ccc; // Riga tratteggiata
+  padding-top: 2vh; // Spazio dalla riga
+}

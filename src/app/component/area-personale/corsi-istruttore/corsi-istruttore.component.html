@@ -1,0 +1,136 @@
+<h1 class="page-title">I tuoi Corsi</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Elenco corsi attivi:</h3>
+  
+  <p class="empty-msg" *ngIf="mieiCorsi.length === 0">*Non hai nessun corso assegnato al momento.</p>
+
+  <div class="corsi-list" *ngIf="mieiCorsi.length > 0">
+    <div class="corso-card" *ngFor="let corso of mieiCorsi">
+      <div class="corso-row"><strong>CORSO:</strong> {{ corso.nomeAtt }}</div>
+      <div class="corso-row"><strong>- Destinatario:</strong> {{ corso.destinatario }}</div>
+      <div class="corso-row"><strong>- Sessioni Programmate:</strong> {{ corso.dateOrari?.length || 0 }} sessioni</div>
+      <div class="corso-row"><strong>- Luogo:</strong> {{ corso.impiantoNome }}</div>
+      <div class="corso-row">
+        <strong>- Iscritti:</strong> 
+        <span class="roster-link" (click)="apriRoster(corso)">
+          {{ corso.iscritti }} / {{ corso.maxPartecipanti }} atleti (Vedi dettaglio)
+        </span>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn" (click)="spostaCorso(corso)">Modifica Corso</button>
+        <button class="inline-btn alert-inline" (click)="cancellaCorso(corso.codiceAtt)">Cancella</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="creaCorso()">Crea nuovo corso</button>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiRoster()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="section-title">Iscritti al corso: {{ corsoSelezionato.nome }}</h2>
+      <button class="close-modal-btn" (click)="chiudiRoster()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <p class="empty-msg" *ngIf="elencoIscritti.length === 0">Nessun atleta iscritto a questo corso al momento.</p>
+      
+      <table class="roster-table" *ngIf="elencoIscritti.length > 0">
+        <thead>
+          <tr>
+            <th>Codice Fiscale</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data Nascita</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let iscritto of elencoIscritti">
+            <td>{{ iscritto.cf }}</td>
+            <td>{{ iscritto.nome }}</td>
+            <td>{{ iscritto.cognome }}</td>
+            <td>{{ iscritto.dataNascita | date:'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 1vh; font-weight: bold; text-align: right;" *ngIf="elencoIscritti.length > 0">
+        Totale: {{ elencoIscritti.length }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODALE FORM CORSO -->
+<div class="modal-overlay" *ngIf="isFormOpen" (click)="chiudiForm()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">{{ isEditMode ? 'Modifica Corso' : 'Nuovo Corso' }}</h2>
+      <button class="close-modal-btn" (click)="chiudiForm()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="salvaCorso()" #corsoFormRef="ngForm" class="custom-form">
+        
+        <div class="form-group">
+          <label for="nomeAtt">Nome Corso *</label>
+          <input type="text" id="nomeAtt" name="nomeAtt" [(ngModel)]="attivitaForm.nomeAtt" required class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="destinatario">Destinatario (es. Principianti, Avanzato)</label>
+          <input type="text" id="destinatario" name="destinatario" [(ngModel)]="attivitaForm.destinatario" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="quotaBase">Quota di Iscrizione (€) *</label>
+          <input type="number" id="quotaBase" name="quotaBase" [(ngModel)]="attivitaForm.quotaBase" required min="0" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="maxPartecipanti">Max Partecipanti *</label>
+          <input type="number" id="maxPartecipanti" name="maxPartecipanti" [(ngModel)]="attivitaForm.maxPartecipanti" required min="1" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="descrizione">Descrizione / Programma</label>
+          <textarea id="descrizione" name="descrizione" [(ngModel)]="attivitaForm.descrizione" class="form-input" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="impiantoId">Sede / Impianto *</label>
+          <select id="impiantoId" name="impiantoId" [(ngModel)]="attivitaForm.impiantoId" required class="form-input">
+            <option value="" disabled>-- Seleziona --</option>
+            <option *ngFor="let imp of impianti" [value]="imp.id">{{ imp.nome }}</option>
+          </select>
+        </div>
+
+        <div style="border-top: 2px solid #ccc; padding-top: 2vh; margin-top: 2vh;">
+          <h4 style="margin: 0 0 1vh 0; color: #006600;">Calendario Sessioni</h4>
+          <div class="form-group" style="flex-direction: row; align-items: flex-end;">
+            <div style="flex-grow: 1;">
+              <label for="nuovaDataOra">Aggiungi Data/Ora</label>
+              <input type="datetime-local" id="nuovaDataOra" name="nuovaDataOra" [(ngModel)]="nuovaDataOra" class="form-input" style="width: 100%">
+            </div>
+            <button type="button" class="action-btn" style="margin-bottom: 2px;" [disabled]="!nuovaDataOra" (click)="aggiungiData()">Aggiungi</button>
+          </div>
+          <ul class="squadre-bullet-list" style="margin-top: 2vh;">
+            <li *ngFor="let d of attivitaForm.dateOrari; let i = index">
+              {{ d | date:'dd/MM/yyyy HH:mm' }}
+              <button type="button" class="inline-btn alert-inline" style="margin-left: 2vw; padding: 0.2vh 0.5vw;" (click)="rimuoviData(i)">Rimuovi</button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn" [disabled]="!corsoFormRef.valid">Salva Corso</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

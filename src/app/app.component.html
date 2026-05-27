@@ -1,5 +1,4 @@
-<header [ngClass]="isHomeActive() ? 'main-header' : 'minimal-header'">
-  <!--Questo (il logo) ci sarà sempre, ovunque e nella stessa posizione statica-->
+<header *ngIf="!isDashboardActive() && !isCalendarioActive() && !isEventiActive() && !isAssistenzaMenuActive()" [ngClass]="isHomeActive() ? 'main-header' : 'minimal-header'">    <!--Questo (il logo) ci sarà sempre, ovunque e nella stessa posizione statica-->
   <div class="logo-container">
     <a routerLink="/home">
       <img src="/polisporticket_logo.png" alt="PolisporTicket Logo" class="logo">
@@ -11,11 +10,11 @@
     <a routerLink="/eventi">Eventi</a>
     <a routerLink="/calendario">Calendario</a>
     <a routerLink="/abbonamenti">Abbonamenti</a>
-    <a routerLink="/assistenza">Assistenza</a>
+    <a routerLink="/assistenza-menu">Assistenza</a>
 
     <!--Il login invece solo se non si è loggati, altrimenti cliccando sul nome si va nell'area personale-->
     <a *ngIf="!loggedUser" routerLink="/login" class="login-btn">Login</a>
-    <a *ngIf="loggedUser" routerLink="/area-personale" class="user-btn">{{ loggedUser.username }}</a>
+    <a *ngIf="loggedUser" routerLink="/area-personale/benvenuto" class="user-btn">{{ loggedUser.username }}</a>
   </nav>
 </header>
 

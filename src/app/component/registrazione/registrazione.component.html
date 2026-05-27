@@ -4,23 +4,23 @@
     <h1 class="auth-title full-width">REGISTRAZIONE</h1>
     
     <div class="form-left">
-      <input type="email" id="email" class="auth-input" placeholder="Email">
-      <input type="text" id="username" class="auth-input" placeholder="Username">
-      <input type="password" id="password" class="auth-input" placeholder="Password">
-      <input type="text" id="nome" class="auth-input" placeholder="Nome">
-      <input type="text" id="cognome" class="auth-input" placeholder="Cognome">
-      <input type="text" id="codice-fiscale" class="auth-input" placeholder="Codice Fiscale">
-      <input type="text" id="genere" class="auth-input" placeholder="Genere">
-      <input type="text" id="data-nascita" class="auth-input" placeholder="Data di nascita" onfocus="(this.type='date')" onblur="(this.type='text')">
-      <input type="text" id="citta" class="auth-input" placeholder="Città di residenza">
+      <input type="email" id="email" class="auth-input" placeholder="Email" [(ngModel)]="registrazioneData.email">
+      <input type="text" id="username" class="auth-input" placeholder="Username" [(ngModel)]="registrazioneData.username">
+      <input type="password" id="password" class="auth-input" placeholder="Password" [(ngModel)]="registrazioneData.password">
+      <input type="text" id="nome" class="auth-input" placeholder="Nome" [(ngModel)]="registrazioneData.nome">
+      <input type="text" id="cognome" class="auth-input" placeholder="Cognome" [(ngModel)]="registrazioneData.cognome">
+      <input type="text" id="codice-fiscale" class="auth-input" placeholder="Codice Fiscale" [(ngModel)]="registrazioneData.cf">
+      <input type="text" id="genere" class="auth-input" placeholder="Genere" [(ngModel)]="registrazioneData.genere">
+      <input type="text" id="data-nascita" class="auth-input" placeholder="Data di nascita" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="registrazioneData.dataNascita">
+      <input type="text" id="citta" class="auth-input" placeholder="Città di residenza" [(ngModel)]="registrazioneData.cittaResidenza">
     </div>
 
     <div class="form-right">
       <div class="checkbox-group right-check">
-        <input type="checkbox" id="consent">
-        <label for="consent">Acconsento</label>
+        <input type="checkbox" id="consent" [(ngModel)]="registrazioneData.acconsento">
+        <label for="consent">Acconsento al salvataggio dei miei dati</label>
       </div>
-      <button class="confirm-btn">Prosegui</button>
+      <button class="confirm-btn" (click)="eseguiRegistrazione()">Prosegui</button>
     </div>
 
   </div>

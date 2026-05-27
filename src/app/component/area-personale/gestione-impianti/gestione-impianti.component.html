@@ -1,0 +1,71 @@
+<h1 class="page-title">Gestione Impianti</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Impianti sportivi attuali:</h3>
+  <div class="list-container">
+    <div class="data-card admin-card" *ngFor="let imp of impianti">
+      <div class="data-content">
+        <div class="data-row"><strong>NOME:</strong> {{ imp.nome }}</div>
+        <div class="data-row"><strong>- Sport/Tipo:</strong> {{ imp.tipoImpianto }}</div>
+        <div class="data-row">
+          <strong>- Stato:</strong>
+          <span [ngStyle]="{'color': imp.stato === 'Operativo' ? '#006600' : '#cc0000', 'font-weight': 'bold'}">
+            {{ imp.stato }}
+          </span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn" (click)="cambiaStato(imp)">Cambia Stato</button>
+        <button class="inline-btn alert-inline" (click)="cancellaImpianto(imp.id)">Cancella</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="creaImpianto()">Crea nuovo impianto</button>
+</div>
+
+<!-- MODALE CREAZIONE IMPIANTO -->
+<div class="modal-overlay" *ngIf="isCreateModalOpen" (click)="chiudiModale()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="section-title">Nuovo Impianto</h2>
+      <button class="close-modal-btn" (click)="chiudiModale()">X</button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="salvaNuovoImpianto()" #impiantoForm="ngForm" class="custom-form">
+        <div class="form-group">
+          <label for="nome">Nome Impianto *</label>
+          <input type="text" id="nome" name="nome" [(ngModel)]="nuovoImpianto.nome" required class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="tipoImpianto">Tipo Impianto *</label>
+          <select id="tipoImpianto" name="tipoImpianto" [(ngModel)]="nuovoImpianto.tipoImpianto" required
+            class="form-input">
+            <option value="" disabled>Seleziona un tipo</option>
+            <option value="Piscina">Piscina</option>
+            <option value="Campo da Calcio">Campo da Calcio</option>
+            <option value="Palestra">Palestra</option>
+            <option value="Palazzetto">Palazzetto</option>
+            <option value="Pista di Atletica">Pista di Atletica</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="omologazione">Omologazione</label>
+          <input type="text" id="omologazione" name="omologazione" [(ngModel)]="nuovoImpianto.omologazione"
+            class="form-input" placeholder="Es. CONI, FIPAV...">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn" [disabled]="!impiantoForm.valid">Salva Impianto</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

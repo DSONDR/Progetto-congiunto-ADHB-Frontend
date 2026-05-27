@@ -1,0 +1,98 @@
+<h1 class="page-title">I tuoi Allenamenti</h1>
+
+<div class="content-section">
+  <h3 class="section-title">Programmazione settimanale:</h3>
+  <p class="empty-msg" *ngIf="mieiAllenamenti.length === 0">*Non hai allenamenti programmati.</p>
+
+  <div class="list-container" *ngIf="mieiAllenamenti.length > 0">
+    <div class="data-card admin-card" *ngFor="let all of mieiAllenamenti">
+      <div class="data-content">
+        <div class="data-row"><strong>ATTIVITÀ:</strong> {{ all.nomeAtt }}</div>
+        <div class="data-row"><strong>- Sessioni Programmate:</strong> {{ all.dateOrari?.length || 0 }} sessioni</div>
+        <div class="data-row"><strong>- Luogo:</strong> {{ all.impiantoNome }}</div>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn" (click)="spostaAllenamento(all)">Modifica</button>
+        <button class="inline-btn alert-inline" (click)="cancellaAllenamento(all.codiceAtt)">Cancella</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-section">
+  <button class="action-btn" (click)="creaAllenamento()">Crea nuovo allenamento</button>
+</div>
+
+<!-- MODALE FORM ALLENAMENTO -->
+<div class="modal-overlay" *ngIf="isFormOpen" (click)="chiudiForm()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">{{ isEditMode ? 'Modifica Allenamento' : 'Nuovo Allenamento' }}</h2>
+      <button class="close-modal-btn" (click)="chiudiForm()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="salvaAllenamento()" #allFormRef="ngForm" class="custom-form">
+        
+        <div class="form-group">
+          <label for="nomeAtt">Nome Allenamento *</label>
+          <input type="text" id="nomeAtt" name="nomeAtt" [(ngModel)]="attivitaForm.nomeAtt" required class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="destinatario">Destinatario / Note</label>
+          <input type="text" id="destinatario" name="destinatario" [(ngModel)]="attivitaForm.destinatario" class="form-input">
+        </div>
+
+        <div class="form-group" style="display:none;">
+          <input type="number" id="quotaBase" name="quotaBase" [(ngModel)]="attivitaForm.quotaBase">
+          <input type="number" id="maxPartecipanti" name="maxPartecipanti" [(ngModel)]="attivitaForm.maxPartecipanti">
+        </div>
+
+        <div class="form-group">
+          <label for="descrizione">Descrizione / Tattiche</label>
+          <textarea id="descrizione" name="descrizione" [(ngModel)]="attivitaForm.descrizione" class="form-input" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="impiantoId">Impianto *</label>
+          <select id="impiantoId" name="impiantoId" [(ngModel)]="attivitaForm.impiantoId" required class="form-input">
+            <option value="" disabled>-- Seleziona --</option>
+            <option *ngFor="let imp of impianti" [value]="imp.id">{{ imp.nome }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="squadreIds">Squadre Coinvolte *</label>
+          <select id="squadreIds" name="squadreIds" [(ngModel)]="attivitaForm.squadreIds" required multiple class="form-input" style="min-height: 80px;">
+            <option *ngFor="let sq of leMieSquadre" [value]="sq.id">{{ sq.nome }}</option>
+          </select>
+          <small>Usa CTRL/CMD per selezionare più squadre</small>
+        </div>
+
+        <div style="border-top: 2px solid #ccc; padding-top: 2vh; margin-top: 2vh;">
+          <h4 style="margin: 0 0 1vh 0; color: #006600;">Calendario Sessioni</h4>
+          <div class="form-group" style="flex-direction: row; align-items: flex-end;">
+            <div style="flex-grow: 1;">
+              <label for="nuovaDataOra">Aggiungi Data/Ora</label>
+              <input type="datetime-local" id="nuovaDataOra" name="nuovaDataOra" [(ngModel)]="nuovaDataOra" class="form-input" style="width: 100%">
+            </div>
+            <button type="button" class="action-btn" style="margin-bottom: 2px;" [disabled]="!nuovaDataOra" (click)="aggiungiData()">Aggiungi</button>
+          </div>
+          <ul class="squadre-bullet-list" style="margin-top: 2vh;">
+            <li *ngFor="let d of attivitaForm.dateOrari; let i = index">
+              {{ d | date:'dd/MM/yyyy HH:mm' }}
+              <button type="button" class="inline-btn alert-inline" style="margin-left: 2vw; padding: 0.2vh 0.5vw;" (click)="rimuoviData(i)">Rimuovi</button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="action-btn" [disabled]="!allFormRef.valid">Salva Allenamento</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

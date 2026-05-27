@@ -1,32 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Allenatore } from '../dto/allenatore.model';
+import { UserResponseDTO } from '../dto/response/user-response.dto';
+
+/**
+ * allenatore.service.ts
+ * Mapping API Backend invocati:
+ * - getAll -> GET [Backend: AllenatoreController]
+ * - getById -> GET [Backend: AllenatoreController]
+ * - create -> POST [Backend: AllenatoreController]
+ * - update -> PUT [Backend: AllenatoreController]
+ * - delete -> DELETE [Backend: AllenatoreController]
+ * - getByGrado -> GET [Backend: AllenatoreController]
+ * - getByGradoBetween -> GET [Backend: AllenatoreController]
+ */
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllenatoreService {
 
-  private apiUrl = '/api/allenatore';
+  private apiUrl = '/api/allenatori';
 
   constructor(private http: HttpClient) {}
 	
   //CRUD per id univoco
-  getAll(): Observable<Allenatore[]> {
-    return this.http.get<Allenatore[]>(this.apiUrl);
+  getAll(): Observable<UserResponseDTO[]> {
+    return this.http.get<UserResponseDTO[]>(this.apiUrl);
   }
 
-  getById(id: string): Observable<Allenatore> {
-    return this.http.get<Allenatore>(`${this.apiUrl}/${id}`);
+  getById(id: string): Observable<UserResponseDTO> {
+    return this.http.get<UserResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
-  create(allenatore: Allenatore): Observable<Allenatore> {
-    return this.http.post<Allenatore>(this.apiUrl, allenatore);
+  create(allenatore: UserResponseDTO): Observable<UserResponseDTO> {
+    return this.http.post<UserResponseDTO>(this.apiUrl, allenatore);
   }
 
-  update(id: string, allenatore: Allenatore): Observable<Allenatore> {
-    return this.http.put<Allenatore>(`${this.apiUrl}/${id}`, allenatore);
+  update(id: string, allenatore: UserResponseDTO): Observable<UserResponseDTO> {
+    return this.http.put<UserResponseDTO>(`${this.apiUrl}/${id}`, allenatore);
   }
 
   delete(id: string): Observable<void> {
@@ -34,17 +46,17 @@ export class AllenatoreService {
   }
   
   //Ricerca allenatore per grado
-  getByGrado(grado: number): Observable<Allenatore[]> {
+  getByGrado(grado: number): Observable<UserResponseDTO[]> {
     const params = new HttpParams()
     .set('grado', grado.toString());
-    return this.http.get<Allenatore[]>(`${this.apiUrl}/search`,{params});
+    return this.http.get<UserResponseDTO[]>(`${this.apiUrl}/search`,{params});
   }
   
   //Ricerca allenatore tra due gradi
-  getByGradoBetween(min: number, max: number): Observable<Allenatore[]> {
+  getByGradoBetween(min: number, max: number): Observable<UserResponseDTO[]> {
     const params = new HttpParams()
       .set('min', min.toString())
       .set('max', max.toString());
-    return this.http.get<Allenatore[]>(`${this.apiUrl}/filter`,{params});
+    return this.http.get<UserResponseDTO[]>(`${this.apiUrl}/filter`,{params});
   }  	
 }

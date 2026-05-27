@@ -1,0 +1,48 @@
+.confirm-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh; // Centratura verticale nel box bianco della dashboard
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.confirm-question {
+  font-family: 'Permanent Marker', cursive; // Font a pennarello stile fumetto
+  color: #000;
+  font-size: 1.8rem;
+  margin-bottom: 6vh; // Distanza dai pulsanti di scelta
+  max-width: 600px;
+  line-height: 1.4;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw; // Spazio orizzontale tra i due rettangoli grigi
+}
+
+/* BLOCCO RETTANGOLARE GRIGIO COME DA SCREENSHOT */
+.gray-box {
+  background-color: #d9d9d9; // Grigio pieno da mockup
+  color: #000;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 2vh 3vw; // Spessore del pulsante
+  min-width: 180px; // Larghezza minima garantita per i testi
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #b5b5b5; // Sottile linea di struttura
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #bfbfbf; // Effetto scurito al passaggio del mouse
+  }
+
+  &:active {
+    background-color: #a6a6a6; // Feedback click schiacciato
+  }
+}

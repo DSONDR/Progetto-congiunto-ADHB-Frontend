@@ -1,0 +1,110 @@
+.dashboard-page { 
+  width: 100%;  // Larghezza totale
+  min-height: 100vh;  // Altezza schermo
+  background-image: url('/sfondo_home.png');  // Sfondo atleti
+  background-size: cover;  // Copre tutto
+  background-position: bottom center;  // Ancora in basso
+  display: flex;  // Flexbox
+  justify-content: center;  // Centra il box bianco
+  align-items: flex-start;  // Allinea in alto
+  padding-top: 5vh;  // Spazio ridotto in alto perché non c'è più l'header fluttuante!
+  padding-bottom: 5vh;  // Spazio sotto
+}
+
+.dashboard-container { 
+  background-color: white;  // Sfondo bianco
+  border: 4px solid #000;  // Bordo nero spesso
+  border-radius: 12px;  // Angoli arrotondati
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);  // Ombra 3D
+  width: 95%;  // Larghezza elastica
+  max-width: 1200px;  // Limite massimo
+  min-height: 80vh;  // Aumentiamo l'altezza minima per far stare tutto il menu
+  display: flex;  // Affianca sidebar e contenuto
+  overflow: hidden;  // Blocca i tagli degli angoli
+}
+
+.sidebar { 
+  width: 280px;  // Larghezza fissa della barra laterale
+  background-color: #f8f9fa;  // Grigio chiarissimo di sfondo
+  border-right: 4px solid #000;  // Riga nera verticale divisoria del mockup
+  display: flex;  // Mette in colonna i pezzi
+  flex-direction: column;  // Direzione verticale
+  padding-bottom: 3vh;  // Spazio in fondo
+}
+
+// NUOVO STILE: Gestisce il riquadro del logo sopra il menu
+/* --- GESTIONE LOGO SIDEBAR --- */
+.sidebar-logo-polisporticket { 
+  padding: 3vh 2vw; // Spazio protettivo
+  text-align: center; // Centra il contenuto
+  border-bottom: 4px solid #000; // Riga nera divisoria dal menu
+  display: flex; // Abilita flexbox
+  justify-content: center; // Centra orizzontalmente
+  align-items: center; // Centra verticalmente
+  
+  a {
+    display: block; // Rende il link un blocco solido
+    width: 100%; // Prende tutto lo spazio del contenitore padre
+  }
+  
+  .logo-dashboard { 
+    width: 85%; // ECCO LA MAGIA: obbliga il logo a stare dentro lo spazio azzurro!
+    max-width: 220px; // Limite massimo di larghezza
+    height: auto; // Calcola l'altezza automaticamente in proporzione
+    display: block; // Toglie spazi vuoti strani sotto l'immagine
+    margin: 0 auto; // Lo centra perfettamente
+  }
+}
+
+.sidebar-nav { 
+  display: flex;  // Incolonna i link
+  flex-direction: column;  // Verticale
+  flex: 1;  // Spinge i tasti di cancellazione in fondo
+}
+
+.sidebar-nav a { 
+  text-decoration: none;  // Rimuove sottolineatura
+  color: #333;  // Grigio scuro
+  font-weight: bold;  // Grassetto
+  font-size: 1.1rem;  // Testo leggibile
+  padding: 2vh 2vw;  // Spessore dei tasti
+  border-bottom: 2px solid #e0e0e0;  // Divisore leggero
+  transition: all 0.2s;  // Animazione
+}
+
+.sidebar-nav a:hover { 
+  background-color: #e6ffe6;  // Sfondo verde chiaro in hover
+  padding-left: 2.5vw;  // Slittamento fluido a destra
+}
+
+.sidebar-nav a.active-link { 
+  background-color: #00cd00;  // Tasto verde se attivo
+  color: white;  // Scritta bianca
+  border-right: 6px solid #006600;  // Barretta verde scuro a destra
+}
+
+.sidebar-bottom { 
+  display: flex;  // Incolonna logout e cancella
+  flex-direction: column;  // Verticale
+}
+
+.nav-logout, .nav-delete { 
+  text-decoration: none;  // No sottolineatura
+  font-weight: bold;  // Grassetto
+  padding: 2vh 2vw;  // Spessore
+  border-top: 2px solid #e0e0e0;  // Linea sopra
+  transition: all 0.2s;  // Animazione
+}
+
+.nav-logout { color: #333; }
+.nav-logout:hover { background-color: #eee; }
+
+.nav-delete { color: #cc0000; }
+.nav-delete:hover { background-color: #ffcccc; }
+
+.dashboard-content { 
+  flex: 1;  // Prende tutta la parte destra rimasta
+  padding: 4vh 4vw;  // Spazio interno dei contenuti
+  background-color: white;  // Sfondo bianco
+  overflow-y: auto;  // Scroll se i dati sono troppi
+}

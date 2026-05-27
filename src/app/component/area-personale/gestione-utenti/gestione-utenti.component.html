@@ -1,0 +1,120 @@
+<h1 class="page-title">Gestione Utenti Staff</h1>
+
+<div class="action-section" style="margin-bottom: 2vh;">
+  <button class="action-btn" (click)="toggleVistaUtenti()">
+    {{ mostraStaff ? 'Vedi Atleti Iscritti' : 'Vedi Membri dello Staff' }}
+  </button>
+</div>
+
+<div class="content-section">
+  <h3 class="section-title">{{ mostraStaff ? 'Membri dello Staff registrati:' : 'Atleti Iscritti:' }}</h3>
+  <div class="list-container">
+    <div class="data-card admin-card" *ngFor="let utente of (mostraStaff ? personale : atleti)">
+      <div class="data-content">
+        <div class="data-row"><strong>NOME:</strong> {{ utente.nome }} {{ utente.cognome }}</div>
+        <div class="data-row" *ngIf="mostraStaff"><strong>-- Ruolo aziendale:</strong> {{ utente.tipoIscritto }}</div>
+        <div class="data-row"><strong>-- Email:</strong> {{ utente.email }}</div>
+        <div class="data-row"><strong>-- CF:</strong> {{ utente.cf }}</div>
+      </div>
+      <div class="card-actions">
+        <button class="inline-btn alert-inline" (click)="eliminaUtente(utente.cf)">Elimina</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-section">
+    <button class="action-btn" (click)="inserisciNuovoUtente()">Inserisci nuovo membro / atleta</button>
+  </div>
+
+  <!-- MODALE UTENTE -->
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiModale()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <h2 class="section-title">{{ isEditMode ? 'Modifica Utente' : 'Nuovo Utente' }}</h2>
+        <button class="close-modal-btn" (click)="chiudiModale()">X</button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="salvaUtente()" #utenteFormRef="ngForm" class="custom-form">
+
+          <h4 style="margin: 0; color: #006600; border-bottom: 2px solid #ccc; padding-bottom: 0.5vh;">Dati Anagrafici
+          </h4>
+          <div class="form-group">
+            <label for="nome">Nome *</label>
+            <input type="text" id="nome" name="nome" [(ngModel)]="utenteForm.nome" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="cognome">Cognome *</label>
+            <input type="text" id="cognome" name="cognome" [(ngModel)]="utenteForm.cognome" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="cf">Codice Fiscale *</label>
+            <input type="text" id="cf" name="cf" [(ngModel)]="utenteForm.cf" required class="form-input"
+              [disabled]="isEditMode">
+          </div>
+          <div class="form-group">
+            <label for="genere">Sesso</label>
+            <select id="genere" name="genere" [(ngModel)]="utenteForm.genere" class="form-input">
+              <option value="M">Maschio</option>
+              <option value="F">Femmina</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dataNascita">Data di Nascita</label>
+            <input type="date" id="dataNascita" name="dataNascita" [(ngModel)]="utenteForm.dataNascita"
+              class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="cittaResidenza">Città di Residenza</label>
+            <input type="text" id="cittaResidenza" name="cittaResidenza" [(ngModel)]="utenteForm.cittaResidenza"
+              class="form-input">
+          </div>
+
+          <h4 style="margin: 2vh 0 0 0; color: #006600; border-bottom: 2px solid #ccc; padding-bottom: 0.5vh;">Dati di
+            Contatto & Accesso</h4>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" [(ngModel)]="utenteForm.email" required class="form-input">
+          </div>
+          <div class="form-group" *ngIf="!isEditMode">
+            <label for="password">Password Iniziale (opzionale, default: Password123!)</label>
+            <input type="password" id="password" name="password" [(ngModel)]="utenteForm.password" class="form-input">
+          </div>
+
+
+          <h4 style="margin: 2vh 0 0 0; color: #006600; border-bottom: 2px solid #ccc; padding-bottom: 0.5vh;">Profilo
+            Polisportiva</h4>
+          <div class="form-group">
+            <label for="tipoIscritto">Ruolo *</label>
+            <select id="tipoIscritto" name="tipoIscritto" [(ngModel)]="utenteForm.tipoIscritto" required
+              class="form-input" [disabled]="isEditMode">
+              <option value="Atleta">Atleta</option>
+              <option value="Istruttore">Istruttore</option>
+              <option value="Allenatore">Allenatore</option>
+            </select>
+          </div>
+
+
+
+
+          <div class="form-group"
+            *ngIf="utenteForm.tipoIscritto === 'Allenatore' || utenteForm.tipoIscritto === 'Istruttore'">
+            <label for="specializzazione">Specializzazione (es. Fitness, Nuoto)</label>
+            <input type="text" id="specializzazione" name="specializzazione" [(ngModel)]="utenteForm.specializzazione"
+              class="form-input">
+          </div>
+
+          <div class="form-group" *ngIf="utenteForm.tipoIscritto === 'Allenatore'">
+            <label for="grado">Grado / Brevetto</label>
+            <input type="text" id="grado" name="grado" [(ngModel)]="utenteForm.grado" class="form-input">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="action-btn" [disabled]="!utenteFormRef.valid">Salva Utente</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
