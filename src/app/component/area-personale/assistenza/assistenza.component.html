@@ -1,22 +1,29 @@
+<!-- Titolo pagina -->
 <h1 class="page-title">Area Assistenza</h1>
 
+<!-- Sezione richieste aperte -->
 <div class="content-section">
   <h3 class="section-title">Richieste effettuate:</h3>
 
+  <!-- Messaggio se non ci sono richieste -->
   <p class="empty-msg" *ngIf="richiesteAperte.length === 0">
     *Non hai nessuna richiesta aperta
   </p>
 
+  <!-- Lista ticket -->
   <div class="ticket-list" *ngIf="richiesteAperte.length > 0">
+    <!-- Card ticket -->
     <div class="ticket-card" *ngFor="let req of richiesteAperte">
 
       <div class="ticket-header clickable" (click)="toggleTicket(req)">
         <div class="header-main">
           <strong>Oggetto:</strong> {{ req.oggetto }}
         </div>
+        <!-- Indicatore apertura -->
         <span class="accordion-arrow">{{ req.isExpanded ? '▲' : '▼' }}</span>
       </div>
 
+      <!-- Dettagli ticket -->
       <div class="ticket-details" *ngIf="req.isExpanded">
         <div class="ticket-data">
           <strong>Tipo Assistenza:</strong> {{ req.tipoAss }}
@@ -31,9 +38,11 @@
           }">{{ req.stato }}</span>
         </div>
 
+        <!-- Contenuto richiesta -->
         <div class="ticket-body">
           <strong>Contenuto:</strong> <br> {{ req.contenuto }}
         </div>
+        <!-- Risposta amministratore -->
         <div class="ticket-body" *ngIf="req.risposta">
           <br><strong>Risposta Admin:</strong> <br> {{ req.risposta }}
         </div>
@@ -43,15 +52,19 @@
   </div>
 </div>
 
+<!-- Nuova richiesta -->
 <div class="action-section">
   <button class="action-btn" (click)="apriNuovaRichiesta()">Avvia nuova richiesta</button>
+  <!-- Storico -->
   <button class="action-btn" (click)="recuperaRichiesta()">{{ mostraStorico ? 'Nascondi Storico' : 'Mostra Storico e Valuta' }}</button>
 </div>
 
 <div class="content-section" *ngIf="mostraStorico" style="margin-top: 3vh;">
   <h3 class="section-title">Storico e Valutazioni:</h3>
+  <!-- Messaggio storico vuoto -->
   <p class="empty-msg" *ngIf="richiesteChiuse.length === 0">Nessuna richiesta completata da mostrare.</p>
   
+  <!-- Lista storico -->
   <div class="ticket-list" *ngIf="richiesteChiuse.length > 0">
     <div class="ticket-card" *ngFor="let req of richiesteChiuse">
       <div class="ticket-header clickable" (click)="toggleTicket(req)">
@@ -61,6 +74,7 @@
         <span class="accordion-arrow">{{ req.isExpanded ? '▲' : '▼' }}</span>
       </div>
 
+      <!-- Dettagli ticket -->
       <div class="ticket-details" *ngIf="req.isExpanded">
         <div class="ticket-status">
           <strong>Stato:</strong>
