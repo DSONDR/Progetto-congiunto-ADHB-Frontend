@@ -1,11 +1,15 @@
+<!-- Titolo della pagina dei corsi dell'istruttore -->
 <h1 class="page-title">I tuoi Corsi</h1>
 
+<!-- Sezione principale che mostra i corsi attivi dell'istruttore -->
 <div class="content-section">
   <h3 class="section-title">Elenco corsi attivi:</h3>
   
   <p class="empty-msg" *ngIf="mieiCorsi.length === 0">*Non hai nessun corso assegnato al momento.</p>
 
+  <!-- Lista delle card relative ai corsi assegnati -->
   <div class="corsi-list" *ngIf="mieiCorsi.length > 0">
+    <!-- Singola card del corso -->
     <div class="corso-card" *ngFor="let corso of mieiCorsi">
       <div class="corso-row"><strong>CORSO:</strong> {{ corso.nomeAtt }}</div>
       <div class="corso-row"><strong>- Destinatario:</strong> {{ corso.destinatario }}</div>
@@ -25,10 +29,12 @@
   </div>
 </div>
 
+<!-- Sezione con l'azione per creare un nuovo corso -->
 <div class="action-section">
   <button class="action-btn" (click)="creaCorso()">Crea nuovo corso</button>
 </div>
 
+<!-- Modale overlay per visualizzare gli iscritti al corso (Roster) -->
 <div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiRoster()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
@@ -64,7 +70,7 @@
   </div>
 </div>
 
-<!-- MODALE FORM CORSO -->
+<!-- MODALE FORM CORSO: overlay per creare o modificare un corso -->
 <div class="modal-overlay" *ngIf="isFormOpen" (click)="chiudiForm()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
