@@ -38,6 +38,10 @@ export class GestioneAttivitaComponent implements OnInit {
     private squadraService: SquadraService
   ) { }
 
+  /**
+   * Inizializza il componente caricando la lista delle attività 
+   * e recuperando in parallelo impianti, istruttori e squadre necessari per il form.
+   */
   ngOnInit(): void {
     this.caricaAttivita();
     forkJoin({
@@ -61,6 +65,10 @@ export class GestioneAttivitaComponent implements OnInit {
     });
   }
 
+  /**
+   * Prepara il form per la creazione di una nuova attività, resettando i campi
+   * e aprendo la modale in modalità di inserimento (isEditMode = false).
+   */
   creaAttivita(): void {
     this.isEditMode = false;
     this.attivitaForm = {
@@ -72,6 +80,10 @@ export class GestioneAttivitaComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  /**
+   * Prepara il form per la modifica di un'attività esistente.
+   * Popola i campi con i dati dell'attività selezionata e apre la modale in modalità modifica.
+   */
   modificaAttivita(att: any): void {
     this.isEditMode = true;
     this.attivitaForm = {
@@ -86,6 +98,9 @@ export class GestioneAttivitaComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  /**
+   * Aggiunge la data e l'ora correntemente selezionate all'array delle sessioni programmate.
+   */
   aggiungiData(): void {
     /**
 
@@ -99,14 +114,25 @@ export class GestioneAttivitaComponent implements OnInit {
     }
   }
 
+  /**
+   * Rimuove una data/ora specifica dall'elenco delle sessioni previste in base al suo indice.
+   */
   rimuoviData(index: number): void {
     this.attivitaForm.dateOrari.splice(index, 1);
   }
 
+  /**
+   * Chiude la modale nascondendola all'utente.
+   */
   chiudiModale(): void {
     this.isModalOpen = false;
   }
 
+  /**
+   * Gestisce il salvataggio dei dati del form.
+   * Verifica che i campi obbligatori siano compilati, gestisce il formato degli ID delle squadre
+   * e invia la richiesta di creazione o aggiornamento tramite il servizio.
+   */
   salvaAttivita(): void {
     /**
 
@@ -146,6 +172,10 @@ export class GestioneAttivitaComponent implements OnInit {
     });
   }
 
+  /**
+   * Chiede conferma all'utente e, se accettato, invia la richiesta di cancellazione
+   * dell'attività tramite il servizio, per poi ricaricare la lista.
+   */
   cancellaAttivita(id: number): void {
     /**
 
