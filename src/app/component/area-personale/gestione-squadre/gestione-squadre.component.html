@@ -1,7 +1,10 @@
+<!-- Titolo della pagina per la gestione delle squadre -->
 <h1 class="page-title">Gestione Squadre</h1>
 
+<!-- Sezione principale che mostra i sodalizi e le squadre attive -->
 <div class="content-section">
   <h3 class="section-title">Sodalizi e Squadre attive:</h3>
+  <!-- Contenitore della lista delle squadre -->
   <div class="list-container">
     <div class="data-card admin-card" *ngFor="let sq of squadreSocietarie">
       <div class="data-content">
@@ -18,11 +21,12 @@
   </div>
 </div>
 
+<!-- Sezione contenente il pulsante per fondare una nuova squadra -->
 <div class="action-section">
   <button class="action-btn" (click)="creaNuovaSquadre()">Crea e fonda una nuova squadra</button>
 </div>
 
-<!-- MODALE SQUADRA -->
+<!-- MODALE SQUADRA: overlay per creare o modificare una squadra e i suoi dati di base -->
 <div class="modal-overlay" *ngIf="isSquadraModalOpen" (click)="chiudiModali()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
@@ -67,7 +71,7 @@
   </div>
 </div>
 
-<!-- MODALE ROSTER -->
+<!-- MODALE ROSTER: overlay per gestire gli atleti assegnati alla squadra -->
 <div class="modal-overlay" *ngIf="isRosterModalOpen" (click)="chiudiModali()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
