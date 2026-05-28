@@ -1,10 +1,14 @@
+<!-- Titolo della pagina per la risoluzione dei ticket di assistenza -->
 <h1 class="page-title">Risolvi Assistenze</h1>
 
+<!-- Sezione che mostra le richieste aperte e in attesa di essere prese in carico -->
 <div class="content-section">
   <h3 class="section-title">Richieste Aperte:</h3>
   <p class="empty-msg" *ngIf="richiesteAperte.length === 0">*Nessuna richiesta aperta in coda.</p>
   
+  <!-- Lista scorrevole dei ticket aperti -->
   <div class="scrollable-list" *ngIf="richiesteAperte.length > 0">
+    <!-- Card singola del ticket in attesa -->
     <div class="admin-ticket-card pending" *ngFor="let req of richiesteAperte">
       <div class="ticket-meta">
         <span><strong>Da:</strong> {{ req.utenteCf }} (#{{ req.idTicket }})</span>
@@ -22,11 +26,14 @@
   </div>
 </div>
 
+<!-- Sezione che mostra le richieste attualmente prese in carico dall'operatore -->
 <div class="content-section">
   <h3 class="section-title">Richieste prese in carico da te:</h3>
   <p class="empty-msg" *ngIf="richiesteInCarico.length === 0">*Non stai gestendo nessuna richiesta attualmente.</p>
   
+  <!-- Lista scorrevole dei ticket in lavorazione -->
   <div class="scrollable-list" *ngIf="richiesteInCarico.length > 0">
+    <!-- Card singola del ticket in lavorazione -->
     <div class="admin-ticket-card in-progress" *ngFor="let req of richiesteInCarico">
       <div class="ticket-meta">
         <span><strong>Da:</strong> {{ req.utenteCf }} (#{{ req.idTicket }})</span>
@@ -44,11 +51,14 @@
   </div>
 </div>
 
+<!-- Sezione che mostra l'archivio delle richieste completate e risolte -->
 <div class="content-section">
   <h3 class="section-title">Richieste completate:</h3>
   <p class="empty-msg" *ngIf="richiesteCompletate.length === 0">*Non hai ancora completato richieste.</p>
 
+  <!-- Lista scorrevole dei ticket risolti -->
   <div class="scrollable-list" *ngIf="richiesteCompletate.length > 0">
+    <!-- Card singola del ticket risolto -->
     <div class="admin-ticket-card resolved" *ngFor="let res of richiesteCompletate">
       <div class="ticket-meta">
         <span><strong>Da:</strong> {{ res.utenteCf }} (#{{ res.idTicket }})</span>
