@@ -1,13 +1,17 @@
+<!-- Titolo della pagina per la gestione del personale o degli atleti -->
 <h1 class="page-title">Gestione Utenti Staff</h1>
 
+<!-- Pulsante per alternare la vista tra Atleti e Membri dello Staff -->
 <div class="action-section" style="margin-bottom: 2vh;">
   <button class="action-btn" (click)="toggleVistaUtenti()">
     {{ mostraStaff ? 'Vedi Atleti Iscritti' : 'Vedi Membri dello Staff' }}
   </button>
 </div>
 
+<!-- Sezione principale che mostra la lista degli utenti in base alla vista selezionata -->
 <div class="content-section">
   <h3 class="section-title">{{ mostraStaff ? 'Membri dello Staff registrati:' : 'Atleti Iscritti:' }}</h3>
+  <!-- Contenitore della lista degli utenti visualizzati come card -->
   <div class="list-container">
     <div class="data-card admin-card" *ngFor="let utente of (mostraStaff ? personale : atleti)">
       <div class="data-content">
@@ -22,11 +26,12 @@
     </div>
   </div>
 
+  <!-- Pulsante per inserire un nuovo membro dello staff o atleta -->
   <div class="action-section">
     <button class="action-btn" (click)="inserisciNuovoUtente()">Inserisci nuovo membro / atleta</button>
   </div>
 
-  <!-- MODALE UTENTE -->
+  <!-- MODALE UTENTE: overlay per la creazione e la modifica di un utente -->
   <div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiModale()">
     <div class="modal-content" (click)="$event.stopPropagation()">
 
