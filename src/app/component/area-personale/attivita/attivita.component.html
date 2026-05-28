@@ -1,5 +1,7 @@
+<!-- Titolo principale della pagina -->
 <h1 class="page-title">Le tue Attività</h1>
 
+<!-- Contenitore principale delle attività -->
 <div class="attivita-container">
   
   <div class="attivita-row">
@@ -10,6 +12,7 @@
     <p class="sub-text">Nota: Potrai cancellarti da un'attività nelle 24 ore precedenti ad essa</p>
   </div>
 
+  <!-- Riga dedicata agli eventi -->
   <div class="attivita-row">
     <p class="main-text">
       Visualizza nuovi 
@@ -19,18 +22,23 @@
 
 </div>
 
+<!-- Sezione gamification e premi -->
 <div class="gamification-section">
   
+  <!-- Banner con il punteggio attuale -->
   <div class="score-banner">
     <h2 class="score-text">Il tuo punteggio attuale è: <span>{{ punteggioAttuale }}</span></h2>
   </div>
 
+  <!-- Griglia dei premi disponibili -->
   <div class="rewards-grid">
+    <!-- Card generata per ogni premio -->
     <div class="reward-card" [ngClass]="premio.classeColore" *ngFor="let premio of elencoPremi">
       
       <div class="card-title">{{ premio.titolo }}</div>
       <div class="card-subtitle">{{ premio.sottoTitolo }}</div>
       
+      <!-- Bottone per riscattare il premio -->
       <div class="card-bottom">
         <div class="cost-tag">Costo: {{ premio.costo }} punti</div>
         
