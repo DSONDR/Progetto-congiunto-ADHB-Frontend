@@ -1,7 +1,10 @@
+<!-- Titolo della pagina per la gestione di tutte le attività -->
 <h1 class="page-title">Gestione Attività</h1>
 
+<!-- Sezione principale che mostra la lista di tutte le attività (Corsi, Eventi, Partite) -->
 <div class="content-section">
   <h3 class="section-title">Tutte le attività (Corsi, Eventi, Partite):</h3>
+  <!-- Contenitore della lista attività sotto forma di card per gli admin -->
   <div class="list-container">
     <div class="data-card admin-card" *ngFor="let att of attivitaList">
       <div class="data-content">
@@ -21,11 +24,12 @@
   </p>
 </div>
 
+<!-- Sezione con il pulsante per creare una nuova attività globale -->
 <div class="action-section">
   <button class="action-btn" (click)="creaAttivita()">Crea nuova attività globale</button>
 </div>
 
-<!-- MODALE ATTIVITA -->
+<!-- MODALE ATTIVITA: overlay per la creazione e la modifica dei dettagli di un'attività -->
 <div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiModale()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
