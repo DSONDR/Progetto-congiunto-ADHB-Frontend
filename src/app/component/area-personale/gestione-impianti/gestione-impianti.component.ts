@@ -25,16 +25,27 @@ export class GestioneImpiantiComponent implements OnInit {
 
   constructor(private impiantoService: ImpiantoService) {}
 
+  /**
+   * Inizializza il componente avviando subito il caricamento della lista degli impianti.
+   */
   ngOnInit(): void {
     this.caricaImpianti();
   }
 
+  /**
+   * Effettua una chiamata al servizio per recuperare l'elenco completo degli impianti sportivi 
+   * dal database e aggiorna l'array locale.
+   */
   caricaImpianti(): void {
     this.impiantoService.getAll().subscribe(data => {
       this.impianti = data;
     });
   }
 
+  /**
+   * Resetta l'oggetto del nuovo impianto svuotando i campi del form
+   * e apre la modale di creazione.
+   */
   creaImpianto(): void { 
     this.nuovoImpianto = {
       nome: '',
@@ -45,10 +56,18 @@ export class GestioneImpiantiComponent implements OnInit {
     this.isCreateModalOpen = true; 
   }
 
+  /**
+   * Chiude la modale di creazione nascondendola all'utente.
+   */
   chiudiModale(): void {
     this.isCreateModalOpen = false;
   }
 
+  /**
+   * Salva il nuovo impianto nel sistema.
+   * Controlla che i campi obbligatori siano compilati, fa la chiamata di creazione 
+   * al servizio e, in caso di successo, ricarica la lista.
+   */
   salvaNuovoImpianto(): void {
     /**
 
@@ -70,6 +89,10 @@ export class GestioneImpiantiComponent implements OnInit {
     });
   }
 
+  /**
+   * Modifica lo stato dell'impianto (alternando tra 'Operativo' e 'Manutenzione') 
+   * e aggiorna il record nel database tramite il servizio.
+   */
   cambiaStato(impianto: Impianto): void { 
     const nuovoStato = impianto.stato === 'Operativo' ? 'Manutenzione' : 'Operativo';
     
@@ -85,6 +108,10 @@ export class GestioneImpiantiComponent implements OnInit {
     });
   }
   
+  /**
+   * Chiede conferma all'utente e, se accettata, esegue l'eliminazione definitiva dell'impianto,
+   * aggiornando successivamente la lista degli impianti visibili.
+   */
   cancellaImpianto(id: number): void { 
     /**
  
