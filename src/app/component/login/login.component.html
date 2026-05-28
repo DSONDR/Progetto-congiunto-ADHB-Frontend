@@ -1,19 +1,25 @@
+<!-- Pagina di autenticazione per il login -->
 <div class="auth-page">
   <div class="auth-container">
+    <!-- Titolo della pagina di login -->
     <h1 class="auth-title">Login</h1>
     
+    <!-- Gruppo di input per l'username o l'email -->
     <div class="input-group">
       <label for="username">Username o Email</label>
       <input type="text" id="username" class="auth-input" [(ngModel)]="loginData.username">
     </div>
     
+    <!-- Gruppo di input per la password -->
     <div class="input-group">
       <label for="password">Password</label>
       <input type="password" id="password" class="auth-input" [(ngModel)]="loginData.password">
     </div>
     
+    <!-- Pulsante per confermare le credenziali ed effettuare il login -->
     <button class="confirm-btn" (click)="eseguiLogin()">Conferma</button>
     
+    <!-- Sezione per reindirizzare gli utenti non registrati -->
     <p class="auth-text">Non sei registrato?</p>
     <a routerLink="/registrazione" class="signup-btn">Sign up</a>
   </div>
