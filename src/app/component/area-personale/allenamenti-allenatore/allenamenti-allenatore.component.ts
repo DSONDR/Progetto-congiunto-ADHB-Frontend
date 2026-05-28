@@ -15,7 +15,8 @@ import { forkJoin } from 'rxjs';
   styleUrl: './allenamenti-allenatore.component.scss'
 })
 export class AllenamentiAllenatoreComponent implements OnInit {
-  
+
+  // Variabili di stato per i dati e il form
   mieiAllenamenti: any[] = [];
   leMieSquadre: any[] = [];
   impianti: any[] = [];
@@ -23,8 +24,8 @@ export class AllenamentiAllenatoreComponent implements OnInit {
   isFormOpen: boolean = false;
   isEditMode: boolean = false;
   attivitaForm: any = {
-    codiceAtt: null, nomeAtt: '', tipoEvento: 'Allenamento', destinatario: '', 
-    quotaBase: 0, maxPartecipanti: 50, descrizione: '', istruttoreCf: '', 
+    codiceAtt: null, nomeAtt: '', tipoEvento: 'Allenamento', destinatario: '',
+    quotaBase: 0, maxPartecipanti: 50, descrizione: '', istruttoreCf: '',
     impiantoId: '', dateOrari: [], squadreIds: []
   };
   nuovaDataOra: string = '';
@@ -34,7 +35,7 @@ export class AllenamentiAllenatoreComponent implements OnInit {
     private attivitaService: AttivitaService,
     private sessionService: SessionService,
     private impiantoService: ImpiantoService
-  ) {}
+  ) { }
 
   /**
    * Inizializzazione componente: carica i dati della squadra e gli impianti disponibili.
@@ -50,23 +51,24 @@ export class AllenamentiAllenatoreComponent implements OnInit {
    */
   caricaDati(): void {
     const cf = this.sessionService.getLoggedUser()?.cf;
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!cf) return;
 
     // 1. Recupera le squadre allenate da questo CF
     this.squadraService.getByAllenatore(cf).subscribe({
       next: (squadre) => {
         this.leMieSquadre = squadre;
-        
+
         // 2. Per ogni squadra, recupera le attività usando il filtra()
-        if(squadre.length > 0) {
+        if (squadre.length > 0) {
           const requests = squadre.map(sq => this.attivitaService.filtra({ squadraId: sq.id }));
-          
+
           forkJoin(requests).subscribe(results => {
             // Unisco tutti gli array di attività e rimuovo i duplicati
             const tutteAttivita = results.flat();
             const uniche = Array.from(new Set(tutteAttivita.map(a => a.codiceAtt)))
               .map(id => tutteAttivita.find(a => a.codiceAtt === id));
-            
+
             this.mieiAllenamenti = uniche;
           });
         }
@@ -79,16 +81,16 @@ export class AllenamentiAllenatoreComponent implements OnInit {
    * Inizializza il form per la creazione di un nuovo allenamento.
    * Imposta lo stato del form su "creazione".
    */
-  creaAllenamento(): void { 
+  creaAllenamento(): void {
     this.isEditMode = false;
     this.attivitaForm = {
-      codiceAtt: null, nomeAtt: '', tipoEvento: 'Allenamento', destinatario: 'Atleti Squadra', 
-      quotaBase: 0, maxPartecipanti: 50, descrizione: '', 
-      istruttoreCf: this.sessionService.getLoggedUser()?.cf, 
+      codiceAtt: null, nomeAtt: '', tipoEvento: 'Allenamento', destinatario: 'Atleti Squadra',
+      quotaBase: 0, maxPartecipanti: 50, descrizione: '',
+      istruttoreCf: this.sessionService.getLoggedUser()?.cf,
       impiantoId: '', dateOrari: [], squadreIds: []
     };
     this.nuovaDataOra = '';
-    this.isFormOpen = true; 
+    this.isFormOpen = true;
   }
 
   /**
@@ -96,18 +98,18 @@ export class AllenamentiAllenatoreComponent implements OnInit {
    * 
    * @param att I dati dell'allenamento da modificare
    */
-  spostaAllenamento(att: any): void { 
+  spostaAllenamento(att: any): void {
     this.isEditMode = true;
     this.attivitaForm = {
-      codiceAtt: att.codiceAtt, nomeAtt: att.nomeAtt, tipoEvento: att.tipoEvento, 
-      destinatario: att.destinatario, quotaBase: att.quotaBase, maxPartecipanti: att.maxPartecipanti, 
-      descrizione: att.descrizione, istruttoreCf: att.istruttoreCf, 
-      impiantoId: att.impiantoId, 
-      dateOrari: att.dateOrari ? [...att.dateOrari] : [], 
+      codiceAtt: att.codiceAtt, nomeAtt: att.nomeAtt, tipoEvento: att.tipoEvento,
+      destinatario: att.destinatario, quotaBase: att.quotaBase, maxPartecipanti: att.maxPartecipanti,
+      descrizione: att.descrizione, istruttoreCf: att.istruttoreCf,
+      impiantoId: att.impiantoId,
+      dateOrari: att.dateOrari ? [...att.dateOrari] : [],
       squadreIds: att.squadreIds ? [...att.squadreIds] : []
     };
     this.nuovaDataOra = '';
-    this.isFormOpen = true; 
+    this.isFormOpen = true;
   }
 
   /**
@@ -116,7 +118,8 @@ export class AllenamentiAllenatoreComponent implements OnInit {
    * @param codiceAtt Identificativo univoco dell'allenamento
    */
   cancellaAllenamento(codiceAtt: number): void {
-    if(confirm('Vuoi davvero cancellare questo allenamento?')) {
+    // Verifica che l'utente abbia confermato l'operazione prima di procedere
+    if (confirm('Vuoi davvero cancellare questo allenamento?')) {
       this.attivitaService.delete(codiceAtt).subscribe({
         next: () => {
           alert('Allenamento cancellato.');
@@ -131,6 +134,7 @@ export class AllenamentiAllenatoreComponent implements OnInit {
    * Aggiunge una nuova data inserita nell'input temporaneo all'array dateOrari del form.
    */
   aggiungiData(): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (this.nuovaDataOra) {
       this.attivitaForm.dateOrari.push(this.nuovaDataOra);
       this.nuovaDataOra = '';
@@ -159,19 +163,23 @@ export class AllenamentiAllenatoreComponent implements OnInit {
    * Altrimenti, ne crea uno nuovo (POST).
    */
   salvaAllenamento(): void {
-    if(!this.attivitaForm.nomeAtt || !this.attivitaForm.impiantoId || !this.attivitaForm.squadreIds.length) {
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
+    if (!this.attivitaForm.nomeAtt || !this.attivitaForm.impiantoId || !this.attivitaForm.squadreIds.length) {
       alert('Compila tutti i campi obbligatori (incluse le Squadre)!');
       return;
     }
 
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (this.attivitaForm.squadreIds && this.attivitaForm.squadreIds.length > 0) {
       this.attivitaForm.squadreIds = this.attivitaForm.squadreIds.map((id: any) => Number(id));
     }
 
-    const obs$ = this.isEditMode 
+    // Crea la chiamata per la modifica o per la creazione in base allo stato
+    const obs$ = this.isEditMode
       ? this.attivitaService.update(this.attivitaForm.codiceAtt, this.attivitaForm)
       : this.attivitaService.create(this.attivitaForm);
 
+    // Si iscrive all'osservabile per eseguire l'operazione di salvataggio
     obs$.subscribe({
       next: () => {
         alert('Allenamento salvato!');

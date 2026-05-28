@@ -21,22 +21,27 @@ export class PagamentoService {
 
   constructor(private http: HttpClient) {}
 
+  // Recupera tutti i record dal database. Utilizzato per listati generici.
   getAll(): Observable<PagamentoResponseDTO[]> {
     return this.http.get<PagamentoResponseDTO[]>(this.apiUrl);
   }
 
+  // Recupera i dettagli di una singola entità tramite ID.
   getById(id: number): Observable<PagamentoResponseDTO> {
     return this.http.get<PagamentoResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
+  // Invia al backend i dati per creare una nuova entità.
   create(pagamento: PagamentoResponseDTO): Observable<PagamentoResponseDTO> {
     return this.http.post<PagamentoResponseDTO>(this.apiUrl, pagamento);
   }
 
+  // Invia al backend i dati per aggiornare un'entità esistente.
   update(id: number, pagamento: PagamentoResponseDTO): Observable<PagamentoResponseDTO> {
     return this.http.put<PagamentoResponseDTO>(`${this.apiUrl}/${id}`, pagamento);
   }
 
+  // Rimuove fisicamente l'entità dal database tramite DELETE.
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

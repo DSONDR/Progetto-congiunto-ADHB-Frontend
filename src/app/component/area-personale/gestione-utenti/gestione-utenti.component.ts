@@ -57,7 +57,7 @@ export class GestioneUtentiComponent implements OnInit {
         u.tipoIscritto !== 'ADMIN'
       );
     });
-
+    // Recupera in parallelo sia istruttori che allenatori per arricchire i filtri
     forkJoin({
       istruttori: this.istruttoreService.getAll(),
       allenatori: this.allenatoreService.getAll()
@@ -87,6 +87,7 @@ export class GestioneUtentiComponent implements OnInit {
     if (this.utenteForm.dataNascita && this.utenteForm.dataNascita.includes('T')) {
       this.utenteForm.dataNascita = this.utenteForm.dataNascita.split('T')[0];
     }
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (this.utenteForm.scadenzaCertificato && this.utenteForm.scadenzaCertificato.includes('T')) {
       this.utenteForm.scadenzaCertificato = this.utenteForm.scadenzaCertificato.split('T')[0];
     }
@@ -123,14 +124,17 @@ export class GestioneUtentiComponent implements OnInit {
    * in base al `tipoIscritto` selezionato nel form.
    */
   salvaUtente(): void {
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
     if (!this.utenteForm.cf || !this.utenteForm.nome || !this.utenteForm.cognome || !this.utenteForm.email) {
       alert('Compila tutti i campi anagrafici obbligatori!');
       return;
     }
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
     if (this.utenteForm.cf.length !== 16) {
       alert('Il Codice Fiscale deve essere esattamente di 16 caratteri.');
       return;
     }
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (this.utenteForm.password && this.utenteForm.password.length < 8) {
       alert('La password, se inserita, deve contenere almeno 8 caratteri.');
       return;
@@ -139,9 +143,13 @@ export class GestioneUtentiComponent implements OnInit {
     const tipo = this.utenteForm.tipoIscritto;
 
     let obs$;
+    // Verifica che il valore corrisponda a quello atteso prima di procedere
     if (tipo === 'Atleta' && !this.isEditMode) {
+      // Verifica che i campi obbligatori del form siano compilati prima di procedere
       if (!this.utenteForm.dataNascita) this.utenteForm.dataNascita = '1990-01-01';
+      // Verifica che i campi obbligatori del form siano compilati prima di procedere
       if (!this.utenteForm.cittaResidenza) this.utenteForm.cittaResidenza = 'Sconosciuta';
+      // Verifica che i campi obbligatori del form siano compilati prima di procedere
       if (!this.utenteForm.genere) this.utenteForm.genere = 'M';
 
       // Per gli atleti usiamo la rotta di auth /register che fa da proxy (non c'è un AtletaController create)
@@ -154,25 +162,30 @@ export class GestioneUtentiComponent implements OnInit {
       obs$ = this.authService.register(regDto);
     } else if (tipo === 'Istruttore') {
       this.utenteForm.username = this.utenteForm.email.split('@')[0];
+      // Verifica che i campi obbligatori del form siano compilati prima di procedere
       if (!this.utenteForm.password) this.utenteForm.password = 'Password123!';
       if (!this.utenteForm.specializzazione) this.utenteForm.specializzazione = 'Generica';
       if (!this.utenteForm.dataNascita) this.utenteForm.dataNascita = '1990-01-01';
       if (!this.utenteForm.cittaResidenza) this.utenteForm.cittaResidenza = 'Sconosciuta';
       if (!this.utenteForm.genere) this.utenteForm.genere = 'M';
+
       obs$ = this.isEditMode ? this.istruttoreService.update(this.utenteForm.cf, this.utenteForm) : this.istruttoreService.create(this.utenteForm);
     } else if (tipo === 'Allenatore') {
       this.utenteForm.username = this.utenteForm.email.split('@')[0];
+      // Verifica che i campi obbligatori del form siano compilati prima di procedere
       if (!this.utenteForm.password) this.utenteForm.password = 'Password123!';
       if (!this.utenteForm.grado || isNaN(Number(this.utenteForm.grado))) this.utenteForm.grado = 1;
       if (!this.utenteForm.dataNascita) this.utenteForm.dataNascita = '1990-01-01';
       if (!this.utenteForm.cittaResidenza) this.utenteForm.cittaResidenza = 'Sconosciuta';
       if (!this.utenteForm.genere) this.utenteForm.genere = 'M';
+
       obs$ = this.isEditMode ? this.allenatoreService.update(this.utenteForm.cf, this.utenteForm) : this.allenatoreService.create(this.utenteForm);
     } else {
       alert('Modifica Atleti o Admin diretti da implementare separatamente o non permessa in questo form base.');
       return;
     }
 
+    // Esegue la chiamata per salvare i dati utente elaborati
     obs$.subscribe({
       next: () => {
         alert('Utente salvato con successo!');
@@ -191,6 +204,7 @@ export class GestioneUtentiComponent implements OnInit {
    * @param cf Il codice fiscale dell'utente da eliminare
    */
   eliminaUtente(cf: string): void {
+    // Verifica che l'utente abbia confermato l'operazione prima di procedere
     if (confirm(`Sicuro di voler revocare l'accesso ed eliminare l'utente CF ${cf}? L'operazione è irreversibile e cancellerà a cascata i dati ad esso collegati.`)) {
       // La chiamata generica di cancellazione per CF dal sistema
       this.http.delete(`/api/auth/delete/${cf}`).subscribe({
@@ -198,7 +212,7 @@ export class GestioneUtentiComponent implements OnInit {
           alert('Utente cancellato con successo.');
           this.caricaUtenti();
         },
-        error: (err) => alert('Errore durante la cancellazione dell\'utente. ' + (err.error?.message || ''))
+        error: (err) => alert("Errore durante la cancellazione dell'utente. " + (err.error?.message || ''))
       });
     }
   }

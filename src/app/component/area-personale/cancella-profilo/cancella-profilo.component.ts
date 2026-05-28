@@ -18,6 +18,7 @@ export class CancellaProfiloComponent {
   // Azione collegata al tasto rosso "Cancellami"
   confermaCancellazione(): void {
     const utenteCorrente = this.session.getLoggedUser();
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (utenteCorrente && utenteCorrente.cf) {
       this.authService.deleteAccount(utenteCorrente.cf).subscribe({
         next: () => {

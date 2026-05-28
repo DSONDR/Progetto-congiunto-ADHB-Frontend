@@ -1,3 +1,7 @@
+/**
+ * DTOs per l'invio delle credenziali di login o registrazione.
+ * Scambiato tra AuthService e UserController (Backend).
+ */
 export interface LoginRequestDTO {
     email?: string;
     password?: string;

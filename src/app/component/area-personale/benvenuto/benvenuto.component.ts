@@ -36,6 +36,7 @@ export class BenvenutoComponent implements OnInit {
     private certService: CertificatoMedicoService
   ) {}
 
+  // Eseguito all'avvio del componente, inizializza i dati o carica le risorse necessarie.
   ngOnInit() {
     this.utenteCorrente = this.sessionService.getLoggedUser();
     this.verificaCertificato();
@@ -46,6 +47,7 @@ export class BenvenutoComponent implements OnInit {
    * Imposta i flag `certificatoAssente` e `certificatoScaduto` per il controllo visivo.
    */
   verificaCertificato() {
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (!this.utenteCorrente?.scadenzaCertificato) {
       this.certificatoAssente = true;
       return;
@@ -79,6 +81,7 @@ export class BenvenutoComponent implements OnInit {
    * Se ha successo, aggiorna i dati dell'utente in sessione con la nuova data di scadenza.
    */
   salvaCertificato() {
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (!this.utenteCorrente) return;
     
     // Validazione base
@@ -99,7 +102,7 @@ export class BenvenutoComponent implements OnInit {
       next: (res) => {
         alert("Certificato salvato con successo!");
         this.chiudiModaleCertificato();
-        // Aggiorniamo la sessione o ricarichiamo (mock: aggiorna solo frontend)
+        // Aggiorniamo la sessione locale per riflettere la modifica senza dover ricaricare l'utente dal database
         this.utenteCorrente!.scadenzaCertificato = res.dataScadenza;
         this.sessionService.setLoggedUser(this.utenteCorrente!);
         this.verificaCertificato();

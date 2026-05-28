@@ -50,6 +50,12 @@ export class GestioneImpiantiComponent implements OnInit {
   }
 
   salvaNuovoImpianto(): void {
+    /**
+
+     * Verifica che i parametri richiesti siano presenti e validi prima di procedere
+
+     */
+
     if (!this.nuovoImpianto.nome || !this.nuovoImpianto.tipoImpianto) {
       alert('Compila tutti i campi obbligatori!');
       return;
@@ -80,13 +86,19 @@ export class GestioneImpiantiComponent implements OnInit {
   }
   
   cancellaImpianto(id: number): void { 
+    /**
+ 
+     * Verifica che i parametri richiesti siano presenti e validi prima di procedere
+ 
+     */
+ 
     if(confirm(`Sei sicuro di voler eliminare l'impianto ID ${id}?`)) {
       this.impiantoService.delete(id).subscribe({
         next: () => {
           alert(`Impianto ${id} eliminato dal sistema.`); 
           this.caricaImpianti();
         },
-        error: (err) => alert('Impossibile cancellare l\'impianto. (Forse ci sono attività o sponsor collegati).')
+        error: (err) => alert("Impossibile cancellare l'impianto. (Forse ci sono attività o sponsor collegati).")
       });
     }
   }

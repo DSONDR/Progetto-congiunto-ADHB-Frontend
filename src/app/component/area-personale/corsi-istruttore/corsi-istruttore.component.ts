@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './corsi-istruttore.component.scss'
 })
 export class CorsiIstruttoreComponent implements OnInit {
-  
+
+  // Array dei dati principali recuperati dal backend
   mieiCorsi: any[] = [];
   impianti: any[] = [];
   isModalOpen: boolean = false;
@@ -26,8 +27,8 @@ export class CorsiIstruttoreComponent implements OnInit {
   isFormOpen: boolean = false;
   isEditMode: boolean = false;
   attivitaForm: any = {
-    codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '', 
-    quotaBase: 0, maxPartecipanti: 10, descrizione: '', istruttoreCf: '', 
+    codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '',
+    quotaBase: 0, maxPartecipanti: 10, descrizione: '', istruttoreCf: '',
     impiantoId: '', dateOrari: [], squadreIds: []
   };
   nuovaDataOra: string = '';
@@ -38,7 +39,7 @@ export class CorsiIstruttoreComponent implements OnInit {
     private attivitaService: AttivitaService,
     private impiantoService: ImpiantoService,
     private iscrizioneService: IscrizioneService
-  ) {}
+  ) { }
 
   /**
    * Inizializzazione componente: carica i corsi dell'istruttore e la lista degli impianti.
@@ -53,7 +54,8 @@ export class CorsiIstruttoreComponent implements OnInit {
    */
   caricaCorsi(): void {
     const cf = this.sessionService.getLoggedUser()?.cf;
-    if(cf) {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
+    if (cf) {
       this.istruttoreService.getAttivita(cf).subscribe({
         next: (data) => this.mieiCorsi = data,
         error: () => alert('Impossibile recuperare i corsi assegnati.')
@@ -88,41 +90,42 @@ export class CorsiIstruttoreComponent implements OnInit {
   /**
    * Inizializza il form modale in stato di creazione per un nuovo Corso.
    */
-  creaCorso(): void { 
+  creaCorso(): void {
     this.isEditMode = false;
     this.attivitaForm = {
-      codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '', 
-      quotaBase: 0, maxPartecipanti: 10, descrizione: '', 
-      istruttoreCf: this.sessionService.getLoggedUser()?.cf, 
+      codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '',
+      quotaBase: 0, maxPartecipanti: 10, descrizione: '',
+      istruttoreCf: this.sessionService.getLoggedUser()?.cf,
       impiantoId: '', dateOrari: [], squadreIds: []
     };
     this.nuovaDataOra = '';
-    this.isFormOpen = true; 
+    this.isFormOpen = true;
   }
-  
+
   /**
    * Apre il form modale popolato con i dati del corso per effettuare una modifica.
    * 
    * @param corso I dati del corso da modificare
    */
-  spostaCorso(corso: any): void { 
+  spostaCorso(corso: any): void {
     this.isEditMode = true;
     this.attivitaForm = {
-      codiceAtt: corso.codiceAtt, nomeAtt: corso.nomeAtt, tipoEvento: corso.tipoEvento, 
-      destinatario: corso.destinatario, quotaBase: corso.quotaBase, maxPartecipanti: corso.maxPartecipanti, 
-      descrizione: corso.descrizione, istruttoreCf: corso.istruttoreCf, 
-      impiantoId: corso.impiantoId, 
-      dateOrari: corso.dateOrari ? [...corso.dateOrari] : [], 
+      codiceAtt: corso.codiceAtt, nomeAtt: corso.nomeAtt, tipoEvento: corso.tipoEvento,
+      destinatario: corso.destinatario, quotaBase: corso.quotaBase, maxPartecipanti: corso.maxPartecipanti,
+      descrizione: corso.descrizione, istruttoreCf: corso.istruttoreCf,
+      impiantoId: corso.impiantoId,
+      dateOrari: corso.dateOrari ? [...corso.dateOrari] : [],
       squadreIds: []
     };
     this.nuovaDataOra = '';
-    this.isFormOpen = true; 
+    this.isFormOpen = true;
   }
 
   /**
    * Aggiunge una nuova data all'elenco delle date/orari del corso.
    */
   aggiungiData(): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (this.nuovaDataOra) {
       this.attivitaForm.dateOrari.push(this.nuovaDataOra);
       this.nuovaDataOra = '';
@@ -149,15 +152,18 @@ export class CorsiIstruttoreComponent implements OnInit {
    * Invia i dati del form al backend per creare o modificare il corso.
    */
   salvaCorso(): void {
-    if(!this.attivitaForm.nomeAtt || !this.attivitaForm.tipoEvento || !this.attivitaForm.impiantoId || !this.attivitaForm.maxPartecipanti) {
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
+    if (!this.attivitaForm.nomeAtt || !this.attivitaForm.tipoEvento || !this.attivitaForm.impiantoId || !this.attivitaForm.maxPartecipanti) {
       alert('Compila tutti i campi obbligatori!');
       return;
     }
 
-    const obs$ = this.isEditMode 
+    // Prepara la richiesta per aggiornamento o inserimento corso
+    const obs$ = this.isEditMode
       ? this.attivitaService.update(this.attivitaForm.codiceAtt, this.attivitaForm)
       : this.attivitaService.create(this.attivitaForm);
 
+    // Lancia la richiesta di salvataggio
     obs$.subscribe({
       next: () => {
         alert('Corso salvato!');
@@ -173,8 +179,9 @@ export class CorsiIstruttoreComponent implements OnInit {
    * 
    * @param id Il codice identificativo del corso da cancellare
    */
-  cancellaCorso(id: number): void { 
-    if(confirm('Cancellare questo corso? L\'operazione annullerà anche tutte le iscrizioni associate.')) {
+  cancellaCorso(id: number): void {
+    // Verifica che l'utente abbia confermato l'operazione prima di procedere
+    if (confirm("Cancellare questo corso? L'operazione annullerà anche tutte le iscrizioni associate.")) {
       this.attivitaService.delete(id).subscribe({
         next: () => {
           alert('Corso cancellato.');

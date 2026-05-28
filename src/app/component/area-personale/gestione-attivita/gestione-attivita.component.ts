@@ -16,7 +16,7 @@ import { forkJoin } from 'rxjs';
   styleUrl: './gestione-attivita.component.scss'
 })
 export class GestioneAttivitaComponent implements OnInit {
-  
+
   attivitaList: any[] = [];
   impianti: any[] = [];
   istruttori: any[] = [];
@@ -25,8 +25,8 @@ export class GestioneAttivitaComponent implements OnInit {
   isModalOpen: boolean = false;
   isEditMode: boolean = false;
   attivitaForm: any = {
-    codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '', 
-    quotaBase: 0, maxPartecipanti: 10, descrizione: '', istruttoreCf: '', 
+    codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '',
+    quotaBase: 0, maxPartecipanti: 10, descrizione: '', istruttoreCf: '',
     impiantoId: '', dateOrari: [], squadreIds: []
   };
   nuovaDataOra: string = '';
@@ -36,7 +36,7 @@ export class GestioneAttivitaComponent implements OnInit {
     private impiantoService: ImpiantoService,
     private istruttoreService: IstruttoreService,
     private squadraService: SquadraService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.caricaAttivita();
@@ -61,32 +61,38 @@ export class GestioneAttivitaComponent implements OnInit {
     });
   }
 
-  creaAttivita(): void { 
+  creaAttivita(): void {
     this.isEditMode = false;
     this.attivitaForm = {
-      codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '', 
-      quotaBase: 0, maxPartecipanti: 10, descrizione: '', istruttoreCf: '', 
+      codiceAtt: null, nomeAtt: '', tipoEvento: 'Corso', destinatario: '',
+      quotaBase: 0, maxPartecipanti: 10, descrizione: '', istruttoreCf: '',
       impiantoId: '', dateOrari: [], squadreIds: []
     };
     this.nuovaDataOra = '';
-    this.isModalOpen = true; 
+    this.isModalOpen = true;
   }
-  
-  modificaAttivita(att: any): void { 
+
+  modificaAttivita(att: any): void {
     this.isEditMode = true;
     this.attivitaForm = {
-      codiceAtt: att.codiceAtt, nomeAtt: att.nomeAtt, tipoEvento: att.tipoEvento, 
-      destinatario: att.destinatario, quotaBase: att.quotaBase, maxPartecipanti: att.maxPartecipanti, 
-      descrizione: att.descrizione, istruttoreCf: att.istruttoreCf, 
-      impiantoId: att.impiantoId, 
-      dateOrari: att.dateOrari ? [...att.dateOrari] : [], 
+      codiceAtt: att.codiceAtt, nomeAtt: att.nomeAtt, tipoEvento: att.tipoEvento,
+      destinatario: att.destinatario, quotaBase: att.quotaBase, maxPartecipanti: att.maxPartecipanti,
+      descrizione: att.descrizione, istruttoreCf: att.istruttoreCf,
+      impiantoId: att.impiantoId,
+      dateOrari: att.dateOrari ? [...att.dateOrari] : [],
       squadreIds: [] // da caricare se necessario
     };
     this.nuovaDataOra = '';
-    this.isModalOpen = true; 
+    this.isModalOpen = true;
   }
 
   aggiungiData(): void {
+    /**
+
+     * Verifica che i parametri richiesti siano presenti e validi prima di procedere
+
+     */
+
     if (this.nuovaDataOra) {
       this.attivitaForm.dateOrari.push(this.nuovaDataOra);
       this.nuovaDataOra = '';
@@ -102,17 +108,31 @@ export class GestioneAttivitaComponent implements OnInit {
   }
 
   salvaAttivita(): void {
-    if(!this.attivitaForm.nomeAtt || !this.attivitaForm.tipoEvento || !this.attivitaForm.istruttoreCf || !this.attivitaForm.impiantoId || !this.attivitaForm.maxPartecipanti) {
+    /**
+
+     * Verifica che i campi obbligatori del form siano compilati prima di procedere
+
+     */
+
+    if (!this.attivitaForm.nomeAtt || !this.attivitaForm.tipoEvento || !this.attivitaForm.istruttoreCf || !this.attivitaForm.impiantoId || !this.attivitaForm.maxPartecipanti) {
       alert('Compila tutti i campi obbligatori!');
       return;
     }
 
-    // Le squadre le passo come stringhe dall'HTML per la multi-select, le converto in numeri
+    /**
+
+
+     * Le squadre le passo come stringhe dall'HTML per la multi-select, le converto in numeri
+
+
+     */
+
+
     if (this.attivitaForm.squadreIds && this.attivitaForm.squadreIds.length > 0) {
       this.attivitaForm.squadreIds = this.attivitaForm.squadreIds.map((id: any) => Number(id));
     }
 
-    const obs$ = this.isEditMode 
+    const obs$ = this.isEditMode
       ? this.attivitaService.update(this.attivitaForm.codiceAtt, this.attivitaForm)
       : this.attivitaService.create(this.attivitaForm);
 
@@ -125,15 +145,21 @@ export class GestioneAttivitaComponent implements OnInit {
       error: (err) => alert('Errore salvataggio: ' + (err.error?.message || ''))
     });
   }
-  
-  cancellaAttivita(id: number): void { 
-    if(confirm(`Sei sicuro di voler cancellare l'attività ID ${id}? Questa azione eliminerà anche le sessioni e rimuoverà gli iscritti.`)) {
+
+  cancellaAttivita(id: number): void {
+    /**
+
+     * Verifica che l'utente abbia confermato l'operazione prima di procedere
+
+     */
+
+    if (confirm(`Sei sicuro di voler cancellare l'attività ID ${id}? Questa azione eliminerà anche le sessioni e rimuoverà gli iscritti.`)) {
       this.attivitaService.delete(id).subscribe({
         next: () => {
           alert('Attività cancellata correttamente.');
           this.caricaAttivita();
         },
-        error: (err) => alert('Impossibile cancellare l\'attività. ' + (err.error?.message || ''))
+        error: (err) => alert("Impossibile cancellare l'attività. " + (err.error?.message || ''))
       });
     }
   }

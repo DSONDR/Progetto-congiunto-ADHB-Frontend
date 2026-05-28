@@ -15,7 +15,7 @@
       <div class="sub-row"><strong>- Rinnovo (se previsto)*:</strong> {{ abb.dataScadenza }}</div>
       <div class="sub-row"><strong>- Stato:</strong> {{ abb.statoAbb }}</div>
       <div class="sub-row">
-        <button class="action-btn alert-btn" style="margin-top: 10px" (click)="disdiciAbbonamento(abb.numeroAbb)">Disdici abbonamento</button>
+        <button class="action-btn alert-btn" style="margin-top: 10px" (click)="disdiciAbbonamento(abb)">Disdici abbonamento</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
 
 <div class="action-section">
   <div class="btn-group">
-    <button class="action-btn" (click)="nuovoAbbonamento()">Sottoscrivi un nuovo abbonamento</button>
+    <a routerLink="/abbonamenti" class="action-btn" style="display: inline-block; text-align: center; text-decoration: none;">Sottoscrivi un nuovo abbonamento</a>
     <span class="btn-subtext">L'abbonamento sarà subito fruibile per iscriversi a un'attività</span>
   </div>
 

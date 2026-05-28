@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'; // Richiesto per l'utilizzo dell
 import { RouterLink } from '@angular/router'; // Richiesto per i reindirizzamenti di pagina
 import { SessionService } from '../../../service/session.service';
 import { AtletaService } from '../../../service/atleta.service';
+import { SottoscrizioneService } from '../../../service/sottoscrizione.service';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +14,7 @@ import { OnInit } from '@angular/core';
   styleUrl: './attivita.component.scss'
 })
 export class AttivitaComponent implements OnInit {
-  
+
   /** 
    * Saldo punti attuale dell'atleta. 
    * Viene popolato in tempo reale dalla sessione. 
@@ -22,11 +23,14 @@ export class AttivitaComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
-    private atletaService: AtletaService
-  ) {}
+    private atletaService: AtletaService,
+    private sottoscrizioneService: SottoscrizioneService
+  ) { }
 
+  // Eseguito all'avvio del componente, inizializza i dati o carica le risorse necessarie.
   ngOnInit() {
     const user = this.sessionService.getLoggedUser();
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (user && user.puntiGamification) {
       this.punteggioAttuale = user.puntiGamification;
     }
@@ -47,8 +51,10 @@ export class AttivitaComponent implements OnInit {
    * @param costoPunti Il costo in punti Gamification del premio
    */
   riscattaPremio(nomePremio: string, costoPunti: number) {
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (this.punteggioAttuale >= costoPunti) {
       const user = this.sessionService.getLoggedUser();
+      // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
       if (!user) return;
 
       this.atletaService.spendiPunti(user.cf, costoPunti).subscribe({
@@ -58,7 +64,25 @@ export class AttivitaComponent implements OnInit {
           user.puntiGamification = this.punteggioAttuale;
           this.sessionService.setLoggedUser(user);
 
-          alert(`Fantastico! Hai sbloccato l'offerta: "${nomePremio}".\nIl tuo saldo residuo è di ${this.punteggioAttuale} punti.\n\nQuesta offerta verrà collegata al tuo account e potrai usarla nella sezione Abbonamenti!`);
+          // Registriamo l'abbonamento tramite il servizio Sottoscrizione
+          // Nota: il titolo del premio deve corrispondere a un tipoAbbonamento reale 
+          // nel database per funzionare.
+          const req = {
+            atletaCf: user.cf,
+            tipoAbbonamento: nomePremio,
+            metodo: 'PUNTI'
+          };
+
+          // Sottoscrive l'offerta (creazione abbonamento tramite punti)
+          this.sottoscrizioneService.sottoscrivi(req).subscribe({
+            next: (res) => {
+              alert(`Fantastico! Hai sbloccato l'offerta: "${nomePremio}".\nIl tuo saldo residuo è di ${this.punteggioAttuale} punti.\n\nQuesta offerta verrà collegata al tuo account e potrai usarla nella sezione Abbonamenti!`);
+            },
+            error: (err) => {
+              console.error(err);
+              alert("Premio riscattato, ma errore nell'erogazione dell'abbonamento.");
+            }
+          });
         },
         error: (err) => {
           console.error(err);

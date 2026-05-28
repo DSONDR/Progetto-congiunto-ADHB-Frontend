@@ -28,22 +28,27 @@ export class ImpiantoService {
 
   constructor(private http: HttpClient) {}
 
+  // Recupera tutti i record dal database. Utilizzato per listati generici.
   getAll(): Observable<Impianto[]> {
     return this.http.get<Impianto[]>(this.apiUrl);
   }
 
+  // Recupera i dettagli di una singola entità tramite ID.
   getById(id: number): Observable<Impianto> {
     return this.http.get<Impianto>(`${this.apiUrl}/${id}`);
   }
 
+  // Invia al backend i dati per creare una nuova entità.
   create(impianto: Impianto): Observable<Impianto> {
     return this.http.post<Impianto>(this.apiUrl, impianto);
   }
 
+  // Invia al backend i dati per aggiornare un'entità esistente.
   update(id: number, impianto: Impianto): Observable<Impianto> {
     return this.http.put<Impianto>(`${this.apiUrl}/${id}`, impianto);
   }
 
+  // Rimuove fisicamente l'entità dal database tramite DELETE.
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

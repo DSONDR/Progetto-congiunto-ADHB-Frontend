@@ -36,10 +36,13 @@ export class SquadreComponent implements OnInit {
     private attivitaService: AttivitaService
   ) { }
 
+  // Eseguito all'avvio del componente, inizializza i dati o carica le risorse necessarie.
   ngOnInit() {
     const user = this.sessionService.getLoggedUser();
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (user) {
       this.ruoloUtente = user.tipoIscritto.toLowerCase();
+      // Verifica che il valore corrisponda a quello atteso prima di procedere
       if (this.ruoloUtente === 'atleta') {
         this.squadraService.getByAtleta(user.cf).subscribe(res => {
           this.squadreMembri = res;
@@ -54,7 +57,9 @@ export class SquadreComponent implements OnInit {
     }
   }
 
+  // Gestisce la logica di caricaProssimePartite nel componente.
   caricaProssimePartite() {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if(this.squadreMembri.length > 0) {
       const requests = this.squadreMembri.map(sq => this.attivitaService.filtra({ squadraId: sq.id, tipoEvento: 'Partita' }));
       forkJoin(requests).subscribe(results => {

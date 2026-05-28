@@ -9,9 +9,7 @@ import { TipoAbbonamentoDTO } from '../dto/response/abbonamento-response.dto';
  * Mapping API Backend invocati:
  * - getAll -> GET [Backend: AbbonamentoController]
  * - getById -> GET [Backend: AbbonamentoController]
- * - create -> POST [Backend: AbbonamentoController]
- * - update -> PUT [Backend: AbbonamentoController]
- * - delete -> DELETE [Backend: AbbonamentoController]
+ * - getTipiAbbonamento -> GET [Backend: AbbonamentoController.getTipiAbbonamento]
  */
 
 @Injectable({
@@ -19,30 +17,23 @@ import { TipoAbbonamentoDTO } from '../dto/response/abbonamento-response.dto';
 })
 export class AbbonamentoService {
   // Endpoint API principale
-  private apiUrl = '/api/abbonamenti';
+  private apiUrl = 'http://localhost:8080/api/abbonamenti';
 
   // Iniezione HttpClient
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAll(): Observable<TipoAbbonamentoDTO[]> {
-    return this.http.get<TipoAbbonamentoDTO[]>(this.apiUrl);
+  // Recupera tutti gli abbonamenti esistenti. Utilizzato in admin dashboard.
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  getById(id: number): Observable<TipoAbbonamentoDTO> {
-    return this.http.get<TipoAbbonamentoDTO>(`${this.apiUrl}/${id}`);
+  // Recupera i dettagli di uno specifico abbonamento
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  // Creazione nuovo abbonamento
-  create(abbonamento: TipoAbbonamentoDTO): Observable<TipoAbbonamentoDTO> {
-    return this.http.post<TipoAbbonamentoDTO>(this.apiUrl, abbonamento);
-  }
-
-  update(id: number, abbonamento: TipoAbbonamentoDTO): Observable<TipoAbbonamentoDTO> {
-    return this.http.put<TipoAbbonamentoDTO>(`${this.apiUrl}/${id}`, abbonamento);
-  }
-
-  // Eliminazione abbonamento
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // Recupera il listino dei tipi di abbonamento. Chiamato da: AbbonamentiMenuComponent
+  getTipiAbbonamento(): Observable<TipoAbbonamentoDTO[]> {
+    return this.http.get<TipoAbbonamentoDTO[]>(`${this.apiUrl}/tipi`);
   }
 }

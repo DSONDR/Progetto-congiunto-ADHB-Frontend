@@ -21,14 +21,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  // Esegue l'operazione di login comunicando con il backend.
   login(request: LoginRequestDTO): Observable<LoginResponseDTO> {
     return this.http.post<LoginResponseDTO>(`${this.apiUrl}/login`, request);
   }
 
+  // Esegue l'operazione di register comunicando con il backend.
   register(request: RegisterRequestDTO): Observable<UserResponseDTO> {
     return this.http.post<UserResponseDTO>(`${this.apiUrl}/register`, request);
   }
 
+  // Esegue l'operazione di deleteAccount comunicando con il backend.
   deleteAccount(cf: string): Observable<string> {
     // Restituisce stringa poichè backend restituisce ResponseEntity.noContent().build() o message
     return this.http.delete(`${this.apiUrl}/delete/${cf}`, { responseType: 'text' });

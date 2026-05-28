@@ -1,3 +1,8 @@
+/**
+ * DTO contenenti le informazioni per registrare una nuova iscrizione a un evento.
+ * Scambiati tra IscrizioneService e il backend (IscrizioneController).
+ */
+ 
 // Richiesta per iscrivere un atleta a un'attività
 export interface IscrizioneRequest {
     atletaCf?: string;

@@ -7,90 +7,90 @@
 }
 
 .intro-text, .footer-text { 
-  font-family: Arial, sans-serif; 
-  font-size: 1.1rem; 
-  color: #333; 
-  line-height: 1.5; 
-  margin-bottom: 4vh; 
+  font-family: Arial, sans-serif; // Tipo di font
+  font-size: 1.1rem; // Dimensione
+  color: #333; // Colore testo
+  line-height: 1.5; // Interlinea
+  margin-bottom: 4vh; // Margine inferiore
 }
 
 .info-section { 
-  border: 3px solid #000; 
-  border-radius: 8px; 
-  padding: 3vh 3vw; 
-  margin-bottom: 4vh; 
-  background-color: #fafafa; 
+  border: 3px solid #000; // Bordo
+  border-radius: 8px; // Angoli arrotondati
+  padding: 3vh 3vw; // Spaziatura interna
+  margin-bottom: 4vh; // Margine inferiore
+  background-color: #fafafa; // Sfondo
 }
 
 .section-title { 
-  font-family: 'Permanent Marker', cursive; 
-  color: #006600; 
-  font-size: 1.5rem; 
-  margin-top: 0; 
-  margin-bottom: 3vh; 
-  border-bottom: 2px dashed #ccc; 
-  padding-bottom: 1vh; 
+  font-family: 'Permanent Marker', cursive; // Tipo di font
+  color: #006600; // Colore testo
+  font-size: 1.5rem; // Dimensione
+  margin-top: 0; // Margine superiore
+  margin-bottom: 3vh; // Margine inferiore
+  border-bottom: 2px dashed #ccc; // Bordo inferiore
+  padding-bottom: 1vh; // Spazio in basso
 }
 
 .data-grid { 
-  display: grid; 
+  display: grid; // Layout
   grid-template-columns: 1fr 1fr; // Due colonne per i dati
-  gap: 2vh; 
+  gap: 2vh; // Spazio tra elementi
 }
 
 .data-item { 
-  display: flex; 
-  flex-direction: column; 
+  display: flex; // Layout
+  flex-direction: column; // Direzione
 }
 
 .data-label { 
-  font-size: 0.9rem; 
-  color: #666; 
-  font-weight: bold; 
+  font-size: 0.9rem; // Dimensione
+  color: #666; // Colore testo
+  font-weight: bold; // Grassetto
   text-transform: uppercase; 
 }
 
 .data-value { 
-  font-size: 1.2rem; 
-  color: #000; 
-  font-weight: bold; 
+  font-size: 1.2rem; // Dimensione
+  color: #000; // Colore testo
+  font-weight: bold; // Grassetto
 }
 
 /* BOX CERTIFICATO MEDICO */
 .certificato-box { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 2vh 2vw; 
-  border-radius: 6px; 
+  display: flex; // Layout
+  justify-content: space-between; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
+  padding: 2vh 2vw; // Spaziatura interna
+  border-radius: 6px; // Angoli arrotondati
   border-left: 8px solid #000; // Bordo colorato dinamico
 }
 
 .certificato-box.valido { 
-  background-color: #e6ffe6; 
+  background-color: #e6ffe6; // Sfondo
   border-left-color: #00cd00; 
 }
 
 .certificato-box.scaduto { 
-  background-color: #ffe6e6; 
+  background-color: #ffe6e6; // Sfondo
   border-left-color: #cc0000; 
   
   .data-value { color: #cc0000; }
 }
 
 .action-btn { 
-  background-color: #006600; 
-  color: white; 
-  border: 3px solid #000; 
-  border-radius: 6px; 
-  padding: 1vh 2vw; 
-  font-weight: bold; 
-  cursor: pointer; 
-  box-shadow: 0px 4px 0px #000; 
-  transition: transform 0.1s, box-shadow 0.1s; 
+  background-color: #006600; // Sfondo
+  color: white; // Colore testo
+  border: 3px solid #000; // Bordo
+  border-radius: 6px; // Angoli arrotondati
+  padding: 1vh 2vw; // Spaziatura interna
+  font-weight: bold; // Grassetto
+  cursor: pointer; // Tipo cursore
+  box-shadow: 0px 4px 0px #000; // Ombreggiatura
+  transition: transform 0.1s, box-shadow 0.1s; // Transizione
 }
 
 .action-btn:active { 
-  transform: translateY(2px); 
-  box-shadow: 0px 2px 0px #000; 
+  transform: translateY(2px); // Trasformazione
+  box-shadow: 0px 2px 0px #000; // Ombreggiatura
 }

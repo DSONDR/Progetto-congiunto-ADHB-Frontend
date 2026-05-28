@@ -7,11 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  // Simuliamo il "flusso del dato" senza avere il backend pronto
-  utenteLoggato = { nome: 'Ahmed Bini', isLogged: true };
-  
-  eventiInEvidenza = [
-    { id: 1, titolo: 'Torneo Calcetto', data: '12 Maggio' },
-    { id: 2, titolo: 'Gara Nuoto', data: '15 Maggio' }
-  ];
+  // Componente puramente vetrina/statico per l'homepage pubblica
 }

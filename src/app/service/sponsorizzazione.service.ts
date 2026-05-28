@@ -31,22 +31,27 @@ export class SponsorizzazioneService {
 
   constructor(private http: HttpClient) {}
 
+  // Recupera tutti i record dal database. Utilizzato per listati generici.
   getAll(): Observable<Sponsorizzazione[]> {
     return this.http.get<Sponsorizzazione[]>(this.apiUrl);
   }
 
+  // Recupera i dettagli di una singola entità tramite ID.
   getById(id: number): Observable<Sponsorizzazione> {
     return this.http.get<Sponsorizzazione>(`${this.apiUrl}/${id}`);
   }
 
+  // Invia al backend i dati per creare una nuova entità.
   create(sponsorizzazione: Sponsorizzazione): Observable<Sponsorizzazione> {
     return this.http.post<Sponsorizzazione>(this.apiUrl, sponsorizzazione);
   }
 
+  // Invia al backend i dati per aggiornare un'entità esistente.
   update(id: number, sponsorizzazione: Sponsorizzazione): Observable<Sponsorizzazione> {
     return this.http.put<Sponsorizzazione>(`${this.apiUrl}/${id}`, sponsorizzazione);
   }
 
+  // Rimuove fisicamente l'entità dal database tramite DELETE.
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

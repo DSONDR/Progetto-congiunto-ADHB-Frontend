@@ -15,7 +15,6 @@ import { SottoscrizioneResponseDTO, Sottoscrizione, Abbonamento } from '../dto/r
  * - getStoricoUtente -> GET [Backend: SottoscrizioneController]
  * - sottoscrivi -> POST [Backend: SottoscrizioneController]
  * - rinnova -> POST [Backend: SottoscrizioneController]
- * - disdici -> POST [Backend: SottoscrizioneController]
  */
 
 @Injectable({
@@ -26,43 +25,48 @@ export class SottoscrizioneService {
 
   constructor(private http: HttpClient) {}
 
+  // Esegue l'operazione di getAbbonamentiAtleta comunicando con il backend.
   getAbbonamentiAtleta(cf: string): Observable<Abbonamento[]> {
     return this.http.get<Abbonamento[]>(`${this.apiUrl}/abbonamenti/${cf}`);
   }
 
+  // Recupera tutti i record dal database. Utilizzato per listati generici.
   getAll(): Observable<SottoscrizioneResponseDTO[]> {
     return this.http.get<SottoscrizioneResponseDTO[]>(this.apiUrl);
   }
 
+  // Recupera i dettagli di una singola entità tramite ID.
   getById(id: number): Observable<SottoscrizioneResponseDTO> {
     return this.http.get<SottoscrizioneResponseDTO>(`${this.apiUrl}/${id}`);
   }
 
+  // Invia al backend i dati per creare una nuova entità.
   create(sottoscrizione: SottoscrizioneResponseDTO): Observable<SottoscrizioneResponseDTO> {
     return this.http.post<SottoscrizioneResponseDTO>(this.apiUrl, sottoscrizione);
   }
 
+  // Invia al backend i dati per aggiornare un'entità esistente.
   update(id: number, sottoscrizione: SottoscrizioneResponseDTO): Observable<SottoscrizioneResponseDTO> {
     return this.http.put<SottoscrizioneResponseDTO>(`${this.apiUrl}/${id}`, sottoscrizione);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // Elimina definitivamente una sottoscrizione dal sistema (usato in area-personale/abbonamenti)
+  delete(numeroAbb: number, idPagamento: number, cf: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${numeroAbb}/${idPagamento}/${cf}`);
   }
 
+  // Recupera lo storico degli acquisti di un utente
   getStoricoUtente(cf: string): Observable<Sottoscrizione[]> {
     return this.http.get<Sottoscrizione[]>(`${this.apiUrl}/storicoUtente/${cf}`);
   }
 
+  // Effettua una nuova sottoscrizione scegliendola dal listino
   sottoscrivi(request: any): Observable<SottoscrizioneResponseDTO> {
     return this.http.post<SottoscrizioneResponseDTO>(`${this.apiUrl}/sottoscrivi`, request);
   }
 
+  // Rinnova un abbonamento esistente scaduto o in scadenza
   rinnova(numeroAbb: number, metodo: string): Observable<Abbonamento> {
     return this.http.post<Abbonamento>(`${this.apiUrl}/rinnova/${numeroAbb}?metodo=${metodo}`, {});
-  }
-
-  disdici(numeroAbb: number): Observable<Abbonamento> {
-    return this.http.post<Abbonamento>(`${this.apiUrl}/disdici/${numeroAbb}`, {});
   }
 }

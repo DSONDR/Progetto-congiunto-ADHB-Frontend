@@ -53,6 +53,7 @@ export class AssistenzaComponent implements OnInit {
    */
   caricaRichieste() {
     const utenteCorrente = this.session.getLoggedUser();
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (utenteCorrente && utenteCorrente.cf) {
       this.assistenzaService.getByUtente(utenteCorrente.cf).subscribe({
         next: (data) => {
@@ -93,6 +94,7 @@ export class AssistenzaComponent implements OnInit {
    */
   inviaRichiesta() {
     const utenteCorrente = this.session.getLoggedUser();
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (utenteCorrente && utenteCorrente.cf) {
       this.nuovaRichiestaData.utenteCf = utenteCorrente.cf;
       this.assistenzaService.apriTicket(this.nuovaRichiestaData).subscribe({
@@ -117,11 +119,13 @@ export class AssistenzaComponent implements OnInit {
 
   /** Invia la valutazione per un ticket in stato RISOLTO e lo chiude. */
   valutaRichiesta(ticket: TicketEsteso) { 
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
     if (!ticket.votoForm || ticket.votoForm < 1 || ticket.votoForm > 5) {
       alert('Seleziona un voto valido (1-5).');
       return;
     }
     
+    // Verifica che il valore corrisponda a quello atteso prima di procedere
     if (ticket.idTicket !== undefined) {
       this.assistenzaService.valutaTicket(ticket.idTicket, ticket.votoForm).subscribe({
         next: () => {

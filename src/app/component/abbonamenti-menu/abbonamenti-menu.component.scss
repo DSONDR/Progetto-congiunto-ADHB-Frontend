@@ -1,0 +1,348 @@
+/* Variabili Colore */
+$bg-color: #ededed;
+$pink: #f09cf5;
+$yellow: #f8cc24;
+$grey-box: #dbdbdb;
+$grey-btn: #d3d3d3;
+$red-text: #e60000;
+$green-login: #00cc00;
+$text-dark: #000000;
+
+.page-container {
+  background-color: $bg-color; // Sfondo
+  min-height: 100vh; // Altezza minima
+  padding: 2rem; // Spaziatura interna
+  font-family: Arial, sans-serif; // Tipo di font
+  color: $text-dark; // Colore testo
+}
+
+/* Header */
+.main-header {
+  display: flex; // Layout
+  align-items: center; // Allineamento verticale
+  justify-content: space-between; // Allineamento orizzontale
+  margin-bottom: 2rem; // Margine inferiore
+}
+
+.logo-container {
+  flex: 1; // Proporzione flex
+}
+
+.mock-logo {
+  border: 1px solid #ccc; // Bordo
+  background-color: white; // Sfondo
+  padding: 5px 10px; // Spaziatura interna
+  display: inline-block; // Layout
+  border-radius: 4px; // Angoli arrotondati
+}
+
+.logo-text {
+  font-weight: bold; // Grassetto
+  font-size: 0.8rem; // Dimensione
+  color: #0066cc; // Colore testo
+}
+
+.title-container {
+  flex: 2; // Proporzione flex
+  text-align: center; // Allineamento testo
+}
+
+.header-title {
+  font-family: 'Courier New', Courier, monospace; // Tipo di font
+  font-weight: bold; // Grassetto
+  font-size: 2rem; // Dimensione
+  margin: 0;
+}
+
+.login-indicator {
+  flex: 1; // Proporzione flex
+  display: flex; // Layout
+  flex-direction: column; // Direzione
+  align-items: flex-end; // Allineamento verticale
+
+  .green-circle {
+    width: 25px; // Larghezza
+    height: 25px;
+    background-color: $green-login; // Sfondo
+    border-radius: 50%; // Angoli arrotondati
+    margin-bottom: 5px; // Margine inferiore
+  }
+  
+  .login-text {
+    font-size: 0.8rem; // Dimensione
+    font-weight: bold; // Grassetto
+  }
+}
+
+/* Navigation Link */
+.nav-link {
+  margin-bottom: 2rem; // Margine inferiore
+  a {
+    color: $text-dark; // Colore testo
+    text-decoration: underline; // Decorazione testo
+    font-weight: bold; // Grassetto
+    font-family: 'Courier New', Courier, monospace; // Tipo di font
+    font-size: 1.1rem; // Dimensione
+    cursor: pointer; // Tipo cursore
+    
+    &:hover {
+      color: #333; // Colore testo
+    }
+  }
+}
+
+.section {
+  margin-bottom: 3rem; // Margine inferiore
+}
+
+/* Speciale Section */
+.speciale-section {
+  .section-title {
+    font-family: 'Courier New', Courier, monospace; // Tipo di font
+    text-align: center; // Allineamento testo
+    font-size: 1.2rem; // Dimensione
+    margin-bottom: 0.5rem; // Margine inferiore
+  }
+  
+  .speciale-box {
+    background-color: $grey-box; // Sfondo
+    padding: 3rem; // Spaziatura interna
+    display: flex; // Layout
+    flex-direction: column; // Direzione
+    align-items: center; // Allineamento verticale
+    width: 60%; // Larghezza
+    margin: 0 auto;
+  }
+  
+  .pink-oval {
+    background-color: $pink; // Sfondo
+    border-radius: 50px; // Angoli arrotondati
+    padding: 20px 40px; // Spaziatura interna
+    display: flex; // Layout
+    flex-direction: column; // Direzione
+    align-items: center; // Allineamento verticale
+    justify-content: center; // Allineamento orizzontale
+    margin-bottom: 1.5rem; // Margine inferiore
+    
+    .oval-text {
+      font-family: 'Courier New', Courier, monospace; // Tipo di font
+      font-weight: bold; // Grassetto
+      color: white; // Colore testo
+      text-shadow: 1px 1px 0px #000; // Ombra del testo
+      font-size: 1.2rem; // Dimensione
+    }
+  }
+  
+  .scadenza-text {
+    font-weight: bold; // Grassetto
+    font-size: 0.9rem; // Dimensione
+    margin-bottom: 1.5rem; // Margine inferiore
+  }
+  
+  .pink-btn {
+    background-color: $pink; // Sfondo
+    border: none; // Bordo
+    padding: 8px 16px; // Spaziatura interna
+    font-weight: bold; // Grassetto
+    font-family: 'Courier New', Courier, monospace; // Tipo di font
+    cursor: pointer; // Tipo cursore
+    
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+/* Estate Section */
+.estate-section {
+  width: 70%; // Larghezza
+  
+  .estate-title {
+    color: $yellow; // Colore testo
+    font-family: 'Courier New', Courier, monospace; // Tipo di font
+    font-weight: bold; // Grassetto
+    font-size: 1.2rem; // Dimensione
+    margin-bottom: 1rem; // Margine inferiore
+  }
+  
+  .estate-content {
+    display: flex; // Layout
+    gap: 2rem; // Spazio tra elementi
+  }
+  
+  .estate-text {
+    flex: 2; // Proporzione flex
+    font-weight: bold; // Grassetto
+    font-size: 0.9rem; // Dimensione
+    line-height: 1.5;
+    
+    .info-title {
+      margin-top: 1rem; // Margine superiore
+      margin-bottom: 0.2rem; // Margine inferiore
+    }
+    
+    ul {
+      margin-top: 0; // Margine superiore
+      margin-bottom: 1rem; // Margine inferiore
+      padding-left: 1.2rem; // Spazio a sinistra
+    }
+    
+    .cta-text {
+      margin-bottom: 1rem; // Margine inferiore
+    }
+  }
+  
+  .grey-btn {
+    background-color: $grey-btn; // Sfondo
+    border: none; // Bordo
+    padding: 8px 20px; // Spaziatura interna
+    font-weight: bold; // Grassetto
+    font-family: 'Courier New', Courier, monospace; // Tipo di font
+    cursor: pointer; // Tipo cursore
+    
+    &:hover {
+      background-color: darken($grey-btn, 10%); // Sfondo
+    }
+  }
+  
+  .estate-box-yellow {
+    flex: 1; // Proporzione flex
+    background-color: $yellow; // Sfondo
+    display: flex; // Layout
+    align-items: center; // Allineamento verticale
+    justify-content: center; // Allineamento orizzontale
+    text-align: center; // Allineamento testo
+    font-weight: bold; // Grassetto
+    font-size: 0.9rem; // Dimensione
+    padding: 2rem; // Spaziatura interna
+  }
+}
+
+/* Altri Abbonamenti Section */
+.altri-section {
+  .altri-title {
+    font-family: 'Courier New', Courier, monospace; // Tipo di font
+    font-weight: bold; // Grassetto
+    font-size: 1.1rem; // Dimensione
+    margin-bottom: 1rem; // Margine inferiore
+  }
+  
+  .cards-container {
+    display: flex; // Layout
+    gap: 2rem; // Spazio tra elementi
+    align-items: center; // Allineamento verticale
+  }
+  
+  .abb-card {
+    background-color: $grey-box; // Sfondo
+    padding: 1.5rem; // Spaziatura interna
+    display: flex; // Layout
+    flex-direction: column; // Direzione
+    align-items: center; // Allineamento verticale
+    width: 200px; // Larghezza
+    text-align: center; // Allineamento testo
+    font-weight: bold; // Grassetto
+    
+    .card-title {
+      font-family: 'Courier New', Courier, monospace; // Tipo di font
+      margin-top: 0; // Margine superiore
+      margin-bottom: 1rem; // Margine inferiore
+      font-size: 1.1rem; // Dimensione
+    }
+    
+    .card-price {
+      font-size: 0.9rem; // Dimensione
+      margin-bottom: 0.5rem; // Margine inferiore
+    }
+    
+    .card-or {
+      font-size: 0.9rem; // Dimensione
+      margin-bottom: 0.5rem; // Margine inferiore
+    }
+    
+    .card-price-seduta {
+      font-size: 0.9rem; // Dimensione
+      margin-bottom: 1.5rem; // Margine inferiore
+    }
+  }
+  
+  .ellipsis {
+    font-size: 1.5rem; // Dimensione
+    font-weight: bold; // Grassetto
+    color: #666; // Colore testo
+  }
+}
+
+/* I Miei Abbonamenti Section */
+.i-miei-section {
+  .sub-title {
+    font-size: 0.9rem; // Dimensione
+    margin-bottom: 1rem; // Margine inferiore
+  }
+  
+  .empty-msg {
+    font-style: italic;
+    color: #666; // Colore testo
+  }
+  
+  .my-abb-item {
+    margin-bottom: 2rem; // Margine inferiore
+    width: 80%; // Larghezza
+  }
+  
+  .my-abb-header {
+    display: flex; // Layout
+    gap: 3rem; // Spazio tra elementi
+    font-weight: bold; // Grassetto
+    font-size: 1rem; // Dimensione
+    margin-bottom: 0.5rem; // Margine inferiore
+    padding-left: 1rem; // Spazio a sinistra
+    
+    .tipo-label {
+      font-family: 'Courier New', Courier, monospace; // Tipo di font
+    }
+    .tipo-name {
+      font-family: 'Courier New', Courier, monospace; // Tipo di font
+    }
+  }
+  
+  .my-abb-body {
+    background-color: $grey-box; // Sfondo
+    display: flex; // Layout
+    justify-content: space-between; // Allineamento orizzontale
+    align-items: center; // Allineamento verticale
+    padding: 1rem 2rem; // Spaziatura interna
+    font-weight: bold; // Grassetto
+    font-size: 0.9rem; // Dimensione
+    
+    .col-periodo {
+      flex: 1; // Proporzione flex
+    }
+    
+    .col-date {
+      flex: 2; // Proporzione flex
+      p {
+        margin: 0.3rem 0;
+      }
+    }
+    
+    .col-azioni {
+      flex: 1; // Proporzione flex
+      text-align: right; // Allineamento testo
+    }
+    
+    .btn-disdici {
+      background: none;
+      border: none; // Bordo
+      color: $red-text; // Colore testo
+      font-weight: bold; // Grassetto
+      font-family: 'Courier New', Courier, monospace; // Tipo di font
+      cursor: pointer; // Tipo cursore
+      text-align: right; // Allineamento testo
+      
+      &:hover {
+        text-decoration: underline; // Decorazione testo
+      }
+    }
+  }
+}

@@ -1,42 +1,42 @@
 .confirm-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; // Layout
+  flex-direction: column; // Direzione
+  align-items: center; // Allineamento verticale
+  justify-content: center; // Allineamento orizzontale
   min-height: 40vh; // Centratura verticale nel box bianco della dashboard
-  text-align: center;
-  font-family: Arial, sans-serif;
+  text-align: center; // Allineamento testo
+  font-family: Arial, sans-serif; // Tipo di font
 }
 
 .confirm-question {
   font-family: 'Permanent Marker', cursive; // Font a pennarello stile fumetto
-  color: #000;
-  font-size: 1.8rem;
+  color: #000; // Colore testo
+  font-size: 1.8rem; // Dimensione
   margin-bottom: 6vh; // Distanza dai pulsanti di scelta
-  max-width: 600px;
-  line-height: 1.4;
+  max-width: 600px; // Larghezza massima
+  line-height: 1.4; // Interlinea
 }
 
 .confirm-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; // Layout
+  justify-content: center; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
   gap: 4vw; // Spazio orizzontale tra i due rettangoli grigi
 }
 
 /* BLOCCO RETTANGOLARE GRIGIO COME DA SCREENSHOT */
 .gray-box {
   background-color: #d9d9d9; // Grigio pieno da mockup
-  color: #000;
-  font-weight: bold;
-  font-size: 1.3rem;
+  color: #000; // Colore testo
+  font-weight: bold; // Grassetto
+  font-size: 1.3rem; // Dimensione
   padding: 2vh 3vw; // Spessore del pulsante
   min-width: 180px; // Larghezza minima garantita per i testi
   box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
+  text-align: center; // Allineamento testo
+  cursor: pointer; // Tipo cursore
   border: 1px solid #b5b5b5; // Sottile linea di struttura
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease; // Transizione
 
   &:hover {
     background-color: #bfbfbf; // Effetto scurito al passaggio del mouse

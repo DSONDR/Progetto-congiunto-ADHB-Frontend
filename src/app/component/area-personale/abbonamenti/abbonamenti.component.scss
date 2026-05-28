@@ -87,7 +87,7 @@
 // Abbonamento storico
 .storico-card{
   border-left-color:#096603; //Bordo grigio laterale per differenziare gli expired
-  background-color: #00660021;
+  background-color: #00660021; // Sfondo
 }
 
 /*--- AZIONI ABBONAMENTI ---*/
@@ -123,50 +123,50 @@
 /*--- POP-UP per gli STORICI ---*/
 .modal-overlay {
   position: fixed;  // Copre tutto lo schermo bloccando la visuale
-  top: 0;
-  left: 0;
-  width: 100vw;
+  top: 0; // Dall'alto
+  left: 0; // Da sinistra
+  width: 100vw; // Larghezza
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);  // Sfondo scuro semitrasparente
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; // Layout
+  justify-content: center; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
   z-index: 2000;  // Davanti a tutto
 }
 
 .modal-content {
-  background-color: white;
+  background-color: white; // Sfondo
   border: 4px solid #000;  // Stile fumetto
-  border-radius: 12px;
-  width: 90%;
-  max-width: 600px;
+  border-radius: 12px; // Angoli arrotondati
+  width: 90%; // Larghezza
+  max-width: 600px; // Larghezza massima
   max-height: 80vh;  // Evita che sfori lo schermo se ci sono troppi dati
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+  display: flex; // Layout
+  flex-direction: column; // Direzione
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.3); // Ombreggiatura
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2vh 2vw;
+  display: flex; // Layout
+  justify-content: space-between; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
+  padding: 2vh 2vw; // Spaziatura interna
   border-bottom: 4px solid #000;  // Riga nera spessa interna
   
   .section-title { margin: 0; }
 }
 
 .close-modal-btn {
-  background-color: #cc0000;
-  color: white;
-  border-radius: 6px;
-  font-weight: bold;
-  padding: 0.5vh 1vw;
-  cursor: pointer;
+  background-color: #cc0000; // Sfondo
+  color: white; // Colore testo
+  border-radius: 6px; // Angoli arrotondati
+  font-weight: bold; // Grassetto
+  padding: 0.5vh 1vw; // Spaziatura interna
+  cursor: pointer; // Tipo cursore
 }
 .close-modal-btn:active { transform: translateY(2px); box-shadow: 0px 1px 0px #000; }
 
 .modal-body {
-  padding: 3vh 2vw;
+  padding: 3vh 2vw; // Spaziatura interna
   overflow-y: auto;  // Abilita lo scroll interno se le card storiche sono tantissime
 }

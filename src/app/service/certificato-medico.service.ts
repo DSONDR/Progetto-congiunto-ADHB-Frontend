@@ -26,10 +26,12 @@ export class CertificatoMedicoService {
 
   constructor(private http: HttpClient) {}
 
+  // Invia al backend i dati per creare una nuova entità.
   create(certificato: CertificatoMedico): Observable<CertificatoMedico> {
     return this.http.post<CertificatoMedico>(this.apiUrl, certificato);
   }
 
+  // Esegue l'operazione di getByUtenteCf comunicando con il backend.
   getByUtenteCf(cf: string): Observable<CertificatoMedico[]> {
     return this.http.get<CertificatoMedico[]>(`${this.apiUrl}/search?cf=${cf}`);
   }

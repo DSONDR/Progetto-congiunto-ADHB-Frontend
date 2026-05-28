@@ -41,16 +41,19 @@ export class RegistrazioneComponent {
   eseguiRegistrazione() {
     // Validazione base
     const d = this.registrazioneData;
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (!d.email || !d.username || !d.password || !d.nome || !d.cognome || !d.cf || !d.genere || !d.dataNascita || !d.cittaResidenza) {
       alert('Tutti i campi sono obbligatori!');
       return;
     }
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (d.cf.length !== 16) {
       alert('Il codice fiscale deve essere di 16 caratteri!');
       return;
     }
     // Aggiungi altre validazioni campi registrazione
 
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (this.registrazioneData.acconsento) {
       // Prepariamo il payload per la registrazione
       const request: RegisterRequestDTO = {
@@ -65,6 +68,7 @@ export class RegistrazioneComponent {
         password: this.registrazioneData.password
       };
 
+      // Invia la request tramite AuthService e si iscrive per attendere la risposta
       this.authService.register(request).subscribe({
         next: (response) => {
           // Usiamo i dati appena inseriti/risposti dal backend per creare la sessione
@@ -73,7 +77,8 @@ export class RegistrazioneComponent {
         },
         error: (err) => {
           console.error('Errore durante la registrazione:', err);
-          let errorMessage = 'Controlla i dati o se l\'utente esiste già.';
+          let errorMessage = "Controlla i dati o se l'utente esiste già.";
+          // Verifica che i parametri richiesti siano presenti e validi prima di procedere
           if (err.error?.message) {
             errorMessage = err.error.message;
           } else if (typeof err.error === 'string') {
@@ -82,7 +87,7 @@ export class RegistrazioneComponent {
           alert('Errore nella registrazione: ' + errorMessage);
         }
       });
-    } else {
+    } else { // Blocca la registrazione se l'utente non spunta la checkbox sulla privacy
       alert('Devi accettare il trattamento dei dati!');
     }
   }

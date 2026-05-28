@@ -1,3 +1,7 @@
+/**
+ * DTO per mappare storici di transazioni e pagamenti per l'area personale.
+ * Restituito da PagamentoController e consumato da PagamentoService.
+ */
 export interface PagamentoResponseDTO {
     idPagamento: number;
     metodoPag: string;
@@ -6,14 +10,4 @@ export interface PagamentoResponseDTO {
     importo: number;
     fattura: string;
     causale: string;
-}
-
-export interface QrCodeValidationResponseDTO {
-    tipo: string;
-    qrCode: string;
-    atletaCf: string;
-    codiceAttivita: number;
-    idPagamento: number;
-    numeroAbbonamento: number;
-    dataRiferimento: string;
 }

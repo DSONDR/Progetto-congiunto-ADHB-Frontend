@@ -1,3 +1,7 @@
+/**
+ * DTO principale di risposta con i dati anagrafici e il ruolo dell'utente loggato.
+ * Restituito dai vari UserController/AtletaController e salvato nel SessionService.
+ */
 export interface UserResponseDTO {
     cf: string;
     nome: string;

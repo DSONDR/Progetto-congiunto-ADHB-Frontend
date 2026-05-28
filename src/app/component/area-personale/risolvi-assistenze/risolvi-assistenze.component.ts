@@ -22,6 +22,7 @@ export class RisolviAssistenzeComponent implements OnInit {
 
   constructor(private session: SessionService, private assistenzaService: AssistenzaService) {}
 
+  // Eseguito all'avvio del componente, inizializza i dati o carica le risorse necessarie.
   ngOnInit() {
     this.caricaDati();
   }
@@ -33,6 +34,7 @@ export class RisolviAssistenzeComponent implements OnInit {
    */
   caricaDati() {
     const user = this.session.getLoggedUser();
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if(user) {
       this.assistenzaService.getAll().subscribe({
         next: (res) => {
@@ -52,6 +54,7 @@ export class RisolviAssistenzeComponent implements OnInit {
    */
   prendiInCarico(req: AssistenzaResponseDTO): void {
     const user = this.session.getLoggedUser();
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if(user) {
       this.assistenzaService.prendiInCarico(req.idTicket, user.cf).subscribe(() => {
         alert("Hai preso in carico la richiesta!");
@@ -68,6 +71,7 @@ export class RisolviAssistenzeComponent implements OnInit {
    */
   risolviTicket(req: AssistenzaResponseDTO): void {
     const risposta = prompt("Inserisci la risposta alla richiesta:");
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if(risposta !== null && risposta.trim() !== "") {
       this.assistenzaService.risolviTicket(req.idTicket, risposta).subscribe(() => {
         alert("Richiesta risolta con successo!");

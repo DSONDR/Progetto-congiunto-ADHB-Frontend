@@ -32,12 +32,12 @@ export class EventiComponent implements OnInit {
   filtroSede: string = '';
 
   eventiList: any[] = [];
-  
+
   isDettaglioOpen: boolean = false;
   isPagamentoOpen: boolean = false;
   eventoSelezionato: any = null;
   metodoPagamento: string = '';
-  
+
   numeroCarta: string = '';
   scadenzaCarta: string = '';
   cvv: string = '';
@@ -50,18 +50,19 @@ export class EventiComponent implements OnInit {
     private impiantoService: ImpiantoService,
     private iscrizioneService: IscrizioneService,
     private sottoscrizioneService: SottoscrizioneService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Recupera l'utente dalla sessione per mostrare il nome e gestire i permessi
     const user = this.session.getLoggedUser();
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (user) {
       this.isLoggedIn = true;
       this.username = user.nome || user.username || user.email || 'Ospite';
     } else {
       this.isLoggedIn = false;
     }
-    
+
     // Caricamento iniziale dei dati
     this.caricaFiltri();
     this.caricaEventi();
@@ -109,16 +110,19 @@ export class EventiComponent implements OnInit {
   private filtraEventiFuturi(eventi: any[]): any[] {
     const now = new Date();
     return eventi.filter(ev => {
+      // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
       if (!ev.dateOrari || ev.dateOrari.length === 0) return true;
       return ev.dateOrari.some((d: string) => new Date(d) >= now);
     });
   }
 
+  // Apre la modale per visualizzare i dettagli completi dell'evento selezionato
   apriDettaglio(evento: any): void {
     this.eventoSelezionato = evento;
     this.isDettaglioOpen = true;
   }
 
+  // Chiude tutte le modali (dettaglio e pagamento) resettando le selezioni
   chiudiModali(): void {
     this.isDettaglioOpen = false;
     this.isPagamentoOpen = false;
@@ -135,30 +139,33 @@ export class EventiComponent implements OnInit {
    * Controlla prima se l'utente è loggato e idoneo.
    */
   usaAbbonamento(): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.checkLoginEIdoneita()) return;
 
     const user = this.session.getLoggedUser();
-    
+
     // Controlla se possiede un abbonamento attivo
     this.sottoscrizioneService.getAbbonamentiAtleta(user?.cf || '').subscribe({
       next: (abbonamenti) => {
         const abbAttivo = abbonamenti.find(a => a.statoAbb === 'ATTIVO');
+        // Verifica che i parametri richiesti siano presenti e validi prima di procedere
         if (!abbAttivo) {
           alert('Non hai alcun abbonamento attivo.');
           return;
         }
-        
+
+        // Invoca l'API per registrare l'iscrizione scalando un ingresso dall'abbonamento
         this.iscrizioneService.usaAbbonamento({
           atletaCf: user?.cf || '',
           attivitaId: this.eventoSelezionato.codiceAtt,
           abbonamentoId: abbAttivo.numeroAbb
-        }).subscribe({
+        }).subscribe({  // Gestisce la risposta asincrona del backend dopo l'utilizzo dell'abbonamento
           next: () => {
             alert('Iscrizione completata con successo tramite abbonamento!');
             this.chiudiModali();
             this.caricaEventi(); // per aggiornare iscritti
           },
-          error: (err) => alert('Errore: ' + (err.error?.message || err.error || 'Impossibile usare l\'abbonamento.'))
+          error: (err) => alert('Errore: ' + (err.error?.message || err.error || "Impossibile usare l'abbonamento."))
         });
       },
       error: () => alert('Impossibile verificare abbonamento attivo.')
@@ -169,6 +176,7 @@ export class EventiComponent implements OnInit {
    * Mostra il form (mock) per il pagamento singolo nascondendo il dettaglio.
    */
   pagaSingolo(): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.checkLoginEIdoneita()) return;
     this.isDettaglioOpen = false;
     this.isPagamentoOpen = true;
@@ -179,34 +187,41 @@ export class EventiComponent implements OnInit {
    * Invia il metodo inserito (o 'CARTA' di default) al backend.
    */
   confermaPagamentoFinale(): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.numeroCarta || !this.numeroCarta.match(/^[0-9]{16}$/)) {
       alert("Il numero della carta deve contenere 16 cifre numeriche.");
       return;
     }
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.scadenzaCarta || !this.scadenzaCarta.match(/^(0[1-9]|1[0-2])\/[0-9]{2}$/)) {
       alert("La data di scadenza deve essere nel formato MM/AA.");
       return;
     }
     const [mese, anno] = this.scadenzaCarta.split('/');
     const expDate = new Date(2000 + parseInt(anno), parseInt(mese) - 1, 1);
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (expDate < new Date(new Date().getFullYear(), new Date().getMonth(), 1)) {
       alert("La carta risulta scaduta.");
       return;
     }
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.cvv || !this.cvv.match(/^[0-9]{3}$/)) {
       alert("Il CVV deve contenere 3 cifre numeriche.");
       return;
     }
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (!this.nomeIntestatario || this.nomeIntestatario.trim().length === 0) {
       alert("Il nome dell'intestatario è obbligatorio.");
       return;
     }
 
-    if(!this.metodoPagamento || this.metodoPagamento.trim() === '') {
-       this.metodoPagamento = 'CARTA'; // default fake
+    // Verifica che il valore corrisponda a quello atteso prima di procedere
+    if (!this.metodoPagamento || this.metodoPagamento.trim() === '') {
+      this.metodoPagamento = 'CARTA'; // default fake
     }
 
     const user = this.session.getLoggedUser();
+    // Invoca l'API per completare l'iscrizione e generare un pagamento singolo (CARTA, CONTANTI, ecc.)
     this.iscrizioneService.iscriviSingola({
       atletaCf: user?.cf || '',
       attivitaId: this.eventoSelezionato.codiceAtt,
@@ -215,6 +230,7 @@ export class EventiComponent implements OnInit {
     }).subscribe({
       next: () => {
         alert('Pagamento approvato. Sei ufficialmente iscritto!');
+        // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
         if (user) {
           user.puntiGamification = (user.puntiGamification || 0) + Math.floor(this.eventoSelezionato.quotaBase);
           this.session.setLoggedUser(user);
@@ -222,7 +238,7 @@ export class EventiComponent implements OnInit {
         this.chiudiModali();
         this.caricaEventi();
       },
-      error: (err) => alert('Errore durante l\'iscrizione: ' + (err.error?.message || err.error || 'Problema imprevisto.'))
+      error: (err) => alert("Errore durante l'iscrizione: " + (err.error?.message || err.error || 'Problema imprevisto.'))
     });
   }
 
@@ -233,15 +249,17 @@ export class EventiComponent implements OnInit {
    * I controlli su capienza, età e certificato medico li fa il backend.
    */
   private checkLoginEIdoneita(): boolean {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.isLoggedIn) {
-      alert('Devi aver effettuato l\'accesso per poterti iscrivere. Verrai reindirizzato al Login.');
+      alert("Devi aver effettuato l'accesso per poterti iscrivere. Verrai reindirizzato al Login.");
       this.chiudiModali();
       this.router.navigate(['/login']);
       return false;
     }
     const user = this.session.getLoggedUser();
-    if(user?.tipoIscritto !== 'ATLETA') {
-      alert('Solo gli atleti possono iscriversi alle attività. Usa l\'area admin per gestire gli iscritti.');
+    // Verifica che il valore corrisponda a quello atteso prima di procedere
+    if (user?.tipoIscritto !== 'ATLETA') {
+      alert("Solo gli atleti possono iscriversi alle attività. Usa l'area admin per gestire gli iscritti.");
       return false;
     }
     // NOTA: Il backend controlla l'età, i posti disponibili e la validità del certificato medico.

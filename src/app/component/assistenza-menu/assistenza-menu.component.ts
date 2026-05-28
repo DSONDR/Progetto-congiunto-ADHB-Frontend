@@ -21,6 +21,7 @@ export class AssistenzaMenuComponent implements OnInit {
   ngOnInit(): void {
     const user = this.session.getLoggedUser();
     
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (user) {
       this.isLoggedIn = true;
       this.username = (user as any).nome || user.username || user.email || 'Utente';

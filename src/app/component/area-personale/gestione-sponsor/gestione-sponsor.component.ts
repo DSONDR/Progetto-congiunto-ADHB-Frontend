@@ -14,7 +14,7 @@ import { SquadraResponseDTO } from '../../../dto/response/squadra-response.dto';
   styleUrl: './gestione-sponsor.component.scss'
 })
 export class GestioneSponsorComponent implements OnInit {
-  
+
   sponsorShip: Sponsorizzazione[] = [];
   squadre: SquadraResponseDTO[] = [];
   impianti: any[] = [];
@@ -38,7 +38,7 @@ export class GestioneSponsorComponent implements OnInit {
     private sponsorizzazioneService: SponsorizzazioneService,
     private squadraService: SquadraService,
     private impiantoService: ImpiantoService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.caricaSponsorizzazioni();
@@ -83,13 +83,13 @@ export class GestioneSponsorComponent implements OnInit {
    * Inizializza il form modale in modalità "Creazione", 
    * azzerando i valori per l'inserimento di un nuovo contratto di sponsorizzazione.
    */
-  nuovoSponsor(): void { 
+  nuovoSponsor(): void {
     this.isEditMode = false;
     this.sponsorSelezionatoId = null;
     this.sponsorForm = {
       partitaIva: '', azienda: '', contatto: '', dataInizio: '', dataFine: '', importo: null, targetType: 'squadra', targetId: ''
     };
-    this.isModalOpen = true; 
+    this.isModalOpen = true;
   }
 
   /**
@@ -105,7 +105,8 @@ export class GestioneSponsorComponent implements OnInit {
    * alla squadra o all'impianto target.
    */
   salvaSponsor(): void {
-    if(!this.sponsorForm.partitaIva || !this.sponsorForm.dataInizio || !this.sponsorForm.dataFine || !this.sponsorForm.importo) {
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
+    if (!this.sponsorForm.partitaIva || !this.sponsorForm.dataInizio || !this.sponsorForm.dataFine || !this.sponsorForm.importo) {
       alert('Compila tutti i campi obbligatori (Partita IVA, Date, Importo).');
       return;
     }
@@ -121,13 +122,15 @@ export class GestioneSponsorComponent implements OnInit {
       importo: this.sponsorForm.importo
     };
 
+    // Verifica che il valore corrisponda a quello atteso prima di procedere
     if (this.sponsorForm.targetType === 'squadra' && this.sponsorForm.targetId) {
       payload.squadra = { id: this.sponsorForm.targetId };
     } else if (this.sponsorForm.targetType === 'impianto' && this.sponsorForm.targetId) {
       payload.impianto = { id: this.sponsorForm.targetId };
     }
 
-    if(this.isEditMode && this.sponsorSelezionatoId) {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
+    if (this.isEditMode && this.sponsorSelezionatoId) {
       this.sponsorizzazioneService.update(this.sponsorSelezionatoId, payload).subscribe({
         next: () => {
           alert('Sponsorizzazione modificata!');
@@ -136,7 +139,7 @@ export class GestioneSponsorComponent implements OnInit {
         },
         error: (err) => alert('Errore: ' + (err.error?.message || ''))
       });
-    } else {
+    } else {  // 
       this.sponsorizzazioneService.create(payload).subscribe({
         next: () => {
           alert('Sponsorizzazione creata!');
@@ -155,7 +158,8 @@ export class GestioneSponsorComponent implements OnInit {
    * @param id L'identificativo della sponsorizzazione
    */
   eliminaSponsor(id: number): void {
-    if(confirm('Sei sicuro di voler cancellare questa sponsorizzazione?')) {
+    // Verifica che l'utente abbia confermato l'operazione prima di procedere
+    if (confirm('Sei sicuro di voler cancellare questa sponsorizzazione?')) {
       this.sponsorizzazioneService.delete(id).subscribe({
         next: () => {
           alert('Eliminata con successo');
@@ -172,19 +176,20 @@ export class GestioneSponsorComponent implements OnInit {
    * 
    * @param sponsorizzazione L'oggetto sponsorizzazione da rinnovare
    */
-  rinnovaContratto(sponsorizzazione: Sponsorizzazione): void { 
-    if(!sponsorizzazione.idSponsorizzazione || !sponsorizzazione.dataFine) return;
-    
+  rinnovaContratto(sponsorizzazione: Sponsorizzazione): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
+    if (!sponsorizzazione.idSponsorizzazione || !sponsorizzazione.dataFine) return;
+
     // Logica fittizia di rinnovo veloce (+1 anno alla scadenza)
     const currentData = new Date(sponsorizzazione.dataFine);
     currentData.setFullYear(currentData.getFullYear() + 1);
-    
+
     // Aggiorno l'oggetto per inviare la request
     const updatedSponsorizzazione = { ...sponsorizzazione, dataFine: currentData.toISOString().split('T')[0] };
 
     this.sponsorizzazioneService.update(sponsorizzazione.idSponsorizzazione, updatedSponsorizzazione).subscribe({
       next: () => {
-        alert(`Rinnovo elettronico effettuato. Nuova scadenza: ${updatedSponsorizzazione.dataFine}`); 
+        alert(`Rinnovo elettronico effettuato. Nuova scadenza: ${updatedSponsorizzazione.dataFine}`);
         this.caricaSponsorizzazioni();
       },
       error: (err) => alert('Errore durante il rinnovo: ' + (err.error?.message || ''))

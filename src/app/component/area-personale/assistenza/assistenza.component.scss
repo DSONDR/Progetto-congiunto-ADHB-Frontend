@@ -76,10 +76,10 @@
 }
 
 .ticket-header {
-  padding: 2vh 2vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 2vh 2vw; // Spaziatura interna
+  display: flex; // Layout
+  justify-content: space-between; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
   
   &.clickable {
     cursor: pointer;  // Mostra la manina per far capire che si clicca
@@ -87,22 +87,22 @@
   }
   
   .header-main {
-    font-size: 1.1rem;
-    color: #000;
+    font-size: 1.1rem; // Dimensione
+    color: #000; // Colore testo
   }
 }
 
 .accordion-arrow {
-  font-size: 1rem;
-  color: #006600;
-  font-weight: bold;
+  font-size: 1rem; // Dimensione
+  color: #006600; // Colore testo
+  font-weight: bold; // Grassetto
 }
 
 /* Sotto-blocco dettagliato che compare all'apertura slittando verso il basso */
 .ticket-details {
   padding: 0 2vw 2vh 2vw;  // Raddoppia lo spazio interno solo sotto
   border-top: 2px dashed #000;  // Righetta tratteggiata di separazione interna
-  padding-top: 2vh;
+  padding-top: 2vh; // Spazio in alto
   
   .ticket-data { font-size: 0.9rem; color: #666; margin-bottom: 1vh; }
   .ticket-status { font-size: 1rem; margin-bottom: 1.5vh; }
@@ -112,13 +112,13 @@
 
 /* BADGES DELLO STATO TICKET (STILE FUMETTO CON BORDO NERO SPESSO) */
 .status-badge {
-  display: inline-block;
-  padding: 0.3vh 1vw;
-  border: 2px solid #000;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 0.85rem;
-  margin-left: 0.5vw;
+  display: inline-block; // Layout
+  padding: 0.3vh 1vw; // Spaziatura interna
+  border: 2px solid #000; // Bordo
+  border-radius: 4px; // Angoli arrotondati
+  font-weight: bold; // Grassetto
+  font-size: 0.85rem; // Dimensione
+  margin-left: 0.5vw; // Margine sinistro
 }
 
 .status-aperto { background-color: #ffcccc; color: #cc0000; }  // Rosso per aperto

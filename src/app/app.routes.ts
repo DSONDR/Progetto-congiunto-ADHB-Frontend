@@ -28,6 +28,7 @@ import { GestioneSponsorComponent } from './component/area-personale/gestione-sp
 import { CalendarioComponent } from './component/calendario/calendario.component';
 import { EventiComponent } from './component/eventi/eventi.component';
 import { AssistenzaMenuComponent } from './component/assistenza-menu/assistenza-menu.component';
+import { AbbonamentiMenuComponent } from './component/abbonamenti-menu/abbonamenti-menu.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -65,5 +66,5 @@ export const routes: Routes = [
   { path: 'eventi', component: EventiComponent },
   { path: 'assistenza-menu', component: AssistenzaMenuComponent },
   // Prepariamo i "buchi" per i futuri link del menu
-  { path: 'abbonamenti', component: HomeComponent },
+  { path: 'abbonamenti', component: AbbonamentiMenuComponent },
 ];

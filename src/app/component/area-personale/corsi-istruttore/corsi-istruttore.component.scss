@@ -1,5 +1,5 @@
 /* --- STILI CONDIVISI DASHBOARD --- */
-.page-title { 
+.page-title {
   font-family: 'Permanent Marker', cursive; // Font a pennarello
   color: #000; // Colore nero
   font-size: 2.5rem; // Dimensione grande
@@ -7,7 +7,7 @@
   margin-bottom: 3vh; // Spazio sotto
 }
 
-.section-title { 
+.section-title {
   font-family: 'Permanent Marker', cursive; // Font a pennarello
   color: #006600; // Verde scuro
   font-size: 1.5rem; // Dimensione media
@@ -15,11 +15,11 @@
   margin-bottom: 2vh; // Spazio sotto
 }
 
-.content-section { 
+.content-section {
   margin-bottom: 5vh; // Spazio sotto il blocco
 }
 
-.action-section { 
+.action-section {
   display: flex; // Flexbox per allineare
   flex-direction: column; // Incolonna
   align-items: flex-start; // Allinea a sinistra
@@ -27,7 +27,7 @@
   margin-bottom: 5vh; // Spazio in basso
 }
 
-.action-btn { 
+.action-btn {
   background-color: white; // Sfondo bianco
   color: #000; // Scritta nera
   border: 3px solid #000; // Bordo spesso
@@ -41,16 +41,16 @@
   text-align: left; // Testo a sinistra
 }
 
-.action-btn:active { 
+.action-btn:active {
   transform: translateY(3px); // Effetto clic schiacciato
   box-shadow: 0px 1px 0px #000; // Riduce l'ombra
 }
 
-.action-btn:hover { 
+.action-btn:hover {
   background-color: #e6ffe6; // Verde chiaro hover
 }
 
-.empty-msg { 
+.empty-msg {
   font-weight: bold; // Grassetto per messaggio vuoto
   color: #555; // Grigio
   font-style: italic; // Corsivo
@@ -58,60 +58,125 @@
 
 /* --- STILI CORSI --- */
 .corso-card {
-  border: 3px solid #000;
-  border-left: 10px solid #006600;
-  border-radius: 8px;
-  padding: 2vh 2vw;
-  margin-bottom: 2vh;
-  background-color: #fafafa;
+  border: 3px solid #000; // Bordo
+  border-left: 10px solid #006600; // Bordo sinistro
+  border-radius: 8px; // Angoli arrotondati
+  padding: 2vh 2vw; // Spaziatura interna
+  margin-bottom: 2vh; // Margine inferiore
+  background-color: #fafafa; // Sfondo
 
   .corso-row {
-    font-size: 1.1rem;
-    margin-bottom: 0.8vh;
-    color: #333;
-    strong { color: #000; }
+    font-size: 1.1rem; // Dimensione
+    margin-bottom: 0.8vh; // Margine inferiore
+    color: #333; // Colore testo
+
+    strong {
+      color: #000; // Colore testo
+    }
   }
 }
 
 .alert-btn {
-  border-color: #cc0000; color: #cc0000; box-shadow: 0px 4px 0px #cc0000;
-  &:hover { background-color: #ffe6e6; }
-  &:active { box-shadow: 0px 1px 0px #cc0000; }
+  border-color: #cc0000; // Colore bordo
+  color: #cc0000; // Colore testo
+  box-shadow: 0px 4px 0px #cc0000; // Ombreggiatura
+
+  &:hover {
+    background-color: #ffe6e6; // Sfondo
+  }
+
+  &:active {
+    box-shadow: 0px 1px 0px #cc0000; // Ombreggiatura
+  }
 }
 
 /* LINK CLICCABILE ISCRITTI */
 .roster-link {
-  color: #006600;
-  text-decoration: underline;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.1s;
-  &:hover { color: #00cd00; }
+  color: #006600; // Colore testo
+  text-decoration: underline; // Decorazione testo
+  font-weight: bold; // Grassetto
+  cursor: pointer; // Tipo cursore
+  transition: color 0.1s; // Transizione
+
+  &:hover {
+    color: #00cd00; // Colore testo
+  }
 }
 
 /* --- POP-UP ROSTER (Riciclato da abbonamenti) --- */
 .modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000;
+  position: fixed; // Posizionamento
+  top: 0; // Dall'alto
+  left: 0; // Da sinistra
+  width: 100vw; // Larghezza
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); // Sfondo
+  display: flex; // Layout
+  justify-content: center; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
+  z-index: 2000; // Livello profondità
 }
+
 .modal-content {
-  background-color: white; border: 4px solid #000; border-radius: 12px; width: 90%; max-width: 500px;
-  display: flex; flex-direction: column; box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+  background-color: white; // Sfondo
+  border: 4px solid #000; // Bordo
+  border-radius: 12px; // Angoli arrotondati
+  width: 90%; // Larghezza
+  max-width: 500px; // Larghezza massima
+  display: flex; // Layout
+  flex-direction: column; // Direzione
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3); // Ombreggiatura
 }
+
 .modal-header {
-  display: flex; justify-content: space-between; align-items: center; padding: 2vh 2vw; border-bottom: 4px solid #000;
-  .section-title { margin: 0; }
+  display: flex; // Layout
+  justify-content: space-between; // Allineamento orizzontale
+  align-items: center; // Allineamento verticale
+  padding: 2vh 2vw; // Spaziatura interna
+  border-bottom: 4px solid #000; // Bordo inferiore
+
+  .section-title {
+    margin: 0;
+  }
 }
+
 .close-modal-btn {
-  background-color: #cc0000; color: white; border: 3px solid #000; border-radius: 6px; font-weight: bold; font-size: 1.2rem; padding: 0.5vh 1vw; cursor: pointer; box-shadow: 0px 3px 0px #000;
-  &:active { transform: translateY(2px); box-shadow: 0px 1px 0px #000; }
+  background-color: #cc0000; // Sfondo
+  color: white; // Colore testo
+  border: 3px solid #000; // Bordo
+  border-radius: 6px; // Angoli arrotondati
+  font-weight: bold; // Grassetto
+  font-size: 1.2rem; // Dimensione
+  padding: 0.5vh 1vw; // Spaziatura interna
+  cursor: pointer; // Tipo cursore
+  box-shadow: 0px 3px 0px #000; // Ombreggiatura
+
+  &:active {
+    transform: translateY(2px); // Trasformazione
+    box-shadow: 0px 1px 0px #000; // Ombreggiatura
+  }
 }
-.modal-body { padding: 3vh 2vw; max-height: 50vh; overflow-y: auto; } // Scroll interno al pop-up
+
+.modal-body {
+  padding: 3vh 2vw; // Spaziatura interna
+  max-height: 50vh; // Altezza massima
+  overflow-y: auto; // Scorrimento verticale
+}
+
+// Scroll interno al pop-up
 
 .roster-list {
-  list-style: none; padding: 0; margin: 0;
+  list-style: none;
+  padding: 0; // Spaziatura interna
+  margin: 0;
+
   li {
-    font-size: 1.2rem; padding: 1.5vh 0; border-bottom: 1px dashed #ccc;
-    &:last-child { border-bottom: none; }
+    font-size: 1.2rem; // Dimensione
+    padding: 1.5vh 0; // Spaziatura interna
+    border-bottom: 1px dashed #ccc; // Bordo inferiore
+
+    &:last-child {
+      border-bottom: none; // Bordo inferiore
+    }
   }
 }

@@ -44,6 +44,7 @@ export class CalendarioComponent implements OnInit {
   ngOnInit(): void {
     const user = this.session.getLoggedUser();
     
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (user) {
       this.isLoggedIn = true;
       this.username = user.username || user.nome;
@@ -71,10 +72,12 @@ export class CalendarioComponent implements OnInit {
    * Quindi sdoppia le attività per ogni data in cui si svolgono e popola l'array degli eventi.
    */
   caricaEventi(): void {
+    // Verifica che il valore corrisponda a quello atteso prima di procedere
     if (this.ruoloUtente === 'istruttore' || this.ruoloUtente === 'allenatore') {
       this.attivitaService.filtra({ istruttoreCf: this.cfUtente }).subscribe(attivita => {
         this.eventi = [];
         attivita.forEach((att: any) => {
+          // Verifica che i parametri richiesti siano presenti e validi prima di procedere
           if(att.dateOrari) {
             att.dateOrari.forEach((da: string) => {
               this.eventi.push({
@@ -122,6 +125,7 @@ export class CalendarioComponent implements OnInit {
 
         // Mappiamo gli usi abbonamento
         conAbbonamento.forEach((uso: any) => {
+          // Verifica che i parametri richiesti siano presenti e validi prima di procedere
           if(uso.attivita && uso.attivita.dateAtts) {
             uso.attivita.dateAtts.forEach((da: any) => {
               this.eventi.push({
@@ -152,16 +156,20 @@ export class CalendarioComponent implements OnInit {
   get eventiFiltrati() {
     return this.eventi.filter(ev => {
       let passaData = true;
+      // Verifica che i parametri richiesti siano presenti e validi prima di procedere
       if (this.filtroDataInizio || this.filtroDataFine) {
         const dataEvento = new Date(ev.data);
         const dataInizio = this.filtroDataInizio ? new Date(this.filtroDataInizio) : null;
         const dataFine = this.filtroDataFine ? new Date(this.filtroDataFine) : null;
 
+        // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
         if (dataInizio && dataEvento < dataInizio) passaData = false;
+        // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
         if (dataFine && dataEvento > dataFine) passaData = false;
       } else {
         const now = new Date();
         now.setHours(0, 0, 0, 0);
+        // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
         if (new Date(ev.data) < now) passaData = false;
       }
 
@@ -180,17 +188,20 @@ export class CalendarioComponent implements OnInit {
    * @param evento L'evento da annullare
    */
   annullaPrenotazione(evento: any): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if(!evento.isSingola) {
       alert("La disiscrizione da attività prenotate con abbonamento non è attualmente supportata.");
       return;
     }
 
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if(confirm(`Sei sicuro di voler annullare l'iscrizione a ${evento.nomeAtt}?`)) {
       this.iscrizioneService.cancellaIscrizione(evento.id, evento.idPagamento, this.cfUtente).subscribe({
         next: () => {
           alert(`Iscrizione annullata. È stato disposto il rimborso (mock). I punti gamification sono stati decurtati.`);
           
           const user = this.session.getLoggedUser();
+          // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
           if (user && evento.importoPagato) {
              const puntiDaTogliere = Math.floor(evento.importoPagato);
              user.puntiGamification = Math.max(0, (user.puntiGamification || 0) - puntiDaTogliere);
@@ -210,6 +221,7 @@ export class CalendarioComponent implements OnInit {
    * Verifica se è possibile annullare l'iscrizione (almeno 24h prima)
    */
   canAnnullare(evento: any): boolean {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!evento.isSingola) return false;
     const now = new Date();
     const eventDate = new Date(evento.data);

@@ -1,0 +1,106 @@
+<div class="page-container">
+  <!-- Header comune -->
+  <header class="main-header">
+    <div class="logo-container">
+      <div class="mock-logo">
+        <span class="logo-text">POLISPORTICKET</span>
+        <div class="logo-graphics"></div>
+      </div>
+    </div>
+    <div class="title-container">
+      <h1 class="header-title" *ngIf="vistaCorrente === 'VETRINA'">Abbonamenti</h1>
+      <h1 class="header-title" *ngIf="vistaCorrente === 'I_MIEI'">I tuoi abbonamenti</h1>
+    </div>
+    <div class="login-indicator">
+      <div class="green-circle"></div>
+      <span class="login-text">Login</span>
+    </div>
+  </header>
+
+  <!-- VISTA VETRINA -->
+  <ng-container *ngIf="vistaCorrente === 'VETRINA'">
+    <div class="nav-link">
+      <a href="javascript:void(0)" (click)="cambiaVista('I_MIEI')">I tuoi abbonamenti</a>
+    </div>
+
+    <!-- TUTTI GLI ABBONAMENTI -->
+    <div class="section altri-section">
+      <h2 class="altri-title">Tutti gli Abbonamenti:</h2>
+      <div class="cards-container">
+        
+        <div class="abb-card" *ngFor="let tipo of tipiAbbonamento">
+          <h3 class="card-title">{{ tipo.nome | uppercase }}</h3>
+          <p class="card-price">{{ tipo.prezzo | number:'1.2-2' }}€</p>
+          <p class="card-or">Durata: {{ tipo.tipo === 'TEMPO' ? tipo.durataMesi + ' mesi' : 'Senza scadenza' }}</p>
+          <p class="card-price-seduta">Ingressi: {{ tipo.maxIngressi === -1 ? 'Illimitati' : tipo.maxIngressi }}</p>
+          <button class="grey-btn" (click)="apriPagamento(tipo.nome)">Iscriviti ora</button>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- VISTA I MIEI ABBONAMENTI -->
+  <ng-container *ngIf="vistaCorrente === 'I_MIEI'">
+    <div class="nav-link">
+      <a href="javascript:void(0)" (click)="cambiaVista('VETRINA')">I tuoi abbonamenti</a>
+    </div>
+
+    <div class="section i-miei-section">
+      <h3 class="sub-title">I tuoi abbonamenti</h3>
+
+      <div class="empty-msg" *ngIf="abbonamenti.length === 0">
+        Nessun abbonamento attivo.
+      </div>
+
+      <div class="my-abb-item" *ngFor="let abb of abbonamenti">
+        <div class="my-abb-header">
+          <span class="tipo-label">TIPO</span>
+          <span class="tipo-name">{{ abb.tipoAbb }}</span>
+        </div>
+        <div class="my-abb-body">
+          <div class="col-periodo">
+            mensile
+          </div>
+          <div class="col-date">
+            <p>Iscritto il: {{ abb.dataInizio | date:'dd/MM/yyyy' }}</p>
+            <p>Scadenza: {{ abb.dataScadenza | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div class="col-azioni">
+            <button class="btn-disdici" (click)="disdiciAbbonamento(abb.numeroAbb)">Disdici<br>abbonamento</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>
+
+<!-- Modale di Pagamento -->
+<div class="modal-overlay" *ngIf="isPagamentoOpen" (click)="chiudiModali()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h2 class="section-title">Acquisto Abbonamento</h2>
+      <button class="close-modal-btn" (click)="chiudiModali()">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <p class="detail-row">Stai per acquistare l'abbonamento: <strong>{{ tipoSelezionato }}</strong></p>
+      
+      <div class="payment-mock-form">
+        <input type="text" class="pay-input" placeholder="Numero Carta (16 cifre)" [(ngModel)]="numeroCarta">
+        <div class="pay-row">
+          <input type="text" class="pay-input mini" placeholder="MM/AA" [(ngModel)]="scadenzaCarta">
+          <input type="text" class="pay-input mini" placeholder="CVV" [(ngModel)]="cvv">
+        </div>
+        <input type="text" class="pay-input" placeholder="Nome Titolare" [(ngModel)]="nomeIntestatario">
+      </div>
+
+      <div class="modal-actions mt-4">
+        <button class="action-btn confirm-pay-btn" (click)="confermaPagamentoFinale()">Conferma e Paga</button>
+      </div>
+    </div>
+  </div>
+</div>

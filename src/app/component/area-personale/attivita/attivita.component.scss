@@ -9,23 +9,23 @@
 
 // Incolonnamento verticale per i link informativi superiori
 .attivita-container { 
-  display: flex; 
-  flex-direction: column; 
+  display: flex; // Layout
+  flex-direction: column; // Direzione
   gap: 4vh; // Ampia distanza tra i due paragrafi
   margin-bottom: 6vh; // Distanza di sicurezza dall'inizio della sezione premi
 }
 
 .main-text { 
-  font-family: Arial, sans-serif; 
-  font-size: 1.3rem; 
-  font-weight: bold; 
-  color: #000; 
+  font-family: Arial, sans-serif; // Tipo di font
+  font-size: 1.3rem; // Dimensione
+  font-weight: bold; // Grassetto
+  color: #000; // Colore testo
   margin: 0 0 0.5vh 0; 
 }
 
 .sub-text { 
-  font-family: Arial, sans-serif; 
-  font-size: 0.95rem; 
+  font-family: Arial, sans-serif; // Tipo di font
+  font-size: 0.95rem; // Dimensione
   color: #555; // Grigio per la nota restrittiva
   margin: 0; 
   font-style: italic; // Testo inclinato
@@ -33,10 +33,10 @@
 
 // Stile scritte cliccabili sottolineate
 .inline-link {
-  color: #000; 
+  color: #000; // Colore testo
   text-decoration: underline; // Sottolineatura obbligatoria fissa
-  font-weight: bold; 
-  cursor: pointer;
+  font-weight: bold; // Grassetto
+  cursor: pointer; // Tipo cursore
   
   &:hover { 
     color: #00cd00; // Illuminazione verde in hover
@@ -51,20 +51,20 @@
 
 // Riquadro contenente il saldo punti
 .score-banner {
-  background-color: #fff;
+  background-color: #fff; // Sfondo
   border: 3px solid #000; // Bordo nero spesso fumetto
-  border-radius: 8px;
-  padding: 1.5vh 2vw;
+  border-radius: 8px; // Angoli arrotondati
+  padding: 1.5vh 2vw; // Spaziatura interna
   display: inline-block; // Il riquadro si stringe attorno al testo senza occupare tutta la riga
-  margin-bottom: 4vh;
+  margin-bottom: 4vh; // Margine inferiore
   box-shadow: 4px 4px 0px #000; // Ombra secca squadrata nera posteriore
 }
 
 .score-text {
   margin: 0;
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.6rem;
-  color: #000;
+  font-family: 'Permanent Marker', cursive; // Tipo di font
+  font-size: 1.6rem; // Dimensione
+  color: #000; // Colore testo
   
   // Stile per il numero dei punti vero e proprio
   span {
@@ -75,37 +75,37 @@
 
 /* GRIGLIA PREMI A TRE COLONNE AFFIANCATE */
 .rewards-grid {
-  display: grid;
+  display: grid; // Layout
   grid-template-columns: repeat(3, 1fr); // Genera 3 colonne identiche della stessa larghezza (33% l'una)
   gap: 2vw; // Spaziatura vuota di sicurezza tra una card e l'altra
-  width: 100%;
+  width: 100%; // Larghezza
 }
 
 /* CARATTERISTICHE BASE DELLA CARD PREMIO */
 .reward-card {
   border: 4px solid #000; // Confine nero cicciotto stile vignetta
   border-radius: 12px; // Angoli molto arrotondati
-  padding: 3vh 1.5vw;
-  display: flex;
+  padding: 3vh 1.5vw; // Spaziatura interna
+  display: flex; // Layout
   flex-direction: column; // Struttura ad albero dall'alto in basso
   justify-content: space-between; // Spinge il titolo in cima e il bottone in fondo alla card
   min-height: 22vh; // Altezza minima garantita per tenere allineate le card anche con testi diversi
   box-shadow: 6px 6px 0px #000; // Ombra netta proiettata in basso a destra
-  transition: transform 0.1s;
+  transition: transform 0.1s; // Transizione
   
   .card-title {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 2rem;
-    color: #000;
-    margin-bottom: 1vh;
+    font-family: 'Permanent Marker', cursive; // Tipo di font
+    font-size: 2rem; // Dimensione
+    color: #000; // Colore testo
+    margin-bottom: 1vh; // Margine inferiore
   }
   
   .card-subtitle {
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #222;
-    margin-bottom: 3vh;
+    font-family: Arial, sans-serif; // Tipo di font
+    font-weight: bold; // Grassetto
+    font-size: 1.1rem; // Dimensione
+    color: #222; // Colore testo
+    margin-bottom: 3vh; // Margine inferiore
   }
 }
 
@@ -116,30 +116,30 @@
 
 // Blocco inferiore interno alla card
 .card-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vh;
+  display: flex; // Layout
+  flex-direction: column; // Direzione
+  gap: 1.5vh; // Spazio tra elementi
 }
 
 // Scritta del costo in punti
 .cost-tag {
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #000;
+  font-family: Arial, sans-serif; // Tipo di font
+  font-weight: bold; // Grassetto
+  font-size: 1rem; // Dimensione
+  color: #000; // Colore testo
   text-transform: uppercase; // Forza la scritta in caratteri maiuscoli
 }
 
 /* BOTTONE DI ACQUISTO INTERNO ALLA CARD PREMIO */
 .buy-btn {
   background-color: #fff; // Tasto bianco di partenza
-  color: #000;
+  color: #000; // Colore testo
   border: 3px solid #000; // Bordo spesso nero
-  border-radius: 6px;
-  padding: 1vh 0;
-  font-weight: bold;
-  font-size: 1.1rem;
-  cursor: pointer;
+  border-radius: 6px; // Angoli arrotondati
+  padding: 1vh 0; // Spaziatura interna
+  font-weight: bold; // Grassetto
+  font-size: 1.1rem; // Dimensione
+  cursor: pointer; // Tipo cursore
   box-shadow: 0px 4px 0px #000; // Finta ombra solida fumetto
   width: 100%; // Espande il bottone per coprire tutta la larghezza interna della card
   transition: all 0.1s; // Velocità di risposta del movimento

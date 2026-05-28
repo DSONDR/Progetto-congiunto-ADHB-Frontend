@@ -20,6 +20,7 @@ export class AreaPersonaleComponent implements OnInit {
   ngOnInit(): void {
     const user = this.session.getLoggedUser(); 
     
+    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
     if (user && user.tipoIscritto) {
       this.ruoloUtente = user.tipoIscritto.toLowerCase().trim();
     } else {

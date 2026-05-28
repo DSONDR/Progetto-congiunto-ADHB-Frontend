@@ -14,7 +14,7 @@ import { UserResponseDTO } from '../../../dto/response/user-response.dto';
   styleUrl: './gestione-squadre.component.scss'
 })
 export class GestioneSquadreComponent implements OnInit {
-  
+
   squadreSocietarie: SquadraResponseDTO[] = [];
   allenatori: UserResponseDTO[] = [];
 
@@ -38,7 +38,7 @@ export class GestioneSquadreComponent implements OnInit {
   constructor(
     private squadraService: SquadraService,
     private allenatoreService: AllenatoreService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.caricaSquadre();
@@ -64,10 +64,10 @@ export class GestioneSquadreComponent implements OnInit {
    * Apre il form modale in modalità "Creazione" per inserire una nuova squadra,
    * resettando i campi del form ai valori iniziali.
    */
-  creaNuovaSquadre(): void { 
+  creaNuovaSquadre(): void {
     this.isEditMode = false;
     this.squadraForm = { nome: '', sport: '', campionato: '', allenatoreCf: '' };
-    this.isSquadraModalOpen = true; 
+    this.isSquadraModalOpen = true;
   }
 
   /**
@@ -76,7 +76,7 @@ export class GestioneSquadreComponent implements OnInit {
    * 
    * @param sq I dati della squadra da modificare
    */
-  modificaSquadra(sq: SquadraResponseDTO): void { 
+  modificaSquadra(sq: SquadraResponseDTO): void {
     this.isEditMode = true;
     this.squadraSelezionataId = sq.id;
     this.squadraForm = {
@@ -94,11 +94,13 @@ export class GestioneSquadreComponent implements OnInit {
    * del flag `isEditMode`.
    */
   salvaSquadra(): void {
-    if(!this.squadraForm.nome || !this.squadraForm.sport || !this.squadraForm.allenatoreCf) {
+    // Verifica che i campi obbligatori del form siano compilati prima di procedere
+    if (!this.squadraForm.nome || !this.squadraForm.sport || !this.squadraForm.allenatoreCf) {
       alert('Compila tutti i campi obbligatori!');
       return;
     }
-    
+
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (this.isEditMode && this.squadraSelezionataId) {
       this.squadraService.update(this.squadraSelezionataId, this.squadraForm).subscribe({
         next: () => {
@@ -108,7 +110,7 @@ export class GestioneSquadreComponent implements OnInit {
         },
         error: (err) => alert('Errore modifica: ' + (err.error?.message || ''))
       });
-    } else {
+    } else {  // 
       this.squadraService.create(this.squadraForm).subscribe({
         next: () => {
           alert('Squadra creata con successo!');
@@ -153,6 +155,7 @@ export class GestioneSquadreComponent implements OnInit {
    * nel modale Roster, inviando il CF inserito al backend.
    */
   aggiungiAtleta(): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.nuovoAtletaCf || !this.squadraRosterSelezionata) return;
     this.squadraService.addAtletaToSquadra(this.squadraRosterSelezionata.id, this.nuovoAtletaCf).subscribe({
       next: () => {
@@ -171,8 +174,10 @@ export class GestioneSquadreComponent implements OnInit {
    * @param cf Il codice fiscale dell'atleta da rimuovere
    */
   rimuoviAtleta(cf: string): void {
+    // Verifica che i parametri richiesti siano presenti e validi prima di procedere
     if (!this.squadraRosterSelezionata) return;
-    if(confirm('Rimuovere questo atleta dal roster?')) {
+    // Verifica che l'utente abbia confermato l'operazione prima di procedere
+    if (confirm('Rimuovere questo atleta dal roster?')) {
       this.squadraService.rimuoviAtletaDaSquadra(this.squadraRosterSelezionata.id, cf).subscribe({
         next: () => {
           alert('Atleta rimosso.');
@@ -198,7 +203,8 @@ export class GestioneSquadreComponent implements OnInit {
    * @param id L'identificativo della squadra da eliminare
    */
   eliminaSquadra(id: number): void {
-    if(confirm(`Sei sicuro di voler eliminare la squadra ID ${id}?`)) {
+    // Verifica che l'utente abbia confermato l'operazione prima di procedere
+    if (confirm(`Sei sicuro di voler eliminare la squadra ID ${id}?`)) {
       this.squadraService.delete(id).subscribe({
         next: () => {
           alert(`Squadra ${id} eliminata.`);

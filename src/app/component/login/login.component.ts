@@ -19,14 +19,16 @@ export class LoginComponent {
     password: ''
   };
 
-  constructor(private router: Router, private session: SessionService, private authService: AuthService) {}
+  constructor(private router: Router, private session: SessionService, private authService: AuthService) { }
 
+  // Gestisce la logica di eseguiLogin nel componente.
   eseguiLogin() {
     const request: LoginRequestDTO = {
       email: this.loginData.username, // Assumiamo che l'utente inserisca l'email nel campo username per il momento (oppure andrebbe rinominato in UI)
       password: this.loginData.password
     };
 
+    // Effettua la chiamata API di login verso il backend delegando al servizio di autenticazione
     this.authService.login(request).subscribe({
       next: (response) => {
         // Se il login va a buon fine, salviamo l'utente
