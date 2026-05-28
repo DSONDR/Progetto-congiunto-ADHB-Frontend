@@ -1,6 +1,8 @@
+<!-- Titolo principale della pagina -->
 <h1 class="page-title">I tuoi Abbonamenti</h1>
 
 <div class="content-section">
+  <!-- Sezione degli abbonamenti attivi -->
   <h3 class="section-title">Abbonamenti in corso:</h3>
   
   <p class="empty-msg" *ngIf="abbonamenti.length === 0">
@@ -9,11 +11,13 @@
 
   <div class="sub-list" *ngIf="abbonamenti.length > 0">
     <div class="sub-card" *ngFor="let abb of abbonamenti">
+      <!-- Informazioni dell'abbonamento -->
       <div class="sub-row"><strong>TIPO ABBONAMENTO:</strong> {{ abb.tipoAbb }}</div>
       <div class="sub-row"><strong>- sottoscritto:</strong> {{ abb.dataInizio }}</div>
       <div class="sub-row"><strong>- Ingressi effettuati:</strong> {{ abb.ingressiEffettuati }}</div>
       <div class="sub-row"><strong>- Rinnovo (se previsto)*:</strong> {{ abb.dataScadenza }}</div>
       <div class="sub-row"><strong>- Stato:</strong> {{ abb.statoAbb }}</div>
+      <!-- Informazioni dell'abbonamento -->
       <div class="sub-row">
         <button class="action-btn alert-btn" style="margin-top: 10px" (click)="disdiciAbbonamento(abb)">Disdici abbonamento</button>
       </div>
@@ -24,6 +28,7 @@
 <div class="action-section">
   <div class="btn-group">
     <a routerLink="/abbonamenti" class="action-btn" style="display: inline-block; text-align: center; text-decoration: none;">Sottoscrivi un nuovo abbonamento</a>
+    <!-- Testo informativo -->
     <span class="btn-subtext">L'abbonamento sarà subito fruibile per iscriversi a un'attività</span>
   </div>
 
@@ -32,6 +37,7 @@
   </div>
 </div>
 
+<!-- Nota informativa sui rinnovi automatici -->
 <p class="footer-note">
   <strong>*Gli abbonamenti a tempo non disdetti si rinnovano automaticamente alla mezzanotte del primo giorno del periodo successivo</strong>
 </p>
@@ -45,6 +51,7 @@
     
     <div class="modal-body">
       <div class="sub-card storico-card" *ngFor="let stor of storicoAbbonamenti">
+        <!-- Informazioni dello storico -->
         <div class="sub-row"><strong>TIPO ABBONAMENTO:</strong> {{ stor.tipoAbb }}</div>
         <div class="sub-row"><strong>- sottoscritto:</strong> {{ stor.dataInizio }}</div>
         <div class="sub-row"><strong>- Ingressi effettuati:</strong> {{ stor.ingressiEffettuati }}</div>
