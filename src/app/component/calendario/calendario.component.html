@@ -1,7 +1,10 @@
+<!-- Wrapper principale della pagina del calendario -->
 <div class="calendar-page-wrapper">
   
+  <!-- Card contenitore del calendario -->
   <div class="calendar-card">
     
+    <!-- Intestazione del calendario con logo, titolo e nome utente (se loggato) -->
     <div class="calendar-header">
       <img src="/polisporticket_logo.png" alt="Polisporticket" class="header-logo" routerLink="/home">
       <h1 class="header-title">Calendario</h1>
@@ -13,6 +16,7 @@
       </div>
     </div>
 
+    <!-- Vista per utenti NON loggati: mostra un messaggio e i link per registrarsi o vedere gli eventi -->
     <div class="logged-out-view" *ngIf="!isLoggedIn">
       <h2 class="empty-message">Non sono presenti prenotazioni</h2>
       <p class="empty-note">*Registrati o torna alla pagina degli Eventi</p>
@@ -23,12 +27,15 @@
       </div>
     </div>
 
+    <!-- Vista per utenti loggati: mostra le prenotazioni, i filtri e la lista degli eventi -->
     <div class="logged-in-view" *ngIf="isLoggedIn">
       
+      <!-- Badge identificativo della sezione -->
       <div class="label-badge">
         Le tue prenotazioni
       </div>
 
+      <!-- Barra dei filtri per la ricerca degli eventi per data, impianto e tipo -->
       <div class="filter-bar">
         
         <div class="filter-col date-filter-col">
@@ -53,8 +60,10 @@
         </div>
       </div>
 
+      <!-- Lista scorrevole degli eventi filtrati -->
       <div class="scrollable-list">
         
+        <!-- Singola riga che rappresenta un evento prenotato o disponibile -->
         <div class="event-row" *ngFor="let ev of eventiFiltrati">
           <div class="event-col date-col"><strong>{{ ev.data | date:'dd MMM' }}</strong></div>
           <div class="event-col impianto-col"><strong>{{ ev.impianto }}</strong></div>
