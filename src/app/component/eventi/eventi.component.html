@@ -1,6 +1,9 @@
+<!-- Wrapper principale della pagina degli eventi -->
 <div class="calendar-page-wrapper">
+  <!-- Card che contiene l'interfaccia degli eventi -->
   <div class="calendar-card">
     
+    <!-- Intestazione degli eventi con logo e titolo -->
     <div class="calendar-header">
       <img src="/polisporticket_logo.png" alt="Polisporticket" class="header-logo" routerLink="/home">
       <h1 class="header-title">Eventi</h1>
@@ -12,6 +15,7 @@
       </div>
     </div>
 
+    <!-- Barra dei filtri per la ricerca degli eventi (data, sport, categoria, sede) -->
     <div class="filters-bar">
       <div class="filter-group date-group">
         <span class="filter-icon">📅</span>
@@ -51,6 +55,7 @@
       <strong>Tutti gli eventi, le competizioni e le attività organizzate dalla polisportiva</strong>
     </div>
 
+    <!-- Layout contenente la lista degli eventi -->
     <div class="events-layout">
       <div class="events-label">
         <strong>Elenco eventi:</strong>
@@ -72,6 +77,7 @@
   </div>
 </div>
 
+<!-- Modale di dettaglio evento: mostra le informazioni specifiche e le opzioni di pagamento -->
 <div class="modal-overlay" *ngIf="isDettaglioOpen" (click)="chiudiModali()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
@@ -96,6 +102,7 @@
   </div>
 </div>
 
+<!-- Modale di pagamento fittizio per procedere al checkout dell'evento -->
 <div class="modal-overlay" *ngIf="isPagamentoOpen" (click)="chiudiModali()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
