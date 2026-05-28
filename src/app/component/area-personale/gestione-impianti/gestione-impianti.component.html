@@ -1,7 +1,10 @@
+<!-- Titolo della pagina per la gestione degli impianti sportivi -->
 <h1 class="page-title">Gestione Impianti</h1>
 
+<!-- Sezione principale che mostra gli impianti attuali -->
 <div class="content-section">
   <h3 class="section-title">Impianti sportivi attuali:</h3>
+  <!-- Contenitore della lista degli impianti (card per admin) -->
   <div class="list-container">
     <div class="data-card admin-card" *ngFor="let imp of impianti">
       <div class="data-content">
@@ -22,11 +25,12 @@
   </div>
 </div>
 
+<!-- Sezione contenente il pulsante per creare un nuovo impianto -->
 <div class="action-section">
   <button class="action-btn" (click)="creaImpianto()">Crea nuovo impianto</button>
 </div>
 
-<!-- MODALE CREAZIONE IMPIANTO -->
+<!-- MODALE CREAZIONE IMPIANTO: overlay per inserire o modificare un impianto sportivo -->
 <div class="modal-overlay" *ngIf="isCreateModalOpen" (click)="chiudiModale()">
   <div class="modal-content" (click)="$event.stopPropagation()">
 
