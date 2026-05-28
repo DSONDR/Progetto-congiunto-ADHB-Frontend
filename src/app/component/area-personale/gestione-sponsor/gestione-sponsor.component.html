@@ -1,7 +1,10 @@
+<!-- Titolo della pagina per la gestione degli sponsor -->
 <h1 class="page-title">Gestione Sponsor</h1>
 
+<!-- Sezione principale che mostra i contratti pubblicitari commerciali attivi -->
 <div class="content-section">
   <h3 class="section-title">Contratti pubblicitari commerciali:</h3>
+  <!-- Contenitore della lista delle sponsorizzazioni -->
   <div class="list-container">
     <div class="data-card admin-card" *ngFor="let sp of sponsorShip">
       <div class="data-content">
@@ -24,11 +27,12 @@
   </div>
 </div>
 
+<!-- Sezione con il pulsante per inserire un nuovo sponsor -->
 <div class="action-section">
   <button class="action-btn" (click)="nuovoSponsor()">Censisci nuovo sponsor</button>
 </div>
 
-<!-- MODALE SPONSORIZZAZIONE -->
+<!-- MODALE SPONSORIZZAZIONE: overlay per la creazione o la modifica dei contratti di sponsor -->
 <div class="modal-overlay" *ngIf="isModalOpen" (click)="chiudiModale()">
   <div class="modal-content" (click)="$event.stopPropagation()">
 
