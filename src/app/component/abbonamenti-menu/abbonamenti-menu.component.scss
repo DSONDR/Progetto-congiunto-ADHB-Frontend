@@ -1,102 +1,105 @@
-/* Variabili Colore */
-$bg-color: #ededed;
-$pink: #f09cf5;
-$yellow: #f8cc24;
-$grey-box: #dbdbdb;
-$grey-btn: #d3d3d3;
-$red-text: #e60000;
-$green-login: #00cc00;
-$text-dark: #000000;
+/* --- ELEMENTI STRUTTURALI --- */
 
-.page-container {
-  background-color: $bg-color; // Sfondo
-  min-height: 100vh; // Altezza minima
-  padding: 2rem; // Spaziatura interna
-  font-family: Arial, sans-serif; // Tipo di font
-  color: $text-dark; // Colore testo
+/* --- ELEMENTO: .calendar-page-wrapper --- */
+/* Sfondo dell'intera pagina ripristinato con l'immagine ufficiale */
+.calendar-page-wrapper { 
+  width: 100%;  // Larghezza totale dello schermo
+  min-height: 100vh;  // Altezza schermo totale
+  background-image: url('/sfondo_home.png');  // Sfondo ufficiale degli atleti
+  background-size: cover;  // Copre tutto lo schermo
+  background-position: bottom center;  // Ancora l'immagine in basso al centro
+  display: flex;  // Abilita flexbox per centrare la card bianca
+  justify-content: center;  // Centratura orizzontale
+  align-items: flex-start;  // Allinea la card verso l'alto
+  padding-top: 5vh;  // Distanza dal bordo superiore
+  padding-bottom: 5vh;  // Distanza dal bordo inferiore
+  box-sizing: border-box;  // Include il padding nelle dimensioni totali
 }
 
-/* Header */
-.main-header {
-  display: flex; // Layout
-  align-items: center; // Allineamento verticale
-  justify-content: space-between; // Allineamento orizzontale
-  margin-bottom: 2rem; // Margine inferiore
+/* --- ELEMENTO: .calendar-card --- */
+/* Il riquadro bianco centrale (Modifica solo il margine da "5vh auto" a "0"!) */
+.calendar-card { 
+  background-color: white;  // Sfondo bianco
+  width: 95%;  // Si adatta in larghezza
+  max-width: 1200px;  // Limite massimo per leggibilità testo (aumentato per mostrare meglio le card)
+  margin: 0;  // AZZERATO: Il posizionamento ora è controllato dal wrapper flessibile padre
+  border: 4px solid #000;  // Bordo nero spesso
+  border-radius: 12px;  // Angoli arrotondati
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);  // Ombra sfumata
+  padding: 4vh 4vw;  // Spazio interno
+  box-sizing: border-box;  // Include il padding nei calcoli
 }
 
-.logo-container {
-  flex: 1; // Proporzione flex
+/* --- ELEMENTI HEADER --- */
+/* Riga in alto con logo, titolo e utente */
+.calendar-header { 
+  display: flex;  // Flexbox per affiancare
+  justify-content: space-between;  // Spinge logo a sx, titolo al centro, utente a dx
+  align-items: center;  // Allineamento verticale centrale
+  margin-bottom: 6vh;  // Distanza abbondante dal testo sottostante
 }
 
-.mock-logo {
-  border: 1px solid #ccc; // Bordo
-  background-color: white; // Sfondo
-  padding: 5px 10px; // Spaziatura interna
-  display: inline-block; // Layout
-  border-radius: 4px; // Angoli arrotondati
+/* Logo in alto a sinistra */
+.header-logo { 
+  width: 150px;  // Dimensione fissa
+  height: auto;  // Mantiene le proporzioni originali
+  cursor: pointer;  // Cursore manina interattivo
 }
 
-.logo-text {
-  font-weight: bold; // Grassetto
-  font-size: 0.8rem; // Dimensione
-  color: #0066cc; // Colore testo
+/* Titolo centrale "Assistenza" */
+.header-title { 
+  font-family: 'Permanent Marker', cursive;  // Font a pennarello
+  font-size: 3.5rem;  // Testo gigante
+  color: #000;  // Nero pieno
+  margin: 0;  // Azzera i margini
+  text-align: center;  // Centratura forzata
 }
 
-.title-container {
-  flex: 2; // Proporzione flex
-  text-align: center; // Allineamento testo
+/* Spazio per l'utente in alto a destra (bilancia il logo) */
+.header-user { 
+  width: 150px;  // Stessa larghezza del logo per la simmetria geometrica
+  text-align: right;  // Testo tutto spostato a destra
 }
 
-.header-title {
-  font-family: 'Courier New', Courier, monospace; // Tipo di font
-  font-weight: bold; // Grassetto
-  font-size: 2rem; // Dimensione
-  margin: 0;
-}
-
-.login-indicator {
-  flex: 1; // Proporzione flex
-  display: flex; // Layout
-  flex-direction: column; // Direzione
-  align-items: flex-end; // Allineamento verticale
-
-  .green-circle {
-    width: 25px; // Larghezza
-    height: 25px;
-    background-color: $green-login; // Sfondo
-    border-radius: 50%; // Angoli arrotondati
-    margin-bottom: 5px; // Margine inferiore
-  }
-  
-  .login-text {
-    font-size: 0.8rem; // Dimensione
-    font-weight: bold; // Grassetto
-  }
+/* Nome utente semplice nero su bianco */
+.user-text { 
+  font-family: Arial, sans-serif;  // Font leggibile senza fronzoli
+  font-weight: bold;  // Grassetto ben visibile
+  font-size: 1.3rem;  // Grandezza media
+  color: #000;  // Testo nero
 }
 
 /* Navigation Link */
+/* Decora i link di navigazione (Vetrina / I tuoi abbonamenti) */
 .nav-link {
   margin-bottom: 2rem; // Margine inferiore
+  
+  /* Decora il tag anchor dei link di navigazione */
   a {
-    color: $text-dark; // Colore testo
+    color: #000000; // Colore testo
     text-decoration: underline; // Decorazione testo
     font-weight: bold; // Grassetto
     font-family: 'Courier New', Courier, monospace; // Tipo di font
     font-size: 1.1rem; // Dimensione
     cursor: pointer; // Tipo cursore
     
+    /* Decora lo stato hover dei link di navigazione */
     &:hover {
       color: #333; // Colore testo
     }
   }
 }
 
+/* Decora le sezioni di contenuto per la spaziatura base */
 .section {
   margin-bottom: 3rem; // Margine inferiore
 }
 
 /* Speciale Section */
+/* Decora la sezione dedicata alle offerte speciali */
 .speciale-section {
+  
+  /* Decora il titolo della sezione speciale */
   .section-title {
     font-family: 'Courier New', Courier, monospace; // Tipo di font
     text-align: center; // Allineamento testo
@@ -104,8 +107,9 @@ $text-dark: #000000;
     margin-bottom: 0.5rem; // Margine inferiore
   }
   
+  /* Decora il riquadro dell'offerta speciale */
   .speciale-box {
-    background-color: $grey-box; // Sfondo
+    background-color: #dbdbdb; // Sfondo
     padding: 3rem; // Spaziatura interna
     display: flex; // Layout
     flex-direction: column; // Direzione
@@ -114,8 +118,9 @@ $text-dark: #000000;
     margin: 0 auto;
   }
   
+  /* Decora l'ovale rosa decorativo */
   .pink-oval {
-    background-color: $pink; // Sfondo
+    background-color: #f09cf5; // Sfondo
     border-radius: 50px; // Angoli arrotondati
     padding: 20px 40px; // Spaziatura interna
     display: flex; // Layout
@@ -124,6 +129,7 @@ $text-dark: #000000;
     justify-content: center; // Allineamento orizzontale
     margin-bottom: 1.5rem; // Margine inferiore
     
+    /* Decora il testo all'interno dell'ovale rosa */
     .oval-text {
       font-family: 'Courier New', Courier, monospace; // Tipo di font
       font-weight: bold; // Grassetto
@@ -133,20 +139,23 @@ $text-dark: #000000;
     }
   }
   
+  /* Decora il testo della scadenza dell'offerta */
   .scadenza-text {
     font-weight: bold; // Grassetto
     font-size: 0.9rem; // Dimensione
     margin-bottom: 1.5rem; // Margine inferiore
   }
   
+  /* Decora il bottone rosa dell'offerta speciale */
   .pink-btn {
-    background-color: $pink; // Sfondo
+    background-color: #f09cf5; // Sfondo
     border: none; // Bordo
     padding: 8px 16px; // Spaziatura interna
     font-weight: bold; // Grassetto
     font-family: 'Courier New', Courier, monospace; // Tipo di font
     cursor: pointer; // Tipo cursore
     
+    /* Decora lo stato hover del bottone rosa */
     &:hover {
       opacity: 0.9;
     }
@@ -154,60 +163,70 @@ $text-dark: #000000;
 }
 
 /* Estate Section */
+/* Decora la sezione per le offerte estive */
 .estate-section {
   width: 70%; // Larghezza
   
+  /* Decora il titolo della sezione estiva */
   .estate-title {
-    color: $yellow; // Colore testo
+    color: #f8cc24; // Colore testo
     font-family: 'Courier New', Courier, monospace; // Tipo di font
     font-weight: bold; // Grassetto
     font-size: 1.2rem; // Dimensione
     margin-bottom: 1rem; // Margine inferiore
   }
   
+  /* Decora il contenitore flessibile dell'offerta estiva */
   .estate-content {
     display: flex; // Layout
     gap: 2rem; // Spazio tra elementi
   }
   
+  /* Decora il blocco di testo informativo dell'offerta estiva */
   .estate-text {
     flex: 2; // Proporzione flex
     font-weight: bold; // Grassetto
     font-size: 0.9rem; // Dimensione
     line-height: 1.5;
     
+    /* Decora i titoletti informativi interni */
     .info-title {
       margin-top: 1rem; // Margine superiore
       margin-bottom: 0.2rem; // Margine inferiore
     }
     
+    /* Decora la lista puntata dei vantaggi */
     ul {
       margin-top: 0; // Margine superiore
       margin-bottom: 1rem; // Margine inferiore
       padding-left: 1.2rem; // Spazio a sinistra
     }
     
+    /* Decora il testo della call to action */
     .cta-text {
       margin-bottom: 1rem; // Margine inferiore
     }
   }
   
+  /* Decora il bottone grigio per l'iscrizione estiva */
   .grey-btn {
-    background-color: $grey-btn; // Sfondo
+    background-color: #d3d3d3; // Sfondo
     border: none; // Bordo
     padding: 8px 20px; // Spaziatura interna
     font-weight: bold; // Grassetto
     font-family: 'Courier New', Courier, monospace; // Tipo di font
     cursor: pointer; // Tipo cursore
     
+    /* Decora lo stato hover del bottone grigio */
     &:hover {
-      background-color: darken($grey-btn, 10%); // Sfondo
+      background-color: #b9b9b9; // Sfondo grigio più scuro in hover
     }
   }
   
+  /* Decora il riquadro giallo in evidenza */
   .estate-box-yellow {
     flex: 1; // Proporzione flex
-    background-color: $yellow; // Sfondo
+    background-color: #f8cc24; // Sfondo
     display: flex; // Layout
     align-items: center; // Allineamento verticale
     justify-content: center; // Allineamento orizzontale
@@ -219,7 +238,10 @@ $text-dark: #000000;
 }
 
 /* Altri Abbonamenti Section */
+/* Decora la vetrina con tutte le card degli abbonamenti acquistabili */
 .altri-section {
+  
+  /* Decora il titolo della sezione Vetrina */
   .altri-title {
     font-family: 'Courier New', Courier, monospace; // Tipo di font
     font-weight: bold; // Grassetto
@@ -227,14 +249,18 @@ $text-dark: #000000;
     margin-bottom: 1rem; // Margine inferiore
   }
   
+  /* Decora il contenitore delle card abbonamenti */
   .cards-container {
     display: flex; // Layout
+    flex-wrap: wrap; // Permette di andare a capo
+    justify-content: center; // Centra le card
     gap: 2rem; // Spazio tra elementi
     align-items: center; // Allineamento verticale
   }
   
+  /* Decora la singola card di un abbonamento */
   .abb-card {
-    background-color: $grey-box; // Sfondo
+    background-color: #dbdbdb; // Sfondo
     padding: 1.5rem; // Spaziatura interna
     display: flex; // Layout
     flex-direction: column; // Direzione
@@ -243,6 +269,7 @@ $text-dark: #000000;
     text-align: center; // Allineamento testo
     font-weight: bold; // Grassetto
     
+    /* Decora il titolo all'interno della card */
     .card-title {
       font-family: 'Courier New', Courier, monospace; // Tipo di font
       margin-top: 0; // Margine superiore
@@ -250,22 +277,26 @@ $text-dark: #000000;
       font-size: 1.1rem; // Dimensione
     }
     
+    /* Decora il prezzo dell'abbonamento nella card */
     .card-price {
       font-size: 0.9rem; // Dimensione
       margin-bottom: 0.5rem; // Margine inferiore
     }
     
+    /* Decora il testo della durata nella card */
     .card-or {
       font-size: 0.9rem; // Dimensione
       margin-bottom: 0.5rem; // Margine inferiore
     }
     
+    /* Decora il testo degli ingressi massimi nella card */
     .card-price-seduta {
       font-size: 0.9rem; // Dimensione
       margin-bottom: 1.5rem; // Margine inferiore
     }
   }
   
+  /* Decora i puntini di sospensione (se presenti) */
   .ellipsis {
     font-size: 1.5rem; // Dimensione
     font-weight: bold; // Grassetto
@@ -273,76 +304,4 @@ $text-dark: #000000;
   }
 }
 
-/* I Miei Abbonamenti Section */
-.i-miei-section {
-  .sub-title {
-    font-size: 0.9rem; // Dimensione
-    margin-bottom: 1rem; // Margine inferiore
-  }
-  
-  .empty-msg {
-    font-style: italic;
-    color: #666; // Colore testo
-  }
-  
-  .my-abb-item {
-    margin-bottom: 2rem; // Margine inferiore
-    width: 80%; // Larghezza
-  }
-  
-  .my-abb-header {
-    display: flex; // Layout
-    gap: 3rem; // Spazio tra elementi
-    font-weight: bold; // Grassetto
-    font-size: 1rem; // Dimensione
-    margin-bottom: 0.5rem; // Margine inferiore
-    padding-left: 1rem; // Spazio a sinistra
-    
-    .tipo-label {
-      font-family: 'Courier New', Courier, monospace; // Tipo di font
-    }
-    .tipo-name {
-      font-family: 'Courier New', Courier, monospace; // Tipo di font
-    }
-  }
-  
-  .my-abb-body {
-    background-color: $grey-box; // Sfondo
-    display: flex; // Layout
-    justify-content: space-between; // Allineamento orizzontale
-    align-items: center; // Allineamento verticale
-    padding: 1rem 2rem; // Spaziatura interna
-    font-weight: bold; // Grassetto
-    font-size: 0.9rem; // Dimensione
-    
-    .col-periodo {
-      flex: 1; // Proporzione flex
-    }
-    
-    .col-date {
-      flex: 2; // Proporzione flex
-      p {
-        margin: 0.3rem 0;
-      }
-    }
-    
-    .col-azioni {
-      flex: 1; // Proporzione flex
-      text-align: right; // Allineamento testo
-    }
-    
-    .btn-disdici {
-      background: none;
-      border: none; // Bordo
-      color: $red-text; // Colore testo
-      font-weight: bold; // Grassetto
-      font-family: 'Courier New', Courier, monospace; // Tipo di font
-      cursor: pointer; // Tipo cursore
-      text-align: right; // Allineamento testo
-      
-      &:hover {
-        text-decoration: underline; // Decorazione testo
-      }
-    }
-  }
-}
+

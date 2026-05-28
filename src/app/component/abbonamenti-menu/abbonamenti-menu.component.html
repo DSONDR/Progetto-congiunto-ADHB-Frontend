@@ -1,26 +1,18 @@
-<div class="page-container">
-  <!-- Header comune -->
-  <header class="main-header">
-    <div class="logo-container">
-      <div class="mock-logo">
-        <span class="logo-text">POLISPORTICKET</span>
-        <div class="logo-graphics"></div>
+<div class="calendar-page-wrapper">
+  <div class="calendar-card">
+
+    <div class="calendar-header">
+      <img src="/polisporticket_logo.png" alt="Polisporticket" class="header-logo" routerLink="/home">
+      <h1 class="header-title">Abbonamenti</h1>
+      <div class="header-user">
+        <span class="user-text" *ngIf="isLoggedIn">
+          {{ username }}
+        </span>
       </div>
     </div>
-    <div class="title-container">
-      <h1 class="header-title" *ngIf="vistaCorrente === 'VETRINA'">Abbonamenti</h1>
-      <h1 class="header-title" *ngIf="vistaCorrente === 'I_MIEI'">I tuoi abbonamenti</h1>
-    </div>
-    <div class="login-indicator">
-      <div class="green-circle"></div>
-      <span class="login-text">Login</span>
-    </div>
-  </header>
 
-  <!-- VISTA VETRINA -->
-  <ng-container *ngIf="vistaCorrente === 'VETRINA'">
     <div class="nav-link">
-      <a href="javascript:void(0)" (click)="cambiaVista('I_MIEI')">I tuoi abbonamenti</a>
+      <a routerLink="/area-personale/abbonamenti">I tuoi abbonamenti</a>
     </div>
 
     <!-- TUTTI GLI ABBONAMENTI -->
@@ -38,43 +30,8 @@
 
       </div>
     </div>
-  </ng-container>
 
-  <!-- VISTA I MIEI ABBONAMENTI -->
-  <ng-container *ngIf="vistaCorrente === 'I_MIEI'">
-    <div class="nav-link">
-      <a href="javascript:void(0)" (click)="cambiaVista('VETRINA')">I tuoi abbonamenti</a>
-    </div>
-
-    <div class="section i-miei-section">
-      <h3 class="sub-title">I tuoi abbonamenti</h3>
-
-      <div class="empty-msg" *ngIf="abbonamenti.length === 0">
-        Nessun abbonamento attivo.
-      </div>
-
-      <div class="my-abb-item" *ngFor="let abb of abbonamenti">
-        <div class="my-abb-header">
-          <span class="tipo-label">TIPO</span>
-          <span class="tipo-name">{{ abb.tipoAbb }}</span>
-        </div>
-        <div class="my-abb-body">
-          <div class="col-periodo">
-            mensile
-          </div>
-          <div class="col-date">
-            <p>Iscritto il: {{ abb.dataInizio | date:'dd/MM/yyyy' }}</p>
-            <p>Scadenza: {{ abb.dataScadenza | date:'dd/MM/yyyy' }}</p>
-          </div>
-          <div class="col-azioni">
-            <button class="btn-disdici" (click)="disdiciAbbonamento(abb.numeroAbb)">Disdici<br>abbonamento</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </ng-container>
-
+  </div>
 </div>
 
 <!-- Modale di Pagamento -->

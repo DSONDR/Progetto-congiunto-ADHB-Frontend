@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SessionService } from '../../service/session.service';
 import { SottoscrizioneService } from '../../service/sottoscrizione.service';
@@ -10,17 +10,14 @@ import { Abbonamento, TipoAbbonamentoDTO } from '../../dto/response/abbonamento-
 @Component({
   selector: 'app-abbonamenti',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './abbonamenti-menu.component.html',
   styleUrl: './abbonamenti-menu.component.scss'
 })
 export class AbbonamentiMenuComponent implements OnInit {
 
-  /** Stato per navigare tra lo shop e i propri abbonamenti */
-  vistaCorrente: 'VETRINA' | 'I_MIEI' = 'VETRINA';
-
-  /** Lista degli abbonamenti correntemente attivi o sospesi per l'utente loggato. */
-  abbonamenti: Abbonamento[] = [];
+  isLoggedIn: boolean = false;
+  username: string = '';
 
   /** Lista dei tipi di abbonamento reali dal backend */
   tipiAbbonamento: TipoAbbonamentoDTO[] = [];
@@ -47,41 +44,17 @@ export class AbbonamentiMenuComponent implements OnInit {
    * di caricare il listino dei tipi di abbonamento disponibili dal backend.
    */
   ngOnInit(): void {
-    this.caricaAbbonamentiUtente();
+    const user = this.session.getLoggedUser();
+    if (user) {
+      this.isLoggedIn = true;
+      this.username = (user as any).nome || user.username || user.email || 'Utente';
+    } else {
+      this.isLoggedIn = false;
+    }
+
     this.abbonamentoService.getTipiAbbonamento().subscribe((data: TipoAbbonamentoDTO[]) => {
       this.tipiAbbonamento = data;
     });
-  }
-
-  /**
-   * Effettua una chiamata API al backend per recuperare gli abbonamenti 
-   * dell'utente loggato, filtrandoli per mostrare solo quelli "ATTIVI" o "SOSPESI".
-   */
-  caricaAbbonamentiUtente() {
-    const utenteCorrente = this.session.getLoggedUser();
-    // Verifica che l'utente sia loggato e i dati siano presenti prima di procedere
-    if (utenteCorrente && utenteCorrente.cf) {
-      this.sottoscrizioneService.getAbbonamentiAtleta(utenteCorrente.cf).subscribe({
-        next: (data: Abbonamento[]) => {
-          this.abbonamenti = data.filter((a: Abbonamento) => a.statoAbb === 'ATTIVO' || a.statoAbb === 'SOSPESO');
-        },
-        error: (err: any) => {
-          console.error('Errore nel recupero degli abbonamenti:', err);
-        }
-      });
-    }
-  }
-
-  /**
-   * Cambia la tab visibile tra "VETRINA" (listino acquisti) e "I_MIEI" (dashboard atleta).
-   * Se si passa alla vista "I_MIEI", forza un aggiornamento dei dati dell'utente.
-   */
-  cambiaVista(vista: 'VETRINA' | 'I_MIEI') {
-    this.vistaCorrente = vista;
-    // Verifica che il valore corrisponda a quello atteso prima di procedere
-    if (vista === 'I_MIEI') {
-      this.caricaAbbonamentiUtente();
-    }
   }
 
   /**
@@ -129,6 +102,13 @@ export class AbbonamentiMenuComponent implements OnInit {
       alert("La data di scadenza deve essere nel formato MM/AA.");
       return;
     }
+    const [mese, anno] = this.scadenzaCarta.split('/');
+    const expDate = new Date(2000 + parseInt(anno), parseInt(mese) - 1, 1);
+    // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
+    if (expDate < new Date(new Date().getFullYear(), new Date().getMonth(), 1)) {
+      alert("La carta risulta scaduta.");
+      return;
+    }
 
     // Validazione codice sicurezza CVV (3 cifre)
     if (!this.cvv || !this.cvv.match(/^[0-9]{3}$/)) {
@@ -136,9 +116,9 @@ export class AbbonamentiMenuComponent implements OnInit {
       return;
     }
 
-    // Validazione nome intestatario
-    if (!this.nomeIntestatario || this.nomeIntestatario.trim().length === 0) {
-      alert("Il nome dell'intestatario è obbligatorio.");
+    // Validazione nome intestatario (solo lettere e spazi)
+    if (!this.nomeIntestatario || this.nomeIntestatario.trim().length === 0 || !/^[a-zA-Z\s]+$/.test(this.nomeIntestatario)) {
+      alert("Il nome dell'intestatario è obbligatorio e deve contenere solo lettere.");
       return;
     }
 
@@ -158,36 +138,25 @@ export class AbbonamentiMenuComponent implements OnInit {
     // Invoca il servizio di frontend per creare l'abbonamento e il pagamento nel backend
     this.sottoscrizioneService.sottoscrivi(request).subscribe({
       next: (res: any) => {
+        // Aggiorna i punti gamification nella sessione corrente se l'acquisto dà punti
+        if (utenteCorrente && this.metodoPagamento !== 'PUNTI') {
+          const tipo = this.tipiAbbonamento.find(t => t.nome === this.tipoSelezionato);
+          if (tipo) {
+            const puntiAggiunti = Math.floor(tipo.prezzo);
+            // Forza il cast a any o usa una property se esistente, per aggiornare i punti
+            (utenteCorrente as any).puntiGamification = ((utenteCorrente as any).puntiGamification || 0) + puntiAggiunti;
+            this.session.setLoggedUser(utenteCorrente);
+          }
+        }
+
         alert("Abbonamento acquistato con successo!" + (res.avviso ? "\nAvviso: " + res.avviso : ""));
         this.chiudiModali();
-        this.cambiaVista('I_MIEI');
+        this.router.navigate(['/area-personale/abbonamenti']);
       },
       error: (err: any) => {
         console.error(err);
         alert("Si è verificato un errore durante l'acquisto.");
       }
     });
-  }
-
-  // Gestisce la logica di disdiciAbbonamento nel componente.
-  disdiciAbbonamento(abb: Abbonamento) {
-    // Verifica che l'utente abbia confermato l'operazione prima di procedere
-    if (confirm('Sei sicuro di voler disdire e rimuovere questo abbonamento?')) {
-      // Verifica che i parametri richiesti siano presenti e validi prima di procedere
-      if (!abb.pagamento || !abb.atleta) {
-        alert("Dati abbonamento incompleti per la cancellazione.");
-        return;
-      }
-      this.sottoscrizioneService.delete(abb.numeroAbb, abb.pagamento.idPagamento, abb.atleta.cf).subscribe({
-        next: () => {
-          alert('Abbonamento disdetto con successo!');
-          this.caricaAbbonamentiUtente();
-        },
-        error: (err: any) => {
-          console.error(err);
-          alert('Errore durante la disdetta');
-        }
-      });
-    }
   }
 }

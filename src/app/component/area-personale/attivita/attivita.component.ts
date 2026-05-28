@@ -38,9 +38,9 @@ export class AttivitaComponent implements OnInit {
 
   /** Array degli oggetti premio disponibili nello store della gamification. */
   elencoPremi = [
-    { id: 1, titolo: '1 mese gratis', sottoTitolo: 'Abbonamento a scelta', costo: 300, classeColore: 'card-verde' },
-    { id: 2, titolo: '20 ingressi gratis', sottoTitolo: 'Pacchetto ricarica', costo: 150, classeColore: 'card-arancio' },
-    { id: 3, titolo: '3 mesi gratis', sottoTitolo: 'Abbonamento a scelta', costo: 800, classeColore: 'card-viola' }
+    { id: 1, titolo: '1 mese gratis', backendVal: 'Mensile', sottoTitolo: 'Abbonamento a scelta', costo: 300, classeColore: 'card-verde' },
+    { id: 2, titolo: '20 ingressi gratis', backendVal: '20 Ingressi', sottoTitolo: 'Pacchetto ricarica', costo: 150, classeColore: 'card-arancio' },
+    { id: 3, titolo: '3 mesi gratis', backendVal: 'Trimestrale', sottoTitolo: 'Abbonamento a scelta', costo: 800, classeColore: 'card-viola' }
   ];
 
   /**
@@ -49,8 +49,9 @@ export class AttivitaComponent implements OnInit {
    *
    * @param nomePremio Nome del premio visualizzato a schermo
    * @param costoPunti Il costo in punti Gamification del premio
+   * @param backendVal Il vero nome dell'abbonamento sul db (es. Mensile, Trimestrale)
    */
-  riscattaPremio(nomePremio: string, costoPunti: number) {
+  riscattaPremio(nomePremio: string, costoPunti: number, backendVal: string) {
     // Verifica che la lunghezza o il valore dei dati sia corretto prima di procedere
     if (this.punteggioAttuale >= costoPunti) {
       const user = this.sessionService.getLoggedUser();
@@ -65,11 +66,10 @@ export class AttivitaComponent implements OnInit {
           this.sessionService.setLoggedUser(user);
 
           // Registriamo l'abbonamento tramite il servizio Sottoscrizione
-          // Nota: il titolo del premio deve corrispondere a un tipoAbbonamento reale 
-          // nel database per funzionare.
+          // Nota: passiamo il backendVal in modo che corrisponda al listino reale nel database
           const req = {
             atletaCf: user.cf,
-            tipoAbbonamento: nomePremio,
+            tipoAbbonamento: backendVal,
             metodo: 'PUNTI'
           };
 

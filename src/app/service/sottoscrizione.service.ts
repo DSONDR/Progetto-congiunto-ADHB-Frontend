@@ -51,8 +51,8 @@ export class SottoscrizioneService {
   }
 
   // Elimina definitivamente una sottoscrizione dal sistema (usato in area-personale/abbonamenti)
-  delete(numeroAbb: number, idPagamento: number, cf: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${numeroAbb}/${idPagamento}/${cf}`);
+  delete(numeroAbb: number, idPagamento: number, cf: string): Observable<number> {
+    return this.http.delete<number>(`${this.apiUrl}/${numeroAbb}/${idPagamento}/${cf}`);
   }
 
   // Recupera lo storico degli acquisti di un utente

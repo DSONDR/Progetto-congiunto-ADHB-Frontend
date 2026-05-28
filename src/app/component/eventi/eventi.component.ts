@@ -165,7 +165,17 @@ export class EventiComponent implements OnInit {
             this.chiudiModali();
             this.caricaEventi(); // per aggiornare iscritti
           },
-          error: (err) => alert('Errore: ' + (err.error?.message || err.error || "Impossibile usare l'abbonamento."))
+          // Intercetta gli errori restituiti dal backend durante il tentativo di iscrizione con abbonamento.
+          // Se il messaggio di errore contiene "posti disponibili", significa che l'attività è piena
+          // e viene mostrato un alert personalizzato più descrittivo per l'utente, altrimenti si mostra l'errore generico.
+          error: (err) => {
+            const errorMsg = err.error?.message || err.error || '';
+            if (typeof errorMsg === 'string' && errorMsg.includes('posti disponibili')) {
+              alert('Ci dispiace, ma questa attività ha già raggiunto il numero massimo di partecipanti e non è possibile iscriversi.');
+            } else {
+              alert('Errore: ' + (errorMsg || "Impossibile usare l'abbonamento."));
+            }
+          }
         });
       },
       error: () => alert('Impossibile verificare abbonamento attivo.')
@@ -238,7 +248,17 @@ export class EventiComponent implements OnInit {
         this.chiudiModali();
         this.caricaEventi();
       },
-      error: (err) => alert("Errore durante l'iscrizione: " + (err.error?.message || err.error || 'Problema imprevisto.'))
+      // Gestisce le eccezioni sollevate dal backend al momento del pagamento singolo.
+      // Legge il payload di errore (err.error) per verificare se il fallimento è dovuto al superamento 
+      // del limite massimo di partecipanti ("posti disponibili"). In caso affermativo, l'alert viene personalizzato.
+      error: (err) => {
+        const errorMsg = err.error?.message || err.error || '';
+        if (typeof errorMsg === 'string' && errorMsg.includes('posti disponibili')) {
+          alert('Ci dispiace, ma questa attività ha già raggiunto il numero massimo di partecipanti e non è possibile iscriversi.');
+        } else {
+          alert("Errore durante l'iscrizione: " + (errorMsg || 'Problema imprevisto.'));
+        }
+      }
     });
   }
 

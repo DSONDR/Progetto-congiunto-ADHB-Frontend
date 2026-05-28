@@ -1,5 +1,5 @@
 <!-- Header principale -->
-<header *ngIf="!isDashboardActive() && !isCalendarioActive() && !isEventiActive() && !isAssistenzaMenuActive()" [ngClass]="isHomeActive() ? 'main-header' : 'minimal-header'">    <!--Questo (il logo) ci sarà sempre, ovunque e nella stessa posizione statica-->
+<header *ngIf="!isDashboardActive() && !isCalendarioActive() && !isEventiActive() && !isAssistenzaMenuActive() && !isAbbonamentiMenuActive()" [ngClass]="isHomeActive() ? 'main-header' : 'minimal-header'">    <!--Questo (il logo) ci sarà sempre, ovunque e nella stessa posizione statica-->
   <!-- Logo sempre visibile -->
   <div class="logo-container">
     <a routerLink="/home">

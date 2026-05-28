@@ -44,7 +44,7 @@
         
         <button class="buy-btn" 
                 [disabled]="punteggioAttuale < premio.costo" 
-                (click)="riscattaPremio(premio.titolo, premio.costo)">
+                (click)="riscattaPremio(premio.titolo, premio.costo, premio.backendVal)">
           {{ punteggioAttuale >= premio.costo ? 'Acquista' : 'Bloccato' }}
         </button>
       </div>

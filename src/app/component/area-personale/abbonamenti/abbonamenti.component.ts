@@ -61,7 +61,14 @@ export class AbbonamentiComponent implements OnInit {
         return;
       }
       this.sottoscrizioneService.delete(abb.numeroAbb, abb.pagamento.idPagamento, abb.atleta.cf).subscribe({
-        next: () => {
+        next: (nuoviPunti: number) => {
+          // Aggiorna il saldo punti nella sessione frontend
+          const utenteCorrente = this.session.getLoggedUser();
+          if (utenteCorrente) {
+            utenteCorrente.puntiGamification = nuoviPunti;
+            this.session.setLoggedUser(utenteCorrente);
+          }
+
           alert('Abbonamento disdetto e rimosso con successo!');
           this.ngOnInit(); // Ricarica gli abbonamenti
         },
