@@ -1,9 +1,12 @@
+<!-- Titolo della pagina che mostra le squadre dell'utente -->
 <h1 class="page-title">Le tue squadre</h1>
 
+<!-- Sezione che elenca le squadre a cui l'utente è iscritto o che allena -->
 <div class="squadre-section">
   <h3 *ngIf="ruoloUtente === 'atleta'" class="section-title">Ecco le squadre di cui fai parte:</h3>
   <h3 *ngIf="ruoloUtente === 'allenatore'" class="section-title">Ecco le squadre che alleni:</h3>
 
+  <!-- Lista delle squadre associate all'utente -->
   <ul class="squadre-bullet-list">
     <li *ngFor="let sq of squadreMembri">
       <div class="squadra-info-box">
@@ -15,6 +18,7 @@
   </ul>
 </div>
 
+<!-- Sezione che mostra le prossime partite in programma per le squadre dell'utente -->
 <div class="squadre-section">
   <h3 class="section-title">Le tue prossime partite:</h3>
   
@@ -32,6 +36,7 @@
   </div>
 </div>
 
+<!-- MODALE ROSTER: overlay che mostra la tabella dei giocatori che fanno parte della squadra selezionata -->
 <div class="modal-overlay" *ngIf="isRosterModalOpen" (click)="chiudiRoster()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
